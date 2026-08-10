@@ -1,0 +1,2329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课程顾问工作手册 · 桃李未来</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:#1a1a2e;--vermillion:#b5342e;--vermillion-deep:#7a1a1a;--vermillion-light:#fce8e6;
+  --jade:#2d6b5e;--jade-light:#e6f4f0;--gold:#b8942e;--gold-light:#fdf5e6;
+  --parchment:#fdfaf3;--parchment-dark:#f5f0e6;--stone:#e2ddd2;
+  --text:#2c2416;--text-secondary:#5c5240;--text-muted:#6b5d4a;--card:#ffffff;
+  --shadow:0 4px 24px rgba(44,36,22,0.08);--shadow-lg:0 12px 48px rgba(44,36,22,0.12);
+  --radius:10px;--radius-lg:16px;--radius-xl:24px;--transition:0.3s cubic-bezier(0.4,0,0.2,1);
+  --accent:#c98850;--accent-deep:#8b5e2a;--accent-light:#fdf5e6;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Noto Sans SC','HarmonyOS Sans','Microsoft YaHei','PingFang SC',sans-serif;background:var(--parchment);color:var(--text);line-height:1.75;min-height:100vh;overflow-x:hidden;font-size:15px;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 20%,rgba(201,136,80,0.04) 0%,transparent 60%),radial-gradient(ellipse at 80% 80%,rgba(181,52,46,0.03) 0%,transparent 60%);pointer-events:none;z-index:0;}
+.container{max-width:1440px;margin:0 auto;padding:24px;position:relative;z-index:1;}
+
+/* Header */
+.header{background:linear-gradient(135deg,var(--accent-deep) 0%,#a05a20 40%,var(--accent) 70%,#d4a060 100%);color:#fff;padding:32px 40px;border-radius:var(--radius-xl);margin-bottom:18px;position:relative;overflow:hidden;box-shadow:0 8px 40px rgba(139,94,42,0.25);min-height:120px;}
+.header::before{content:'';position:absolute;top:-50%;right:-10%;width:400px;height:400px;border-radius:50%;background:rgba(255,255,255,0.04);}
+.header-content{position:relative;z-index:1;}
+.header h1{font-family:'Noto Serif SC','STSong','SimSun',serif;font-size:30px;font-weight:900;letter-spacing:4px;margin-bottom:4px;}
+.header .subtitle{font-size:14px;opacity:0.9;font-weight:300;letter-spacing:2px;}
+.header .decorative-line{width:60px;height:3px;background:#fff;margin-top:10px;border-radius:2px;}
+
+/* Tabs */
+.view-tabs{display:flex;gap:6px;background:var(--card);border-radius:var(--radius);padding:6px 10px;margin-bottom:14px;box-shadow:var(--shadow);border:1px solid var(--stone);position:sticky;top:12px;z-index:100;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.mobile-tab-select{display:none;width:100%;padding:12px 16px;border:2px solid var(--accent);border-radius:12px;font-size:15px;font-family:inherit;font-weight:600;color:var(--accent-deep);background:linear-gradient(135deg,var(--accent-light),#fff);margin-bottom:10px;box-shadow:0 2px 12px rgba(139,94,42,0.12);appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 5l3 3 3-3' stroke='%23c98850' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:40px;cursor:pointer;}
+.view-tab{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;gap:4px;padding:7px 5px;text-align:center;border:1px solid transparent;background:var(--parchment-dark);cursor:pointer;border-radius:20px;font-family:'Noto Sans SC',sans-serif;font-size:11px;font-weight:500;color:var(--text-secondary);transition:all var(--transition);white-space:nowrap;}
+.view-tab:hover{background:var(--accent-light);color:var(--accent-deep);border-color:var(--accent-light);}
+.view-tab.active{background:linear-gradient(135deg,var(--accent-deep),var(--accent));color:#fff;font-weight:600;border-color:var(--accent);box-shadow:0 2px 12px rgba(139,94,42,0.2);}
+
+/* Sub filter */
+.sub-filter{background:var(--card);border-radius:var(--radius);padding:8px 16px;margin-bottom:12px;box-shadow:0 1px 6px rgba(44,36,22,0.04);border:1px solid var(--stone);display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12px;}
+.sub-filter label{font-size:12px;color:var(--text-secondary);white-space:nowrap;font-weight:500;}
+.sub-filter select{padding:6px 12px;border:1px solid var(--stone);border-radius:6px;font-size:12px;font-family:inherit;color:var(--text);background:var(--parchment);min-width:160px;cursor:pointer;}
+.filter-chip{padding:4px 10px;border-radius:100px;font-size:11px;font-weight:500;border:1px solid var(--stone);background:var(--card);color:var(--text-secondary);cursor:pointer;transition:all var(--transition);white-space:nowrap;}
+.filter-chip:hover{border-color:var(--accent);color:var(--accent-deep);}
+.filter-chip.active{background:var(--accent-deep);color:#fff;border-color:var(--accent-deep);}
+
+/* Main panel */
+.main-panel{background:var(--card);border-radius:var(--radius-lg);box-shadow:0 2px 20px rgba(44,36,22,0.06);border:1px solid var(--stone);min-height:480px;overflow:hidden;transition:opacity 0.25s cubic-bezier(0.4,0,0.2,1),transform 0.25s cubic-bezier(0.4,0,0.2,1);}
+
+/* Common */
+h3{font-family:'Noto Serif SC',serif;font-size:18px;color:var(--accent-deep);letter-spacing:2px;margin-bottom:14px;margin-top:20px;}
+h3:first-child{margin-top:0;}
+.section-desc{color:var(--text-secondary);font-size:13px;margin-bottom:14px;line-height:1.7;}
+.card-box{border:1px solid var(--stone);border-radius:12px;padding:20px 24px;background:var(--card);margin-bottom:14px;transition:box-shadow 0.3s ease;}
+.card-box h3{margin-top:0;}
+.card-box:hover{box-shadow:0 2px 12px rgba(44,36,22,0.06);}
+
+/* Metric cards */
+.metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px;}
+.metric-card{text-align:center;padding:14px 8px;border-radius:var(--radius);border:1px solid var(--stone);background:var(--parchment-dark);transition:all var(--transition);}
+.metric-card:hover{border-color:var(--accent);transform:translateY(-2px);}
+.metric-val{font-family:'Noto Serif SC',serif;font-size:26px;font-weight:900;color:var(--accent-deep);}
+.metric-label{font-size:11px;color:var(--text-secondary);margin-top:3px;line-height:1.4;}
+
+/* Weight bars */
+.resp-bars{display:flex;flex-direction:column;gap:10px;}
+.resp-bar-row{display:flex;align-items:center;gap:10px;}
+.resp-bar-label{width:90px;font-size:13px;font-weight:600;color:var(--ink);text-align:right;flex-shrink:0;white-space:nowrap;}
+.resp-bar-track{flex:1;height:16px;background:var(--parchment-dark);border-radius:8px;overflow:hidden;}
+.resp-bar-fill{height:100%;border-radius:10px;}
+.resp-bar-fill.w1{width:35%;background:linear-gradient(90deg,var(--accent),#e0b880);}
+.resp-bar-fill.w2{width:35%;background:linear-gradient(90deg,var(--vermillion),#d4706a);}
+.resp-bar-fill.w3{width:12%;background:linear-gradient(90deg,var(--jade),#5a9e8e);}
+.resp-bar-fill.w4{width:10%;background:linear-gradient(90deg,#3d6f9e,#6a9abe);}
+.resp-bar-fill.w5{width:8%;background:linear-gradient(90deg,#6d4f9e,#9a7abe);}
+.resp-bar-pct{font-size:13px;font-weight:700;color:var(--accent-deep);width:36px;text-align:right;}
+
+/* Module cards */
+.module-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+@media(max-width:900px){.module-grid{grid-template-columns:1fr;}}
+.module-card{border:1px solid var(--stone);border-radius:14px;overflow:hidden;background:var(--card);transition:all var(--transition);}
+.module-card:hover{transform:translateY(-2px);box-shadow:var(--shadow);}
+.module-card .mod-head{display:flex;align-items:center;gap:10px;padding:16px 18px 12px;}
+.module-card .mod-icon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;color:#fff;flex-shrink:0;}
+.module-card .mod-name{font-size:14px;font-weight:700;color:var(--ink);}
+.module-card .mod-weight{font-size:11px;color:var(--text-muted);margin-top:1px;}
+.module-card .mod-body{padding:6px 18px 16px;}
+.module-card .mod-goal{font-size:11px;color:var(--accent-deep);margin-bottom:10px;line-height:1.6;}
+.module-card .mod-section{margin-bottom:8px;}
+.module-card .mod-section-title{font-size:10px;font-weight:700;letter-spacing:0.5px;color:var(--text-muted);margin-bottom:3px;}
+.module-card .mod-tags{display:flex;flex-wrap:wrap;gap:3px;}
+.module-card .mod-tag{font-size:10px;padding:2px 8px;border-radius:8px;background:var(--parchment-dark);color:var(--text-secondary);}
+.module-card .mod-kpi-tag{font-size:10px;padding:2px 8px;border-radius:8px;background:var(--jade-light);color:var(--jade);}
+
+/* SOP center */
+.sop-center-view{display:flex;min-height:500px;}
+.sop-center-nav{width:220px;border-right:1px solid var(--stone);padding:12px 0;background:linear-gradient(180deg,var(--parchment-dark) 0%,var(--parchment) 100%);flex-shrink:0;overflow-y:auto;}
+.sop-center-nav-title{padding:4px 16px 6px;font-size:10px;color:var(--text-muted);font-weight:600;letter-spacing:2px;text-transform:uppercase;}
+.sop-center-nav-item{padding:9px 16px;cursor:pointer;border-left:3px solid transparent;font-size:12px;color:var(--text-secondary);transition:all var(--transition);}
+.sop-center-nav-item:hover{background:rgba(201,136,80,0.06);color:var(--accent-deep);}
+.sop-center-nav-item.active{background:#fff;border-left-color:var(--accent);color:var(--accent-deep);font-weight:600;box-shadow:0 2px 8px rgba(139,94,42,0.08);}
+.sop-center-detail{flex:1;padding:20px 24px;overflow-y:auto;max-height:550px;}
+
+/* Checklist */
+.checklist-view{display:flex;min-height:500px;}
+.checklist-nav{width:200px;border-right:1px solid var(--stone);padding:12px 0;background:linear-gradient(180deg,var(--parchment-dark) 0%,var(--parchment) 100%);flex-shrink:0;overflow-y:auto;}
+.checklist-nav-title{padding:4px 16px 6px;font-size:10px;color:var(--text-muted);font-weight:600;letter-spacing:2px;text-transform:uppercase;}
+.checklist-nav-item{padding:9px 16px;cursor:pointer;border-left:3px solid transparent;font-size:12px;color:var(--text-secondary);transition:all var(--transition);}
+.checklist-nav-item:hover{background:rgba(201,136,80,0.06);color:var(--accent-deep);}
+.checklist-nav-item.active{background:#fff;border-left-color:var(--accent);color:var(--accent-deep);font-weight:600;}
+.checklist-detail{flex:1;padding:20px 24px;overflow-y:auto;max-height:550px;}
+
+/* Expand hint */
+.checklist-item:hover{box-shadow:0 2px 8px rgba(44,36,22,0.06);}
+.checklist-item summary::after{content:'';display:inline-block;width:7px;height:7px;border-right:2px solid var(--text-muted);border-bottom:2px solid var(--text-muted);transform:rotate(45deg);margin-left:6px;flex-shrink:0;transition:transform 0.3s ease;}
+.checklist-item[open] summary::after{transform:rotate(-135deg);}
+
+/* Rule items */
+.rule-item{border:1px solid var(--stone);border-radius:8px;padding:10px 14px;margin-bottom:5px;background:var(--card);}
+.rule-item.red{border-left:3px solid var(--vermillion);}
+.rule-item.yellow{border-left:3px solid #b8942e;}
+.rule-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.06em;padding:2px 8px;border-radius:4px;margin-bottom:3px;}
+.rule-tag.red{background:var(--vermillion-light);color:var(--vermillion-deep);}
+.rule-tag.yellow{background:var(--gold-light);color:#6b4f10;}
+
+/* Tables */
+.table-wrap{border:1px solid var(--stone);border-radius:10px;overflow:hidden;margin:10px 0;}
+table{width:100%;border-collapse:collapse;font-size:12px;}
+thead tr{background:var(--parchment-dark);}
+thead th{padding:8px 10px;text-align:left;font-size:10px;font-weight:600;letter-spacing:0.06em;color:var(--text-muted);text-transform:uppercase;border-bottom:1px solid var(--stone);white-space:nowrap;}
+tbody tr{border-bottom:1px solid var(--stone);}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:nth-child(even){background:rgba(245,240,230,0.5);}
+tbody tr:hover{background:var(--parchment);}
+td{padding:8px 10px;color:var(--text-secondary);vertical-align:top;line-height:1.6;font-size:11px;}
+td:first-child{font-weight:500;color:var(--text);}
+
+/* Animations */
+@keyframes pulse-warn{0%,100%{box-shadow:0 0 0 0 rgba(201,136,80,0.4);}50%{box-shadow:0 0 0 8px rgba(201,136,80,0);}}
+@keyframes bounceRight{0%,100%{transform:translateX(0);}50%{transform:translateX(5px);}}
+
+/* Print */
+.print-only{display:none;}
+@media print{
+  .view-tabs,.sub-filter,.checklist-nav,.sop-center-nav,.mobile-nav-toggle,.mobile-nav-overlay,.mobile-nav-panel,.header button{display:none!important;}
+  .print-only{display:block!important;}
+  .header{background:#fff!important;color:var(--text)!important;border:1px solid var(--accent-deep)!important;box-shadow:none!important;}
+  .header h1{color:var(--accent-deep)!important;}
+  .header .subtitle{color:var(--text-secondary)!important;}
+  .main-panel{box-shadow:none;border:1px solid #ddd;}
+  .container{max-width:100%;padding:0;}
+  body{background:#fff;}
+  body::before,body::after{display:none;}
+  .checklist-view,.sop-center-view{flex-direction:column;}
+  .checklist-detail,.sop-center-detail{max-height:none;}
+  .module-grid,.metric-grid{grid-template-columns:repeat(2,1fr);}
+  @page{margin:10mm;}
+}
+
+/* Mobile */
+.mobile-nav-toggle{display:none;position:fixed;top:14px;right:14px;z-index:200;width:40px;height:40px;border-radius:10px;border:1px solid var(--stone);background:var(--card);font-size:20px;cursor:pointer;box-shadow:var(--shadow);align-items:center;justify-content:center;}
+.mobile-nav-overlay{display:none;position:fixed;inset:0;z-index:190;background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);}
+.mobile-nav-panel{display:none;position:fixed;top:0;right:0;z-index:195;width:260px;height:100vh;background:var(--card);box-shadow:var(--shadow-lg);padding:60px 20px 20px;overflow-y:auto;flex-direction:column;gap:2px;}
+.mobile-nav-panel a{display:block;padding:9px 12px;border-radius:8px;text-decoration:none;color:var(--text-secondary);font-size:13px;font-family:'Noto Serif SC',serif;letter-spacing:1px;}
+.mobile-nav-panel a:hover{background:var(--accent-light);color:var(--accent-deep);}
+@media(max-width:768px){
+  .container{padding:12px;}
+  .header{padding:20px 18px;border-radius:var(--radius-lg);min-height:auto;}
+  .header h1{font-size:22px;letter-spacing:2px;}
+  .header .subtitle{font-size:12px;letter-spacing:1px;}
+  .header .decorative-line{width:40px;height:2px;margin-top:8px;}
+  .mobile-nav-toggle{display:flex;}
+  .mobile-nav-overlay.show{display:block;}
+  .mobile-nav-panel.show{display:flex;}
+  .mobile-tab-select{display:block;}
+  .view-tabs{display:none;}
+  .view-tabs{flex-wrap:nowrap;overflow-x:auto;gap:4px;padding:6px 8px;top:8px;}
+  .view-tab{min-width:50px;font-size:11px;padding:6px 5px;border-radius:16px;}
+  .view-tab .tab-icon{display:block;margin:0 auto 1px;font-size:14px;}
+  .sub-filter{padding:6px 10px;gap:6px;}
+  .sub-filter select{min-width:120px;}
+  .main-panel{min-height:300px;border-radius:var(--radius);}
+  h3{font-size:16px;margin-bottom:10px;margin-top:14px;}
+  .card-box{padding:14px 16px;border-radius:10px;margin-bottom:10px;}
+  .module-grid,.metric-grid,.risk-grid{grid-template-columns:1fr;gap:8px;}
+  .metric-card{padding:10px 6px;}
+  .metric-val{font-size:22px;}
+  .checklist-view,.sop-center-view{flex-direction:column;}
+  .checklist-nav,.sop-center-nav{width:100%;border-right:none;border-bottom:1px solid var(--stone);display:flex;overflow-x:auto;padding:6px;}
+  .checklist-nav-item,.sop-center-nav-item{white-space:nowrap;border-left:none;border-bottom:2px solid transparent;font-size:12px;padding:7px 12px;}
+  .checklist-nav-item.active,.sop-center-nav-item.active{border-left:none;border-bottom-color:var(--accent);}
+  .checklist-detail,.sop-center-detail{max-height:none;padding:14px 16px;}
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:8px;}
+  .table-wrap table{min-width:600px;}
+  .resp-bar-label{width:70px;font-size:11px;}
+  .resp-bar-pct{font-size:11px;width:28px;}
+}
+@media(max-width:400px){
+  .view-tab{min-width:42px;font-size:10px;padding:5px 3px;}
+  .view-tab .tab-icon{font-size:13px;}
+  .container{padding:8px;}
+  .header{padding:16px 14px;border-radius:10px;}
+  .header h1{font-size:19px;}
+}
+html{scrollbar-width:thin;scrollbar-color:var(--stone) transparent;}
+::-webkit-scrollbar{width:6px;height:6px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--stone);border-radius:3px;}
+::-webkit-scrollbar-thumb:hover{background:var(--text-muted);}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px;}
+:focus:not(:focus-visible){outline:none;}
+
+/* Mission card */
+.mission-card{background:linear-gradient(135deg,var(--accent-deep),var(--accent));color:#fff;border-radius:12px;padding:22px 26px;margin-bottom:14px;}
+.mission-card .mission-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;opacity:0.7;margin-bottom:4px;}
+.mission-card .mission-text{font-family:'Noto Serif SC',serif;font-size:15px;line-height:1.8;font-weight:500;}
+</style>
+</head>
+<body>
+
+<button class="mobile-nav-toggle" onclick="toggleMobileNav()" aria-label="菜单">☰</button>
+<div class="mobile-nav-overlay" id="mobileOverlay" onclick="toggleMobileNav()"></div>
+<div class="mobile-nav-panel" id="mobilePanel"></div>
+
+<div class="container">
+  <div class="header" style="position:relative;">
+    <div style="position:absolute;right:20px;top:50%;transform:translateY(-50%);font-family:'Noto Serif SC',serif;font-size:120px;font-weight:900;color:rgba(255,255,255,0.04);pointer-events:none;user-select:none;white-space:nowrap;letter-spacing:20px;">顾问</div>
+    <div class="header-content">
+      <h1>课程顾问工作手册</h1>
+      <div class="subtitle">桃李未来 · 学科培优事业部</div>
+      <div class="decorative-line"></div>
+    </div>
+  </div>
+
+  <select class="mobile-tab-select" id="mobileTabSelect" onchange="switchTab(this.value)" aria-label="导航菜单"><option value="">📂 点击选择栏目…</option></select>
+  <div class="view-tabs" id="viewTabs"></div>
+  <div class="sub-filter" id="subFilter"></div>
+  <div class="main-panel" id="mainPanel"></div>
+  <div class="print-only" id="printContainer"></div>
+</div>
+
+<script>
+// ==================== DATA ====================
+
+const MODULES = [
+  {name:'客户开发',weight:'35%',goal:'承接线索、激活资源、推动到访',color:'#c98850',
+   actions:['线索承接与首联','资源激活','转介绍经营','到访/测试/试听邀约'],
+   outputs:['有效客户','预约确认','需求摘要'],
+   kpis:['有效首联率','到访率','线索转化率'],
+   collab:['主管','运营中台']},
+  {name:'客户转化',weight:'35%',goal:'需求分析、方案设计、异议处理、完成报名',color:'#b5342e',
+   actions:['需求分析','测评解读','课程规划','异议处理','成交促成'],
+   outputs:['客户画像','课程方案','课程订单'],
+   kpis:['转化率','客单价','新签达成率'],
+   collab:['教师','教务','主管']},
+  {name:'在读扩科',weight:'15%',goal:'承接扩科机会、设计方案、完成扩科成交',color:'#2d6b5e',
+   actions:['机会承接','学情核实','扩科方案','成交及同步'],
+   outputs:['扩科订单','协同记录'],
+   kpis:['扩科成交率','共科率'],
+   collab:['教务','教师']},
+  {name:'数据经营',weight:'10%',goal:'客户分层、漏斗管理、经营复盘',color:'#3d6f9e',
+   actions:['客户分层','漏斗复盘','业绩预测','日/周/月经营分析'],
+   outputs:['经营看板','行动计划'],
+   kpis:['CRM达标率','交接达标率'],
+   collab:['主管','运营中台']},
+  {name:'交接协同',weight:'5%',goal:'确保售前售后信息无缝衔接',color:'#6d4f9e',
+   actions:['新签交接','扩科同步','信息留痕','风险披露'],
+   outputs:['完整交接单','教务确认'],
+   kpis:['交接达标率','信息留痕率'],
+   collab:['教务','教师']}
+];
+
+const LIFECYCLE = [
+  {stage:'线索进入',goal:'判断客户是否有效',role:'顾问',detail:'核实来源、信息和基本需求，输出有效/无效判断'},
+  {stage:'首次联系',goal:'建立联系并识别需求',role:'顾问',detail:'了解年级、科目、痛点、时间和决策人，形成需求摘要与下一步计划'},
+  {stage:'测试/试听',goal:'形成专业体验',role:'顾问+教师',detail:'预约、提醒、现场协同、结果回访，输出测评结果与方案依据'},
+  {stage:'课程规划',goal:'形成匹配方案',role:'顾问',detail:'科目、班型、阶段、时间和预算规划，输出可解释的课程方案'},
+  {stage:'课程报名',goal:'完成客户决策',role:'顾问',detail:'异议处理、审批、缴费、录入，输出准确订单与完整资料'},
+  {stage:'教务交接',goal:'完成责任切换',role:'顾问→教务',detail:'同步需求风险和沟通偏好，教务确认承接'},
+  {stage:'在读扩科',goal:'满足新增科目需求',role:'顾问+教务+教师',detail:'承接机会、核实学情、设计方案并成交，输出扩科订单及同步'}
+];
+
+const CUSTOMER_TIERS = [
+  {tier:'S类',color:'#b5342e',desc:'需求明确，近期有报名计划或已进入决策阶段',freq:'高频跟进',focus:'明确卡点、决策人和成交时间'},
+  {tier:'A类',color:'#c98850',desc:'有需求，但需要测试、试听、比较或家庭沟通',freq:'按节点跟进',focus:'推动关键体验和信息补充'},
+  {tier:'B类',color:'#3d6f9e',desc:'需求较弱或报名时间较远',freq:'定期培育',focus:'提供有价值信息，避免过度打扰'},
+  {tier:'C类',color:'#6b5d4a',desc:'长期未回复或暂时无需求',freq:'周期激活',focus:'重新识别需求后重新跟进'},
+  {tier:'已成交',color:'#2d6b5e',desc:'已完成新签或扩科',freq:'及时交接',focus:'确认信息完整和责任切换'},
+  {tier:'无效',color:'#999',desc:'信息错误、明确无需求或不符合服务范围',freq:'规范关闭',focus:'填写真实原因后关闭'}
+];
+
+const CHECKLIST = {
+  daily:{title:'每日',goal:'线索承接、客户跟进、CRM维护、当日收尾',groups:[
+    {phase:'线索与客户管理',tasks:[
+      {task:'线索接入与分配核查',goal:'线索不遗漏、归属正确',detail:'确保所有触点线索（直电、直访、社群、线上平台、转介绍、统测等）及时录入尘锋SCRM；核查线索分配是否符合规'},
+      {task:'首次触达',goal:'当日首联当日清',detail:'线索分配后按渠道类型在规定时效内完成首次触达（电话优先），在尘锋SCRM旅程填写沟通详情；当天内完成首次有效触达'},
+      {task:'意向评级与跟进',goal:'每位有效客户有下一步',detail:'根据客户反应完成意向评级（S/A/B/C），按评级设置跟进节奏；每次跟进后及时更新尘锋SCRM旅程记录，降级需备注原因'},
+      {task:'线索去重与状态维护',goal:'CRM数据准确',detail:'重复线索保留首条合并标签；发现疑似同行/暗访/无效号码按规范标记；每日更新跟进中线索状态（已分配未触达→跟进中→无效待清洗）'},
+      {task:'标签与画像维护',goal:'客户信息完整可接续',detail:'为客户补充手动标签（意向等级/科目需求/年级/决策风格等），确保下一位接手者能快速理解客户'}
+    ]},
+    {phase:'尘锋SCRM与数据',tasks:[
+      {task:'尘锋SCRM准确性检查',goal:'记录真实可追溯',detail:'每日检查跟进记录完整性、线索状态准确性；禁止随意修改历史记录；发现系统异常及时反馈IT'}
+    ]}
+  ]},
+  weekly:{title:'每周',goal:'漏斗复盘、资源盘点、未转化客户处理、周末接待准备',groups:[
+    {phase:'业绩复盘',tasks:[
+      {task:'个人转化漏斗复盘',goal:'定位流失环节',detail:'分析首联→到访→测试→方案→报名各环节转化变化，定位主要流失环节及原因；主管提供校区及个人数据看板'},
+      {task:'盘点个人资源',goal:'重点客户有推进',detail:'盘点个人资源（高意向、潜在、沉默客户），逐客确认卡点、决策人和预计成交时间，形成推进方案'}
+    ]},
+    {phase:'客户经营',tasks:[
+      {task:'未转化线索处理',goal:'原因清晰不笼统',detail:'未成交客户按原因分类标记（价格/时间/竞品等），进入培育继续跟进；每周汇总未转化原因提交学科/市场端'}
+    ]},
+    {phase:'接待与宣传',tasks:[
+      {task:'周末接待准备',goal:'到场率与转化率',detail:'提前确认周末邀约客户，做好接待和物料准备；教务准备接待物料，市场运营提供活动宣发支持'},
+      {task:'朋友圈经营',goal:'口碑持续输出',detail:'定期发布公司及招生政策相关内容，维护美团好评；学科运营部/品牌部提供内容素材，主管监督执行'}
+    ]},
+    {phase:'学习成长',tasks:[
+      {task:'产品知识学习',goal:'月度测试≥80分',detail:'校区定期组织产品知识学习、培训视频观看、话术优化总结；每周学习时长＞1小时'}
+    ]}
+  ]},
+  monthly:{title:'每月',goal:'经营复盘、案例沉淀、沉睡激活、标准化执行',groups:[
+    {phase:'经营复盘',tasks:[
+      {task:'月初目标与月末复盘',goal:'目标有依据、复盘有结论',detail:'月初接收个人目标，月末提交个人业绩复盘报告；主管下发目标并审核复盘'},
+      {task:'成交/失败案例复盘',goal:'话术持续优化',detail:'复盘成交和失败案例，沉淀有效话术与改进动作；运营部组织案例分享会，主管指导话术优化'}
+    ]},
+    {phase:'资源激活',tasks:[
+      {task:'沉睡/潜在学员激活',goal:'每月两次专项激活',detail:'参与系统推送的沉睡/潜在学员资源激活（每月两次），对有响应的客户及时跟进；激活结果纳入绩效统计'},
+      {task:'在读促再次转化',goal:'断课学员再激活',detail:'定期筛查在读但相邻2学期及以上无课消学员名单，用专属话术触达激活；教务完善学员过往学习表现数据'}
+    ]},
+    {phase:'标准化执行',tasks:[
+      {task:'中台标准与工具执行',goal:'按标准执行并反馈',detail:'按中台标准化规范和话术、SOP、销售工具执行，定期反馈改进点；伙伴争议时2h内主管仲裁'}
+    ]}
+  ]},
+  ondemand:{title:'按需',goal:'签单转化、售后服务、活动配合、培训成长',groups:[
+    {phase:'新签转化',tasks:[
+      {task:'预约测试/体验',goal:'锁定时间推动到场',detail:'向意向客户发起预约测试/体验课，锁定时间并确认，课前提醒'},
+      {task:'线下接待与转化',goal:'按SOP推进成交',detail:'家长到访前完成接待准备；按接待SOP完成需求挖掘→价值塑造→方案呈现→异议处理→成交推进；高单价或特殊约定需主管在场或审批'},
+      {task:'报价与异议处理',goal:'合规推进转化',detail:'在家长建立信任后报价，结合优惠、学位等推进决策；优惠方案须在审批权限内使用，超出需主管审批'},
+      {task:'缴费与待缴费跟进',goal:'完成报名闭环',detail:'达成成交后引导家长缴费→确认到账→告知后续开课安排；确定报名但未缴费客户及时追单'},
+      {task:'试听/体验课未到访跟进',goal:'当日了解原因',detail:'试听/体验课爽约客户当日了解原因，重新邀约或调整策略'}
+    ]},
+    {phase:'售后服务',tasks:[
+      {task:'新签客户交接',goal:'信息完整责任切换',detail:'签单后填写《新学员交接表》，与教务双方确认；学员上课前持续跟进新签学员服务；教务签收后正式接管日常服务'},
+      {task:'首课回访（一对一）',goal:'开课3天内完成',detail:'开课后3天内完成首次课回访，了解适应情况，结果记录CRM；回访后如有特殊诉求同步教务，正式退出日常服务'},
+      {task:'退费处理',goal:'挽留+分场景处理',detail:'未课消新客户课前退费：顾问沟通挽单后可自行提交退费；已产生课消的退费：挽留后转接教务处理'},
+      {task:'调课/转班协作',goal:'正常操作闭环',detail:'家长申请调课/转班时，顾问正常操作处理'}
+    ]},
+    {phase:'在读经营',tasks:[
+      {task:'客户关系维护',goal:'长期关系为转介绍铺垫',detail:'重要节点发送个性化关怀信息，维护长期关系'},
+      {task:'转介绍裂变',goal:'最佳时机主动发起',detail:'在最佳时机主动发起转介绍邀请；跟踪转介绍线索归属；确认报名后申请优惠券；教务提供满意度调研结果'}
+    ]},
+    {phase:'活动与培训',tasks:[
+      {task:'配合学科活动',goal:'现场执行与转化',detail:'配合学科活动（统测、讲座、体验课）的现场执行与转化；学科提供活动方案与物料，教务负责签到与秩序，教师负责体验课交付'},
+      {task:'参与中台培训',goal:'能力持续提升',detail:'参与中台组织的入职培训、在岗提升培训、认证考试'},
+      {task:'校区排班协作',goal:'前台营业时间全覆盖',detail:'对外营业时间内前台坐班，顾问与教务协作排班'}
+    ]},
+    {phase:'专项业务',tasks:[
+      {task:'OA审批',goal:'折扣/优惠券合规使用',detail:'系统审批流操作申请（折扣、优惠券等）；非新签客户折扣由教务直接提交'},
+      {task:'志愿填报配合',goal:'话术统一不自行发挥',detail:'初三在读学员志愿填报季，配合学科/教务完成专属话术对接；志愿填报话术由学科统一整合'},
+      {task:'大型活动配合',goal:'邀约→接待→转化全流程',detail:'大型招生活动期间，配合学科完成邀约、接待、转化全流程；学科同步活动规则、话术和名单'}
+    ]}
+  ]}
+};const PROCESSES = [
+  {id:'flow1',name:'新签全流程SOP',icon:'📋',color:'#c98850',goal:'从线索接收到教务交接的全链路标准',steps:[
+    {step:'1. 线索接收',role:'顾问',output:'客户进入系统',check:'来源和归属准确'},
+    {step:'2. 首次联系',role:'顾问',output:'有效性、需求、下一步',check:'及时且有留痕'},
+    {step:'3. 需求分析',role:'顾问',output:'客户画像和目标',check:'主需求清晰'},
+    {step:'4. 测试/试听',role:'顾问+教师+教务',output:'体验结果和反馈',check:'预约及回访闭环'},
+    {step:'5. 结果解读',role:'顾问+教师',output:'问题与改善方向',check:'客观不过度解读'},
+    {step:'6. 课程方案',role:'顾问+教师+主管',output:'主方案与备选方案',check:'适配且可执行'},
+    {step:'7. 异议处理',role:'顾问+主管按需',output:'异议结果和决策节点',check:'不越权保证'},
+    {step:'8. 课程缴费',role:'顾问+主管+财务',output:'缴费、订单',check:'信息一致'},
+    {step:'9. 新签交接',role:'顾问+教务+教师',output:'教务确认承接',check:'信息和风险完整'},
+    {step:'10. 流程关闭',role:'顾问+主管',output:'成交归档或真实未成交原因',check:'状态准确'}
+  ]},
+  {id:'flow2',name:'在读扩科全流程SOP',icon:'🔄',color:'#2d6b5e',goal:'从机会发现到结果归档的扩科标准',steps:[
+    {step:'1. 机会发现',role:'教务/教师/顾问',output:'扩科机会信息',check:'有真实需求依据'},
+    {step:'2. 机会转介',role:'教务/教师→顾问',output:'转介单及家长意愿',check:'信息完整、归属清楚'},
+    {step:'3. 顾问接收',role:'顾问',output:'确认接收与联系计划',check:'及时响应'},
+    {step:'4. 需求复核',role:'顾问+教师/教务',output:'新增科目目标与限制',check:'不与续费混淆'},
+    {step:'5. 测评/试听',role:'顾问+教师',output:'学情和体验反馈',check:'按需进行'},
+    {step:'6. 扩科方案',role:'顾问+教师/教务',output:'科目、班型、时间、价格',check:'考虑现有课表'},
+    {step:'7. 扩科成交',role:'顾问+主管/系统',output:'扩科订单和缴费',check:'政策准确'},
+    {step:'8. 服务同步',role:'顾问+教务/教师',output:'新增课程信息',check:'相关岗位知晓'},
+    {step:'9. 结果归档',role:'顾问+主管',output:'成交或未成交原因',check:'数据真实'}
+  ]},
+  {id:'signup',name:'新签关键动作',icon:'✍️',color:'#b5342e',goal:'从首联到成交的标准动作链',steps:[
+    {step:'首联',role:'顾问',output:'需求摘要+客户等级+下一步',check:'当日完成且留痕'},
+    {step:'测试/试听',role:'顾问+教师',output:'体验结果+客户反馈+方案依据',check:'三方反馈闭环'},
+    {step:'方案规划',role:'顾问',output:'主方案+备选方案+推荐理由',check:'基于需求有依据'},
+    {step:'异议处理',role:'顾问',output:'真实异议+回应结果+决策安排',check:'不越权不虚假'},
+    {step:'成交促成',role:'顾问',output:'准确订单+缴费结果+交接任务',check:'合规自愿知情'},
+    {step:'交接闭环',role:'顾问+教务',output:'教务确认+家长知晓+信息无遗漏',check:'信息风险全部留痕'}
+  ]}
+];
+
+const ACTION_LIBRARY = {
+  acquire:{title:'客户获取与激活',color:'#c98850',actions:[
+    {id:'ACTION-001',name:'新客户首次联系',trigger:'新线索分配',time:'当日',goal:'建立信任、识别需求、推动下一步',
+     steps:['确认身份并说明联系原因','了解年级、学校、科目和学习现状','识别家长核心诉求、决策人和时间条件','判断客户有效性与意向等级','推动测试、试听、到访或下一次沟通','当日完成CRM记录'],
+     quality:['沟通围绕孩子和需求展开','至少获得一个真实痛点','必须形成明确下一步','家长愿意继续沟通','记录可供他人接续'],
+     errors:['一开始直接报价或推课','只发模板消息后等待','未确认决策人','记录"已联系、考虑中"'],
+     check:['是否按时首联','是否识别需求与痛点','是否推动下一步','CRM是否完整']},
+    {id:'ACTION-004',name:'测试邀约',trigger:'需求需进一步诊断',time:'按节点',goal:'通过专业测评获得方案依据',
+     steps:['说明测试价值而非仅强调免费','确认科目、年级和测试方式','提供可选时间并推动确认','收集必要学情背景','测试前提醒并确认到场'],
+     quality:['家长清楚测试目的','预约信息准确','到场前得到确认','测评人员提前知情'],
+     errors:['只发地址不解释价值','安排后不提醒','未核对年级科目','以测试结果制造恐慌'],
+     check:['预约是否确认','信息是否准确','是否有到场提醒','是否同步背景']},
+    {id:'ACTION-005',name:'试听邀约',trigger:'客户对课程或教师存在疑虑',time:'按节点',goal:'让客户体验课程匹配度',
+     steps:['解释试听目的和适配条件','确认班级、教师、时间、地点','向教师同步学生基础和家长关注点','试听前完成提醒','试听后及时收集三方反馈','推动结果解读与方案沟通'],
+     quality:['试听班级与学生基础匹配','教师提前获得信息','试听后有结构化回访','不以单次体验保证效果'],
+     errors:['随意塞入不匹配班级','未向教师说明背景','试听结束后长期不回访','只问"感觉怎么样"'],
+     check:['班级是否匹配','教师是否知情','反馈是否完整','下一步是否明确']},
+    {id:'ACTION-014',name:'沉默客户激活',trigger:'连续未回复或长期停留',time:'按周期',goal:'重新识别需求或规范关闭',
+     steps:['选择合适时间和渠道','基于原需求提供新信息或询问变化','避免重复问"考虑得怎样"','若有回应，重新完成需求判断','若仍无回应，按规则降级或关闭'],
+     quality:['触达有明确价值','频率适度','尊重客户拒绝','客户状态真实'],
+     errors:['高频轰炸','用虚假优惠诱导回复','长期占用无效客户','无回应仍标记高意向'],
+     check:['触达是否有价值','频次是否合理','状态是否及时调整']}
+  ]},
+  analysis:{title:'需求分析与方案',color:'#b5342e',actions:[
+    {id:'ACTION-002',name:'需求分析',trigger:'完成有效首联或到访后',time:'当日',goal:'把表层问题转化为可解决的学习需求',
+     steps:['了解当前成绩、薄弱点与学习习惯','追问问题持续时间和已尝试方法','确认家长期望、目标时间和优先级','了解现有课程、可用时间与预算限制','区分真实需求、焦虑诉求和不合理期待','总结需求并向家长确认'],
+     quality:['问题与目标具体可描述','能够区分主需求和次需求','推荐方案有事实依据','家长认可需求总结'],
+     errors:['只问成绩不问原因','家长说什么就直接推荐什么','忽视时间和家庭决策条件','用提问制造焦虑'],
+     check:['是否问到现状、原因、目标和限制','是否复述确认','方案是否基于需求']},
+    {id:'ACTION-003',name:'客户画像建立',trigger:'完成需求分析后',time:'当日',goal:'沉淀可持续经营的客户信息',
+     steps:['填写学生基本信息','记录学习基础与目标','记录家长关注点和沟通偏好','识别决策人、影响人和决策周期','记录时间、预算和竞品情况','标记风险及特殊诉求'],
+     quality:['关键信息来源明确','标签与实际一致','能够支持下一位人员快速理解客户','敏感信息最小化记录'],
+     errors:['标签过多但无实际价值','凭主观判断给家长贴负面标签','信息长期不更新','记录不必要隐私'],
+     check:['画像是否完整','标签是否准确','是否有决策条件和风险信息']},
+    {id:'ACTION-006',name:'测评结果解读',trigger:'测评完成并取得有效结果',time:'测评后',goal:'把数据转化为家长理解的学习问题与改善方向',
+     steps:['先说明测评范围和局限','呈现优势与薄弱点','结合错因说明问题而非只报分数','连接家长原有诉求','提出阶段性改进方向','自然过渡到课程方案'],
+     quality:['结论有数据或教师意见支持','既呈现问题也呈现优势','避免制造恐慌','方案与结果相匹配'],
+     errors:['夸大一次测评结论','只强调低分','直接用结果逼单','给出超出专业边界的诊断'],
+     check:['解读是否客观','是否说明局限','方案是否与结果一致','家长是否真正理解']},
+    {id:'ACTION-007',name:'课程方案设计',trigger:'需求和测评信息基本完整',time:'按节点',goal:'形成兼顾学习目标、时间和家庭条件的可执行方案',
+     steps:['确定学习目标和优先级','选择科目、班型、阶段和频次','规划课程组合与时间','解释推荐逻辑和预期过程','核对价格、优惠和审批要求','评估学习负担与风险','形成书面或系统方案'],
+     quality:['方案解决真实需求','课程组合可执行','价格政策准确','不过度保证结果','多科推荐有合理性'],
+     errors:['为了业绩堆叠课程','忽视课表冲突和负担','方案只有价格没有逻辑','未经确认指定教师或班级'],
+     check:['方案依据是否充分','课程是否适配','价格是否准确','风险是否说明']},
+    {id:'ACTION-012',name:'多科规划',trigger:'存在两个及以上科目需求',time:'按节点',goal:'设计合理的多科组合提升方案完整性',
+     steps:['区分核心科目和补充科目','明确不同科目的目标与周期','设计时间错峰和学习负担','解释联报的学习价值而非只讲优惠','确认家庭预算和执行意愿','必要时分阶段实施'],
+     quality:['每个科目都有真实依据','整体时间可执行','优先级清晰','不以赠品或折扣替代价值沟通'],
+     errors:['为了共科率强推多科','不考虑学生精力','各科目标相互冲突','保证全部科目同步快速提分'],
+     check:['科目依据','负担评估','家长理解度','方案可执行性']}
+  ]},
+  closing:{title:'成交与异议处理',color:'#2d6b5e',actions:[
+    {id:'ACTION-008',name:'异议处理',trigger:'客户对价格/效果/时间/师资等存在疑虑',time:'即时',goal:'识别真实顾虑，帮助客户基于充分信息作出决策',
+     steps:['完整倾听并复述确认','区分真实异议与拖延理由','回应异议背后的核心风险','提供数据、案例、试听或备选安排','确认异议是否解决','推动明确下一步'],
+     quality:['不争辩、不贬低竞品','回应基于真实信息','不通过虚假稀缺制造压力','每次处理聚焦关键异议'],
+     errors:['客户一说贵就降价','回避或打断客户','攻击其他机构','保证无法兑现的效果'],
+     check:['是否识别真实异议','回应是否有依据','是否越权保证','是否形成下一步']},
+    {id:'ACTION-009',name:'成交促成',trigger:'客户基本认可方案并进入决策阶段',time:'按节点',goal:'在合规前提下推动完成报名',
+     steps:['回顾客户目标和方案价值','确认剩余决策条件','邀请客户作出明确选择','处理最后异议','核对课程、金额、课次和权益','完成缴费及系统录入','告知后续交接安排'],
+     quality:['成交基于客户自愿和充分知情','订单信息一致','所有优惠已审批','无隐性约定'],
+     errors:['强迫或制造恐慌成交','先收费后补审批','订单与口头约定不一致','收款后不告知后续流程'],
+     check:['订单信息是否一致','优惠是否审批','约定是否合规','是否发起交接']},
+    {id:'ACTION-015',name:'高意向客户推进',trigger:'客户已完成体验并接近决策',time:'按节点',goal:'集中资源解决临门一脚问题',
+     steps:['确认客户当前决策状态','聚焦唯一或主要卡点','提供针对性证据或方案调整','明确决策节点和双方动作','必要时引入主管/教师协同','每日更新真实进度'],
+     quality:['每位高意向客户都有清晰卡点','资源投入与成交概率匹配','不虚假标高意向','主管可快速理解进度'],
+     errors:['所有客户都标高意向','只重复催单','依赖无底线优惠','长期不降级'],
+     check:['高意向定义是否符合','卡点是否真实','下一步是否具体','预测是否可信']}
+  ]},
+  handover:{title:'交接与扩科',color:'#3d6f9e',actions:[
+    {id:'ACTION-010',name:'新签交接',trigger:'新签报名及系统录入完成',time:'当日',goal:'确保客户从售前顺利进入在读服务',
+     steps:['向家长介绍教务及职责','同步学生信息、课程和开课安排','披露需求、沟通偏好、特殊诉求和风险','教务确认接收并反馈缺失项','顾问完成交接闭环'],
+     quality:['交接信息完整真实','家长明确后续联系对象','口头约定全部留痕','有风险事项特别标注'],
+     errors:['只转发姓名和电话','隐瞒特殊情况','报名后直接退出群或失联','把未解决售前问题甩给教务'],
+     check:['交接时效','字段完整度','教务确认','家长知晓情况']},
+    {id:'ACTION-011',name:'在读扩科经营',trigger:'教务/教师/家长提出新增科目需求',time:'及时',goal:'基于真实学情完成专业方案与扩科成交',
+     steps:['接受转介并及时联系家长','重新确认新增需求和学习目标','核实现有课表与负担','必要时安排测评或试听','设计扩科方案并说明价值','完成成交及系统录入','同步教务和教师'],
+     quality:['扩科基于真实需求','不影响已有学习安排','教务教师信息充分','扩科和续费清晰区分'],
+     errors:['未了解学情直接推科','把续费业绩包装为扩科','忽视时间冲突','成交后未同步服务岗位'],
+     check:['机会响应是否及时','方案是否有学情依据','归属是否清楚','成交后是否同步']},
+    {id:'ACTION-013',name:'转介绍经营',trigger:'客户表达认可或达到转介绍触发节点',time:'合适节点',goal:'基于真实满意度引导推荐',
+     steps:['先表达感谢并确认服务体验','在合适节点说明可帮助有类似需求的朋友','提供简单转介方式','不索要无关通讯录','收到推荐后及时响应','向推荐人反馈承接结果但不泄露隐私'],
+     quality:['基于满意度自然提出','不以压力或频繁打扰换取推荐','保护双方隐私','推荐政策真实准确'],
+     errors:['刚报名就强要推荐','诱导批量提供联系人','泄露被推荐人情况','私自答应奖励'],
+     check:['触发节点是否合适','政策是否准确','来源是否记录','隐私是否保护']}
+  ]},
+  ops:{title:'经营与数据管理',color:'#6d4f9e',actions:[
+{id:'ACTION-017',name:'CRM经营记录',trigger:'每次有效沟通/状态变化',time:'当日',goal:'用系统真实记录客户经营过程',
+     steps:['记录本次沟通时间与渠道','填写需求、反馈和关键异议','更新阶段与意向等级','记录信息和风险','设置明确下一步时间','上传或关联必要凭证'],
+     quality:['当日沟通当日更新','信息客观具体','下一步有时间和动作','与订单、聊天和实际一致'],
+     errors:['复制粘贴同一记录','事后批量补写','伪造联系和预约','记录主观评价或不必要隐私'],
+     check:['及时性','完整性','真实性','可接续性']},
+    {id:'ACTION-018',name:'周经营复盘',trigger:'每周固定经营会议前',time:'每周',goal:'通过周度数据和案例识别问题形成可执行计划',
+     steps:['复盘目标进度','分析各环节转化变化','会诊重点客户','梳理扩科和转介绍机会','总结未成交原因','确定下周目标与关键动作'],
+     quality:['结论基于数据和客户事实','每个问题有改进动作','计划有负责人和时间','不把复盘变成单纯报数'],
+     errors:['只解释外部原因','罗列数据无结论','问题过多无重点','计划无法执行'],
+     check:['数据是否真实','问题是否聚焦','动作是否具体','下周预测是否合理']},
+    {id:'ACTION-019',name:'月经营分析',trigger:'月度经营周期结束',time:'每月',goal:'从资源、转化、产品和能力四维度评价经营质量',
+     steps:['分析目标达成与收入结构','分析线索来源与有效性','分析漏斗和主要流失环节','分析科目、班型和多科组合','分析个人能力短板','形成下月策略与资源需求'],
+     quality:['既看结果也看过程','区分偶然波动与结构性问题','建议与问题一一对应','数据口径统一'],
+     errors:['只看业绩排名','用单一案例代替数据','把所有问题归因线索不足','没有下月措施'],
+     check:['分析结构','问题证据','改善方案','资源申请合理性']},
+    {id:'ACTION-020',name:'客户流失复盘',trigger:'客户明确不报名/选择竞品/长期关闭',time:'发生时',goal:'识别真实流失原因改善后续经营',
+     steps:['分类流失原因','区分产品、价格、时间、服务、能力和客户自身原因','定位可控与不可控因素','复盘关键错误动作','提出流程、话术或产品改进','必要时形成案例分享'],
+     quality:['原因有事实支持','不简单归因"价格贵"','敢于识别自身问题','改进动作可验证'],
+     errors:['为免责虚构原因','贬低客户或竞品','只记录最终结果','同类问题重复发生不改进'],
+     check:['原因分类是否准确','是否找到可控问题','改进是否落实']}
+  ]}
+};
+
+const KPIS = [
+  {name:'新签目标达成率',bar:'#c98850',desc:'实际新签业绩 ÷ 新签目标，评价核心经营结果'},
+  {name:'有效首联率',bar:'#b5342e',desc:'完成有效首联客户数 ÷ 新增有效线索数，检查资源承接及时性'},
+  {name:'测试/试听到场率',bar:'#2d6b5e',desc:'实际到场人数 ÷ 已预约人数，评价预约和提醒质量'},
+  {name:'测试通过转化率',bar:'#3d6f9e',desc:'完成报名人数 ÷ 完成测试通过人数，评价方案与成交能力'},
+  {name:'共科率',bar:'#6d4f9e',desc:'报名总科目数 ÷ 报名总人头数，评价多科规划质量'},
+  {name:'交接达标率',bar:'#c98850',desc:'达标交接人数 ÷ 应交接人数，评价售前售后衔接质量'},
+  {name:'CRM记录达标率',bar:'#2d6b5e',desc:'抽查达标记录数 ÷ 抽查记录数，评价客户管理质量'}
+];
+
+const CASES = [
+  {type:'优秀',title:'从"单科咨询"到合理扩科',icon:'⭐',color:'#2d6b5e',
+   bg:'一名在读数学学员家长向教务反馈，孩子英语阅读也比较薄弱。教务记录学情并转介顾问。',
+   actions:['先向教务和教师了解孩子英语基础、现有课程时间和家长关注点','与家长沟通时先确认真实需求，而不是直接推荐英语课程','建议先完成英语测评，再根据结果设计班型和时间方案','方案沟通中说明新增科目与现有数学课程的时间安排，避免造成学习负担','完成报名后同步教务、教师和家长后续服务安排'],
+   takeaway:'扩科必须基于真实需求和学情，顾问负责专业方案与成交，教务和教师提供信息支持。'},
+  {type:'反面',title:'成交后未完成交接',icon:'⚠️',color:'#b5342e',
+   bg:'顾问为促成报名向家长表示可优先安排某教师，但报名后未将该情况同步教务。开课前家长发现教师安排不一致并投诉。',
+   analysis:['顾问越权保证师资安排','未在交接中披露口头约定','教务无法提前识别风险并与家长沟通'],
+   correct:'未确认事项不得作确定性答复；所有特殊诉求必须经过审批并在交接中完整披露。'},
+  {type:'反面',title:'CRM长期记录"考虑中"',icon:'📝',color:'#c98850',
+   bg:'某客户连续两周显示"家长考虑中"，主管无法判断客户真实状态。',
+   correct:'正确记录示例：家长认可课程，但周六与其他兴趣班冲突；已提供周日班方案，约定本周五20:00确认家庭时间，若可调整则报名数学。',
+   takeaway:'系统记录的价值是让下一位接手者能够继续推进，而不是证明顾问"联系过"。'}
+];
+
+const WORK_PRIORITY = [
+  {level:'P0 立即处理',color:'#b5342e',items:['当日到访/测试/试听','缴费异常','重大客诉或订单错误'],rule:'即时响应，处理不了则同步主管'},
+  {level:'P1 当天完成',color:'#c98850',items:['新增首联','高意向回访','扩科机会响应','新签交接'],rule:'当日闭环或明确下一步'},
+  {level:'P2 计划推进',color:'#3d6f9e',items:['沉默激活','长周期培育','转介绍经营','数据整理'],rule:'纳入周计划管理'}
+];
+
+const MISTAKES = [
+  {name:'只跟新客，不管存量',problem:'每天忙于新线索，高意向客户长期无推进',correct:'每日固定盘点高意向与逾期客户'},
+  {name:'只记录结果，不记录过程',problem:'CRM只有"已联系""考虑中"',correct:'记录需求、卡点、约定与下一步'},
+  {name:'高频催促等于勤奋',problem:'反复问"考虑得怎么样"',correct:'每次沟通提供新信息或解决一个问题'},
+  {name:'只推荐单科',problem:'未了解其他科目需求和整体时间',correct:'基于需求设计合理的多科方案'},
+  {name:'成交后立即退出',problem:'教务不了解客户诉求与约定',correct:'完成标准交接并确认承接'}
+];
+
+const REDLINES = [
+  {title:'泄露或贩卖公司机密信息',items:['将客户名单、联系方式提供给竞品机构','将公司账号、系统权限借予他人使用或共享','未经批准使用个人账号开展客户沟通、留存客户资料或进行交易；因特殊情况确需使用个人账号的，须于24小时内以文字形式向上级报备，并于7天内转入企业微信']},
+  {title:'与客户或同事发生肢体冲突',items:['与客户或同事发生肢体冲突','与异性学生、家长发生过于亲昵的肢体接触并造成恶劣影响','线上线下实施言语辱骂等行为']},
+  {title:'未确认直接向学员收费',items:['在未得到报名学员监护人确认的情况下，直接向学员收取学费']},
+  {title:'私下收取款项',items:['未通过公司账户，私下收取学员或客户的报名费、学费等任何款项']},
+  {title:'索要财物或接受不当利益',items:['收受合作方现金、有价证券、购物卡','接受合作方提供的旅游、高额宴请、娱乐消费等','向客户或合作方借款、发生非正常经济往来','接受客户赠予超过200元的礼品或礼金']},
+  {title:'恶意占用学位',items:['因订单流程需要占用学位名额连续超过2天，且未提前报备主管并备注原因及完成时间','经提醒后，超期占用且未按要求备注报备的情形累计2次及以上']},
+  {title:'以不正当手段促成报名',items:['随意保证客户可报名某老师的某学位，但实际未能兑现','盲目保证客户报名课程可提升多少分数或达到某学习水平，但实际未能兑现']},
+  {title:'数据造假或虚假保证',items:['将他人业绩叠加到个人名下以牟取高绩效','故意不录入、延迟录入或录入不准确的客户信息','伪造审批记录、客户沟通记录或成交记录']},
+  {title:'诋毁、贬低公司、部门、员工或教师',items:['在客户面前公开贬低教师教学水平、方法或品行','因个人原因在客户面前否定授课教师专业性，导致家长质疑']},
+  {title:'透露内部商业机密信息',items:['主动向客户明示或暗示个人签单提成、业绩压力等内部敏感信息','以个人业绩、收入、考核等为由，向客户"卖惨"、道德绑架或情感施压，企图诱导客户签单、续费或放弃退费']}
+];
+const YELLOWLINES = [
+  {title:'形象规范',items:['禁止在前台穿着背心、吊带、拖鞋及长度明显不合适的短裤/短裙','禁止佩戴影响职业形象的夸张配饰；重要考试、家长会及大型活动期间须按校区统一要求着装','禁止染过于鲜艳、夸张的发色','禁止使用高饱和度的美甲颜色（自然色、裸色系除外）；身体明显部位如有纹身须做好遮挡']},
+  {title:'前台行为规范',items:['禁止在客户接待区域出现有损职业形象或影响公司形象的行为','禁止在工作时间观看娱乐视频、外放音乐、玩游戏、看小说、睡觉、长时间闲聊等','禁止怠慢客户或对客户需求置之不理，造成客户投诉或经提醒后仍未改正','禁止在客户接待区域大声喧哗等影响办公及接待秩序的行为','禁止随意倚靠桌椅、进食等影响职业形象的行为，以及未按要求穿着工服、佩戴工牌']},
+  {title:'前台空岗',items:['营业时间内前台须至少保持1名教务或顾问在岗；因内部协调、交接不及时导致前台无人当值的，视为触犯黄线']},
+  {title:'擅自离岗',items:['因就餐、个人事务等非工作原因离岗，单日累计离岗时长不得超过2小时；未经批准超时离岗的视为擅自离岗']},
+  {title:'未充分告知客户课程规则',items:['未按要求向客户充分告知课程重要条款、退费规则及相关注意事项，导致客户权益受损或引发客户投诉']},
+  {title:'线上行为规范',items:['在客户微信群中发布与公司业务无关的广告、链接、投票等内容','在企业微信朋友圈发布不当言论、不当图片或有损公司形象的内容','在客户群内与家长发生争执、辩论或公开质疑公司政策','未经授权在群内发布未经公司审核的活动信息或政策变动等内容']},
+  {title:'怠慢或推诿客户',items:['对进入接待区域的客户置之不理，或出现未及时接待、消极答疑、推诿、回避客户合理需求等行为']},
+  {title:'服务拖延或跟进不作为',items:['对已受理的客户问题或服务事项拖延处理、跟进不作为、未及时同步处理进展及结果，或未按要求跟进至事项闭环']},
+  {title:'内部协作禁止事项',items:['未经确认或授权，私自答应客户可插班已满班的班级','因个人矛盾、情绪或其他非工作原因，拒绝、拖延或消极配合教师所带班级学员的正常课程服务']},
+  {title:'散布消极言论',items:['在公司内散布消极言论、未经证实的事件、不实谣言、个人薪资及绩效等，对其他员工造成不良影响']},
+  {title:'阻挠或拒绝配合检查',items:['阻挠或拒绝配合公司授权部门及检查人员开展检查工作']},
+  {title:'无故缺席集体活动',items:['未请假缺席公司或事业部集体活动','一年内累计无正当理由缺勤请假达到3次（婚丧嫁娶、生育、病假、公出等正当原因不计入）']},
+  {title:'顾问间不当竞争（抢单/推诿）',items:['客户已有待缴费订单，顾问B未经客户主动要求擅自取消顾问A订单重新下单导致投诉','客户线下缴费时顾问A休息，顾问B推诿或拒绝服务客户导致投诉','客户线上向顾问B提出修改方案，顾问B推诿或拒绝服务导致投诉','客户同时咨询双方同科目课程，任一方推诿或拒绝服务导致投诉','擅自取消其他顾问的待试听课程排课或直接下同科目试听课程导致投诉','客户已与顾问A沟通取消试听，顾问B推诿或拒绝服务导致投诉','试听完成后客户找顾问B安排课程，顾问B推诿或拒绝服务导致投诉']},
+  {title:'迟到或早退',items:['晚于规定上班时间30分钟（含）内到岗视为迟到','早于规定上班时间30分钟（含）内离岗视为早退']},
+  {title:'无故缺勤/违规请假/擅自调班',items:['无故缺勤：未经任何审批流程，擅自不到岗履职','违规临时请假：临近上岗节点临时提出请假申请，未能提供符合规定的有效证明，在主管明确不予批准后仍拒绝到岗履职','擅自调班：未经审批私自与他人调换排班，导致实际未到岗履职（突发疾病须提供二级及以上公立医院急诊病历、诊断证明或休假建议书）']}
+];
+const REDLINES_DETAIL = ['首次违反未造成严重影响：当月绩效C，列入重点观察对象','再次违反：当月绩效C-，公司直接解除劳动合同，不支付补偿金','造成5000元及以上财产损失或重大负面口碑影响：不论次数，当月绩效C-，直接解除劳动合同并追究法律责任','试用期内违反红线：终止试用期，不支付补偿金；影响恶劣或造成重大财产损失者保留追究法律责任权利'];
+const YELLOWLINES_DETAIL = ['首次违反未造成严重影响：当月绩效扣10分，正式约谈警告，可能影响晋升/加薪/年终奖/合伙计划股份/安居计划申请资格','第二次违反：当月绩效C或C-，列入当月重点观察对象','第三次违反：当月绩效C-，公司直接解除劳动合同，不支付补偿金','造成5000元及以上财产损失和重大负面口碑影响：不论次数，当月绩效C-，直接解除劳动合同并追究法律责任','试用期内违反黄线：当月绩效C-，公司有权直接解除劳动合同，不支付补偿金'];
+
+const TOOLS = {
+  systems:['业务管理系统','尘锋SCRM','OA办公门户','OA费控合同系统','EHR系统','WPS365','企业微信','阿里邮箱','Classin'],
+  docs:['顾问百宝箱','签单加油站','外宣资源库','课程产品手册','26-27暑秋续报百宝箱','全日制课程百宝箱','信竞课程百宝箱','客诉案例库/客诉百宝箱','财务指导手册202504'],
+  forms:['客户承接记录表','客户画像模板','一客一策推进卡','客户回访记录表','客户交接确认单','周经营复盘模板','月度经营分析模板','流失复盘表'],
+  onboarding:[
+    {phase:'第1天',content:'理解岗位使命、五大职责模块、客户生命周期；熟悉CRM系统基础操作'},
+    {phase:'第2-3天',content:'学习产品体系、班型规则、价格政策；掌握首联话术与需求分析框架'},
+    {phase:'第4-7天',content:'跟岗学习测试邀约、试听安排、方案设计、异议处理和成交流程'},
+    {phase:'第2周',content:'独立完成首联和跟进，并由主管抽查CRM记录质量与SOP执行情况'},
+    {phase:'第3-4周',content:'进入完整岗位实践，承担新签与扩科全流程，参与一次完整周经营复盘'}
+  ]
+};
+
+const COLLAB_MATRIX = [
+  {role:'顾问',color:'#c98850',items:{teacher:'提供客户需求、课程意向与沟通背景',academic:'完成新签/扩科交接，提供必要信息',manager:'汇报经营进度、风险和资源需求',midoffice:'执行统一标准并反馈执行问题'}},
+  {role:'教师',color:'#3d6f9e',items:{consultant:'完成专业测评、学习建议并主责续费',academic:'提供学员学情信息，协同课后反馈',manager:'—',midoffice:'—'}},
+  {role:'教务',color:'#b5342e',items:{consultant:'负责在读服务、续费协同，转介扩科机会',teacher:'同步家长需求和异常情况，减少老师沟通成本',manager:'汇报服务风险、退费预警和现场问题',midoffice:'执行服务标准并反馈执行问题'}},
+  {role:'校区主管',color:'#2d6b5e',items:{consultant:'统筹资源、处理异常、开展过程管理',teacher:'协调教学资源与排课安排',academic:'统筹校区运营与服务保障',midoffice:'反馈校区经营数据与资源需求'}},
+  {role:'运营中台',color:'#6d4f9e',items:{consultant:'提供规则、系统、工具、培训和数据支持',teacher:'提供教学标准、师训和课程产品支持',academic:'提供服务标准、客诉处理和合规指导',manager:'提供经营分析、考核数据和决策支持'}}
+];
+
+const DAILY_SCHEDULE = [
+  {level:'P0 优先',color:'#b5342e',actions:'查看昨日遗留与今日新分配线索，先处理高意向与转介绍；',output:'当日重点客户清单'},
+  {level:'P1 首触',color:'#c98850',actions:'新分配线索按SLA首触（指定30min/线上24h）；每条首触后即时更新尘锋SCRM+打意向评级',output:'首触清零、尘锋SCRM更新'},
+  {level:'P2 到访',color:'#2d6b5e',actions:'到店客户先查归属，按面谈流程接待，当场促签；未签当日跟进',output:'到访转化记录'},
+  {level:'P3 跟进',color:'#3d6f9e',actions:'按意向评级节奏推进在跟线索，邀约到店用三次提醒法；处理爽约（1h内联系挽回）',output:'跟进进度更新'},
+  {level:'P5 收工',color:'#1a5c6b',actions:'确认当日所有跟进记录与状态已更新、无漏录渠道来源；整理高意向明日跟进计划',output:'次日行动计划'}
+];
+
+const RECORD_COMPARISON = [
+  {type:'不合格',color:'#b5342e',text:'已联系，家长考虑中，后续跟进。',issues:['无需求描述','无卡点分析','无明确时间','无法接续管理']},
+  {type:'合格',color:'#2d6b5e',text:'家长认可数学班型，但需与另一位监护人确认周六时间；已约定明日19:30电话回复，预计报名数学+英语。',strengths:['包含需求（认可班型）','明确卡点（另一监护人确认时间）','明确下一步（明日19:30电话）','预计结果（数学+英语）']}
+];
+
+const PRODUCT_KNOWLEDGE = {
+  glossary:{title:'专有名词',color:'#6d4f9e',content:[
+    {label:'签单类',items:['新签：新学员或断课超一学期老学员首次购买','扩科：在读学员新增报名新科目','续报：在读学员新增报名同科目','签单=下单排课+缴费报名'],note:''},
+    {label:'课程类',items:['学位：教师课表范围内的可授课名额（1对1）/ 招生班级内可报名名额（班课）','课消：学生每上一次课的消费记录','课时=2小时（一次课）','课时单价：一课时费用；课次单价：一次课费用'],note:''},
+    {label:'周期类',items:['学期：暑假/秋季/寒假/春季，共4个学期','期次：寒暑假每学期1-3期，内容一致','续报期：每年4月/10月，在读学员专属优惠+学位预留','新招期：两个续报期之间的时间段'],note:''}
+  ]},
+  system:{title:'课程体系',color:'#c98850',content:[
+    {label:'班课体系',items:['腾飞体系（常规班型：A预备/A/A+）','S体系（S预备/S/SS预备/SS/集训队）','强基体系','竞赛体系'],note:'详情可查看体系图'},
+    {label:'课程分类',items:['体系课（长期课）：暑假/秋季/寒假/春季完整周期','短期班：集训、冲刺等短期目标，≤10次课，开课后不退','活动课：引流为目的，≤3次课低价课，不需测试','全日制：脱产全天授课（初中仅初三，高中全年级）','1对1试听课：45分钟免费，班课无试听课'],note:''},
+    {label:'报班规则',items:['体系课需参加散测或统测，根据成绩匹配班型','高中开放成绩匹配报名（中考/统考成绩）','插班从下一节课开始，前面不收费不补课','同份测试卷每月可测一次，以首次成绩为准'],note:''}
+  ]},
+  grade:{title:'年级科目与班型',color:'#b5342e',content:[
+    {label:'常规开设',items:['幼大：数学','一至初一：语数英三科','初二：语数英物四科','初三至高三：语数英物化五科'],note:''},
+    {label:'特殊开设',items:['六至七年级物理、七年级化学：仅集训队SS班'],note:''},
+    {label:'班型与满班',items:['大班~2年级腾飞：10人（调课上限11人）','1-2年级高端S / 3-6年级文科S / 3-9年级腾飞：12人（调课上限13人）','高一高二腾飞：14人（调课上限15人）','1-2年级SS / 3-6年级S预备+理科S / 初中S预备+S：15人（上限15人）','高一高二S：16人（调课上限17人）','三至高二SS预备/SS/集训队 / 高三所有班型：20人（调课上限21人）'],note:'调课限额：所有班型调课限额为班型人数+1'}
+  ]},
+  schedule:{title:'上课时段',color:'#2d6b5e',content:[
+    {label:'班课春秋季',items:['周五 18:30-20:30','周六日全天5个时段：A(08:00-10:00) B(10:20-12:20) C(13:30-15:30) D(15:50-17:50) E(18:30-20:30)'],note:''},
+    {label:'班课寒暑假',items:['A(08:00-10:00) B(10:20-12:20) C(13:30-15:30) D(15:50-17:50) E(18:30-20:30)','3小时课程：F(09:00-12:00) H(13:30-16:30) I(14:00-17:00) L(18:00-21:00)'],note:''},
+    {label:'1对1春秋周中',items:['90分钟：K(17:00-18:30) E1(18:00-19:30)','120分钟：D7(16:20-18:20) F5(17:00-19:00) E段(18:30-20:30) E(18:40-20:40) F7(19:00-21:00) E4(19:10-21:10)'],note:'周二17:00前为教师休息时间'},
+    {label:'1对1春秋周末+寒暑',items:['A(08:00-10:00) B(10:20-12:20) C(13:30-15:30) D(15:50-17:50) E(18:30-20:30) F7(19:00-21:00)'],note:'非标准时段需OA申请审批'}
+  ]}
+};
+
+const OBJECTION_HANDLING = [
+  {objection:'太贵了 / 超出预算',signals:'客户对价格敏感但需求真实',respond:[
+    '先确认是"绝对值贵"还是"和XX机构比贵"——回应逻辑不同',
+    '绝对值贵：拆分课次单价+课时单价，帮家长建立性价比认知',
+    '对比贵：先肯定竞争机构，再聚焦我们的差异化（班型/师资/体系/结果）',
+    '提供备选方案：调整科目组合、分阶段实施、关注后续优惠节点',
+    '不直接降价，不攻击竞品，不虚假保证效果'
+  ]},
+  {objection:'再考虑考虑 / 想对比一下',signals:'客户在犹豫但未明确拒绝',respond:[
+    '先确认是"需要跟家人商量"还是"还在看其他机构"——卡点不同',
+    '跟家人商量：明确谁决策、何时讨论、需要什么信息辅助决策',
+    '对比机构：了解关注维度（师资/价格/距离/效果），针对性回应',
+    '约定明确回访时间，而不是"过几天再联系"',
+    '如有体验课/试听课，建议先体验减少决策盲区'
+  ]},
+  {objection:'孩子不愿意 / 没时间',signals:'可能是孩子真实反馈，也可能是家长委婉拒绝',respond:[
+    '区分真实原因：是抵触科目、怕负担重、还是对未知环境不安',
+    '孩子不愿意：建议先来校区看看环境，或安排一次轻松的面诊/试听',
+    '时间冲突：先了解现有安排（兴趣班/学校作业），再规划时间错峰',
+    '负担重：不急于推多科，单科建立信任后再看扩科',
+    '不强行说服，不给孩子压力，不制造焦虑'
+  ]},
+  {objection:'效果不确定 / 怕没效果',signals:'家长需要降低风险感知',respond:[
+    '实事求是说明我们能做的和不能保证的',
+    '介绍测评体系、阶段性反馈和学情跟踪机制',
+    '展示相似案例（匿名化），但不保证同样结果',
+    '强调"匹配大于选择"——合适的班型和老师比名气更重要',
+    '可建议先报一期体验，不急于多期联报'
+  ]},
+  {objection:'已经在其他地方学了',signals:'有竞品在服务，需要差异化',respond:[
+    '先了解：学什么科目、什么机构、满意和不满意的地方',
+    '不在初次沟通就对比或贬低竞品',
+    '聚焦我们与竞品的差异化价值（如我们有而对方没有的）',
+    '不要求退掉竞品课程，可先补充对方未覆盖的科目',
+    '长期培育关系，适当节点再做转化'
+  ]},
+  {objection:'能优惠多少 / 有什么活动',signals:'价格敏感但意向真实',respond:[
+    '如实告知当前优惠政策和适用条件',
+    '不虚假制造优惠紧迫感',
+    '优惠不是成交核心——先确认方案是否真的适合孩子',
+    '如有老带新/转介绍政策，可在合适节点自然介绍',
+    '未经审批不得私下答应额外优惠/赠课/特殊权益'
+  ]}
+];
+
+const FUNNEL_STAGES = [
+  {stage:'有效线索',desc:'分配至顾问的线索',color:'#c98850'},
+  {stage:'完成首联',desc:'当日完成首次有效联系',color:'#b5342e'},
+  {stage:'到访/测试/试听',desc:'到场完成产品体验',color:'#b8942e'},
+  {stage:'方案沟通',desc:'完成需求分析与课程方案',color:'#2d6b5e'},
+  {stage:'课程报名',desc:'完成缴费、系统录入',color:'#3d6f9e'}
+];
+
+const CLASSROOM_RULES = [
+  {title:'班型限额',icon:'👥',color:'#b5342e',items:[
+    {label:'大班（1-2年级）',value:'10人 / 调课上限11人'},
+    {label:'大班（3-9年级）',value:'12人 / 调课上限13人'},
+    {label:'高一高二',value:'14人 / 调课上限15人'},
+    {label:'集训队/强基班',value:'20人 / 调课上限21人'},
+    {label:'小学初中S班',value:'15人 / 调课上限16人'}
+  ]},
+  {title:'调课规则',icon:'🔄',color:'#2d6b5e',items:[
+    {label:'机会次数',value:'每学期每科4次（不占学位）'},
+    {label:'同节课周期内',value:'任意调动只消耗1次'},
+    {label:'调回原班',value:'返还次数'},
+    {label:'补课次数',value:'无限，不占调课次数'},
+    {label:'调课限额',value:'班型人数+1'}
+  ]},
+  {title:'转班规则',icon:'🔀',color:'#3d6f9e',items:[
+    {label:'机会次数',value:'每学期每科不限次数（占学位）'},
+    {label:'转班条件',value:'同期同年级同科目同课次同体系'},
+    {label:'升班',value:'需测试成绩或老师推荐'},
+    {label:'降班',value:'协商即可'},
+    {label:'不可转',value:'低班型转高班型；班级人数为0/成绩过期/锁转入/待缴费占用'}
+  ]},
+  {title:'退费规则',icon:'💸',color:'#c98850',items:[
+    {label:'申请时限',value:'下节课上课前申请，已过课次不退'},
+    {label:'退费口径',value:'按剩余课次退回'},
+    {label:'连续缺课',value:'3次缺课需退学位不保留'},
+    {label:'已结课',value:'不可退'},
+    {label:'集训队缺课',value:'只能调课或录课'},
+    {label:'截止时间',value:'结课下周四24:00前'},
+    {label:'到账时长',value:'10个工作日'}
+  ]},
+  {title:'插班规则',icon:'➕',color:'#6d4f9e',items:[
+    {label:'计费起点',value:'从下一节课开始上课，前面不收费不补课'},
+    {label:'小学最后两次课',value:'小低11-12次、小高14-15次不允许插班'},
+    {label:'初高中限制',value:'第3次课结束后不允许插班'}
+  ]},
+  {title:'缴费方式',icon:'💳',color:'#1a5c6b',items:[
+    {label:'线上',value:'课程中心公众号 / 对公转账 / 数字人民币（仅限小初）'},
+    {label:'线下',value:'扫码枪 / POS机刷卡 / POS机扫码 / 现金'},
+    {label:'POS机',value:'不允许拆金额支付'},
+    {label:'链接/二维码',value:'24小时自动取消并释放学位'}
+  ]},
+  {title:'收款账号',icon:'🏦',color:'#4a3c6e',items:[
+    {label:'小初（含信竞）',value:'深圳桃李未来教育管理有限公司 / 招商银行深圳振华支行 / 755952725310401'},
+    {label:'高中',value:'深圳市福田区桃李未来教育培训中心 / 755963325910201'},
+    {label:'对公转账',value:'须收转账回执当天录入；备注须为"无"或"培训费"'}
+  ]},
+  {title:'续报期',icon:'📅',color:'#b5342e',items:[
+    {label:'寒春续报',value:'每年10月左右开启，持续2周'},
+    {label:'暑秋续报',value:'每年4月左右开启，持续2周'},
+    {label:'续报期对象',value:'仅在读学员可报寒春/暑秋，新生只能报秋季/春季'}
+  ]},
+  {title:'班课时段',icon:'⏰',color:'#2d6b5e',items:[
+    {label:'2小时时段',value:'A(8:00-10:00) / B(10:20-12:20) / C(13:30-15:30) / D(15:50-17:50) / E(18:30-20:30)'},
+    {label:'3小时时段',value:'F(09:00-12:00) / I(14:00-17:00) / L(18:00-21:00)'},
+    {label:'春秋周期',value:'小学：每周四至下周三为一周期；初高中：每周五至下周四'},
+    {label:'寒暑周期',value:'连续每天上课，2-3期内容一致'}
+  ]}
+];
+
+const LEAD_RULES = [
+  {
+    id:"customertype",
+    title:"新签客户四类型",
+    icon:"🏷️",
+    sections:[
+      {
+        title:"四种客户类型",
+        type:"note",
+        text:"新签客户的判定是课程顾问工作分工的核心依据。A、B归课程顾问新签，C归课程顾问促加报，D归教务维护。"
+      },
+      {
+        title:"TYPE A · 全新客户（从未在读）",
+        type:"dual",
+        left:{
+          title:"判定条件",
+          items:["系统中无该手机号对应的学员档案，或档案中无任何历史订单"]
+        },
+        right:{
+          title:"归属与动作",
+          items:["课程顾问·新签","各触点进线均适用","最常见的新签场景"]
+        }
+      },
+      {
+        title:"TYPE B · 历史流失客户（超2学期无课消）",
+        type:"dual",
+        left:{
+          title:"判定条件",
+          items:["曾经在读","距上次实际上课已超2个完整学期（约8月）","当前无未消耗课时（余额=0）"]
+        },
+        right:{
+          title:"归属与动作",
+          items:["课程顾问·新签","须按新签流程重新跟进，不得归教务","首触不提续费先做关怀，用老学员专属回归礼破冰"]
+        }
+      },
+      {
+        title:"TYPE C · 在读无当前课消（促加报）",
+        type:"dual",
+        left:{
+          title:"判定条件",
+          items:["有效合同+课时余额>0","本学期内尚无实际课消记录"]
+        },
+        right:{
+          title:"归属与动作",
+          items:["课程顾问·促加报","联合教务确认未课消原因","解决课消障碍优先于加报","须用促加报话术，不可用新签话术"]
+        }
+      },
+      {
+        title:"TYPE D · 在读且正常课消（教务维护）",
+        type:"dual",
+        left:{
+          title:"判定条件",
+          items:["当前学期有实际课消记录","课时余额>0"]
+        },
+        right:{
+          title:"归属与动作",
+          items:["教务·维护","课程顾问不可介入"]
+        }
+      },
+      {
+        title:"在读状态判断·决策树",
+        type:"steps",
+        items:[
+          {
+            step:"Q1",
+            title:"系统中是否存在该手机号对应的学员档案？",
+            desc:"否→类型A（全新客户·顾问新签）；是→进入Q2"
+          },
+          {
+            step:"Q2",
+            title:"是否有有效课程合同（未结束/余额>0）？",
+            desc:"否→进入Q3判断流失时长；是→进入Q4判断课消"
+          },
+          {
+            step:"Q3",
+            title:"距最后课消超2学期？",
+            desc:"是→类型B（历史流失·顾问新签）；否→观察池（不足2学期，暂不主动激活）"
+          },
+          {
+            step:"Q4",
+            title:"本学期是否有实际课消？",
+            desc:"否→类型C（促加报·顾问）；是→类型D（教务维护·顾问不可介入）"
+          }
+        ]
+      },
+      {
+        title:"重要边界说明",
+        type:"table",
+        headers:["编号","议题","说明"],
+        rows:[
+          [
+            "B01",
+            "2学期的时间计算",
+            "以自然学期为单位：秋季(9月–次年1月)/春季(2月–6月)/暑假(7–8月)/寒假(1–2月)。超2个完整自然学期无课消即满足类型B。暑期短期课不计入正式学期。"
+          ],
+          [
+            "B02",
+            "课时余额≠在读",
+            "家长账户有余额但已超2学期未上课的，仍判定为类型B（课程顾问新签），而非教务维护。余额问题由教务协助退课或说明，课程顾问专注重新销售。"
+          ],
+          [
+            "B03",
+            "多孩家庭",
+            "同一家长名下多个孩子时逐孩判断。A孩子在读（类型D）不等于B孩子在读，B孩子的线索按各自标准独立判定。"
+          ],
+          [
+            "B04",
+            "特殊品类",
+            "人机课、短期集训营等非常规品类的在读判定标准，由中台运营另行发文明确。"
+          ]
+        ]
+      },
+      {
+        title:"接到线索→客户类型识别 操作三步法",
+        type:"steps",
+        items:[
+          {
+            step:"1",
+            title:"查档案（30秒）",
+            desc:"CRM输入家长手机号→看是否存在学员档案。无档案=类型A全新客户，直接走新签；有档案进第2步。"
+          },
+          {
+            step:"2",
+            title:"查合同与余额（30秒）",
+            desc:"看是否有有效课程合同（未结束/余额>0）。无有效合同→进第3步判断流失；有合同→看本学期课消（有课消=类型D退教务，无课消=类型C促加报）。"
+          },
+          {
+            step:"3",
+            title:"算流失时长（30秒）",
+            desc:"查最后一次实际课消日期：距今超2个完整学期=类型B（顾问按新签重启）；不足2学期→进观察池，暂不主动激活。"
+          }
+        ]
+      },
+      {
+        title:"关键动作",
+        type:"note",
+        text:"识别完成后，在CRM「客户类型」字段打标（A/B/C/D），这是后续分配、考核、业绩归属的统一依据，不可不填或填错。促加报≠新签——类型C须用促加报话术，不可用新签话术。"
+      }
+    ]
+  },
+
+  {
+    id:"touchpoints",
+    title:"七大流量触点",
+    icon:"📡",
+    sections:[
+      {
+        title:"触点速查表",
+        type:"table",
+        headers:["触点","规范操作","首触时效","必填CRM字段/注意事项"],
+        rows:[
+          ["① 直电进线（电话呼入）","接听5秒内自我介绍→确认年级/科目/需求→30分钟内录入CRM→即时发企微好友","接听即首触，CRM录入≤30min","手机号/渠道=直电/意向级别/需求关键词。注意：无人接听需回拨（≤3次/天）"],
+          ["② 直访进线（到店咨询）","3分钟内主动接待引导就坐→六步法挖需→当场用PAD/手机录入CRM→加企微发资料","到店即首触，录入≤当日下班前","手机号/渠道=直访/到访日期/意向级别/面谈摘要。注意：必须当场加企微，不可仅留电话"],
+          ["③ 线上引流（广告/SEO/信息流）","系统自动分配或当天录入→24h内首触（优先电话，未通改企微+短信）→关联广告卖点定制首句","系统分配后24h内","手机号/渠道=平台名称/广告素材ID/意向级别。注意：来源须精确（抖音/小红书/百度要区分）"],
+          ["④ 转介绍进线（老带新）","第一时间感谢介绍人→30分钟内联系被介绍人（提及介绍人建立信任）→CRM标注介绍人信息","收到信息后30分钟内","手机号/渠道=转介绍/介绍人姓名/与被介绍人关系。注意：须关联介绍人学员ID否则奖励无法结算"],
+          ["⑤ 统测/活动进线","活动当天录入（标注活动全称）→24h内电话反馈测评结果→结合测评定制话术→高意向当天约下次到访","活动结束后24h内","手机号/渠道=活动名称+日期/测评成绩/意向级别。注意：来源填活动全称，测评报告须附上"],
+          ["⑥ 在线表单/官网留资","系统推送CRM→24h内电话触达→查看家长填写意向定制话术→电话+企微双通路→补齐客户档案","表单提交后24h内","手机号/渠道=官网/小程序/H5（区分）/表单科目意向。注意：来源须区分三类"],
+          ["⑦ 二维码扫码（海报/地推/物料）","触发后30分钟内联系（含企微欢迎语）→确认扫码来源标注CRM→推送对应活动/课程→引导到访预约","扫码后30分钟内","手机号/渠道=二维码+物料名称/地推位置。注意：不同二维码用不同参数追踪；地推顾问须实名标注"]
+        ]
+      },
+      {
+        title:"电话首触5步法",
+        type:"steps",
+        items:[
+          {
+            step:"1",
+            title:"开场报名（5秒内）",
+            desc:"您好，我是桃李未来XX校区课程顾问XX——报清机构+校区+身份，建立正规感。"
+          },
+          {
+            step:"2",
+            title:"说明来意（关联来源）",
+            desc:"关联客户的进线来源（看了哪条广告/参加了哪场活动/谁介绍的），让家长想起我确实留过资。"
+          },
+          {
+            step:"3",
+            title:"挖需求（3问）",
+            desc:"问孩子年级→薄弱科目→当前最头疼的问题。多听少说，记录关键词。"
+          },
+          {
+            step:"4",
+            title:"给钩子+约到店",
+            desc:"用免费学情测评/体验课/诊断报告做钩子，给两个具体时间二选一约到店。"
+          },
+          {
+            step:"5",
+            title:"加企微+录CRM",
+            desc:"挂电话前主动加企微，挂断后30分钟内录入CRM。不可只在脑子里记。"
+          }
+        ]
+      },
+      {
+        title:"首触红线",
+        type:"red",
+        items:["勿在首通电话直接报价","无人接听需回拨，每天不超过3次","未接通改企微+短信同步触达"]
+      }
+    ]
+  },
+  {
+    id:"dedup",
+    title:"线索去重规则",
+    icon:"🔄",
+    sections:[
+      {
+        title:"六大去重场景",
+        type:"table",
+        headers:["去重场景","触发与处理","归属裁定原则","责任人/时效"],
+        rows:[
+          ["① 同渠道同手机号24h内重复","系统自动合并为1条，保留最早提交，重复记录入备注","归属第一条线索已分配的课程顾问","系统自动，无时效要求"],
+          ["② 跨渠道同手机号","系统识别同手机号触发去重提醒，人工确认后合并","以最早进入CRM时间为准（先到先得）；两顾问均已跟进则按最早有效沟通时间戳裁定","校区主管，1小时内裁定"],
+          ["③ 跨校区同手机号","系统提醒双方校区主管，片区主管介入","以家长明确意向校区为准；无明确意向则以最早触达校区为准","片区主管，6小时内裁定"],
+          ["④ 同家长不同孩子（多孩家庭）","不视为重复，各孩子独立建档、独立分配","各孩子独立归属，可同一或不同顾问（主管决定）","顾问录入，主管审核"],
+          ["⑤ 无效线索标记","顾问标记无效需上传证据（通话/号码状态截图）","同渠道连续3次无效需上报中台","顾问操作，主管24h审核"],
+          ["⑥ 黑名单线索","系统识别黑名单手机号自动拦截，不分配","自动归档；认定有误可经主管上报中台申诉","系统自动，中台管理"]
+        ]
+      }
+    ]
+  },
+  {
+    id:"allocation",
+    title:"线索分配规则",
+    icon:"📋",
+    sections:[
+      {
+        title:"顾问层·接收与分配机制",
+        type:"table",
+        headers:["分配方式","分配逻辑","接收后操作","时效/异常处理"],
+        rows:[
+          ["系统自动轮询","线上渠道新线索按顾问在线状态轮询分配；满额转待分配队列；顾问不可拒绝接收","24h内首触+录入意向级别+更新状态","收到后24h内首触；超时提醒，再2h未触达转给在线顾问"],
+          ["指定分配（主管手动）","直访/VIP/复杂跟进/顾问申请接手；主管后台手动指定，有5分钟确认窗口","确认接收+30分钟内首触+更新备注","确认后30分钟内首触；有异议向主管反馈裁定"],
+              ["跨顾问移交","顾问离职/请假/客户点名换人；主管批量或单条移交","接收顾问24h内打招呼告知换人，不可重置意向级别","接收后24h内首次打招呼；可拒绝（需说明），主管再分配"]
+        ]
+      },
+      {
+        title:"核心时效",
+        type:"note",
+        text:"线索进入CRM后，中台/系统应在1小时内完成分配；顾问接收后，自动轮询线索24h内首触、指定分配30分钟内首触、"
+      }
+    ]
+  },
+  {
+    id:"exception",
+    title:"异常处理与仲裁",
+    icon:"⚖️",
+    sections:[
+      {
+        title:"E1–E6 异常场景",
+        type:"table",
+        headers:["异常类型","认定标准","处理流程","处罚规则"],
+        rows:[
+          ["E1 抢单争议","2名及以上顾问均声称对某线索有跟进权","各方提交首次有效沟通时间戳+截图→主管2h内裁定→以最早有效沟通为准","败诉方本次不扣罚；同一顾问年内争议≥3次降等级"],
+          ["E2 虚假跟进","记录与实际通话不符；记录时间与通话时长不匹配；家长反映从未接到电话","主管调取记录+录音对比，24h内核实，属实启动处罚","首次警告+扣月绩效10%；二次扣30%；三次开除"],
+          ["E3 恶意标记无效","对有效线索故意标记无效以降工作量/报复；被标无效后经其他渠道重新留资并转化","系统自动比对→主管核实标记理由→属实处罚","首次警告+补回线索；二次扣绩效20%；三次开除"],
+          ["E4 私下交易线索","顾问与顾问/外部人员私下交换或买卖客户资源","举报受理→中台24h内介入调查→属实立即终止归属并处罚","直接开除，情节严重依法追责（零容忍，不接受申诉）"],
+          ["E5 离职线索转移","顾问离职时名下有未处理线索","离职申请当日主管启动清查→当日完成全部移交（高意向优先）→不得自行删除CRM记录","未完成移交：暂缓发放最后一月绩效，完成后补发"],
+          ["E6 系统故障处理","CRM故障导致无法正常录入/跟进","用Excel/纸质记录→恢复后24h内补录→时效以恢复时间为起点顺延→主管上报中台存档","故障期间无绩效扣罚"]
+        ]
+      },
+      {
+        title:"核心红线",
+        type:"red",
+        items:["私下交易零容忍（开除）","虚假跟进/恶意标记二次警告","所有争议24h内响应裁定","所有处罚由片区主管最终确认，中台存档"]
+      }
+    ]
+  },
+  {
+    id:"quickref",
+    title:"核心规则速查",
+    icon:"📌",
+    sections:[
+      {
+        title:"开始使用前必读",
+        type:"grid",
+        items:[
+          {
+            label:"新签定义",
+            value:"从未在读的客户 或 非在读学员超连续2学期无实际课消→归课程顾问新签"
+          },
+          {
+            label:"去重原则",
+            value:"同手机号24h内重复→合并为同一条；跨渠道同手机号→以最早进入CRM时间为准（先到先得）"
+          },
+          {
+            label:"分配时效",
+            value:"进CRM后系统1小时内分配；指定分配顾问接收后30分钟内首触，线上轮询24h内首触"
+          },
+          {
+            label:"到访接待",
+            value:"先查归属：已邀约→邀约顾问接待；自然到访→轮值接待即归属，严禁现场争抢"
+          },
+          {
+            label:"扭转限制",
+            value:"顾问不可将教务线索领入自己名下；教务不可领取顾问新签线索，违者扣绩效"
+          },
+          {
+            label:"跨校区归属",
+            value:"同手机号多校区→片区主管6h内裁定，以家长意向校区为准，无意向则最早触达校区"
+          },
+          {
+            label:"红线",
+            value:"私下交易零容忍（开除）；虚假跟进/恶意标记二次警告；所有争议24h响应"
+          }
+        ]
+      },
+      {
+        title:"一句话总纲",
+        type:"note",
+        text:"售前的每一天=守时效+改状态（每次跟进必更新）+推进度（按级跟、约到店、促成交）。三件事做到位，转化率自然提升。"
+      }
+    ]
+  }
+];
+
+const ATTRIBUTION_RULES = [
+  {
+    id:"principles",
+    title:"三项原则",
+    icon:"📌",
+    sections:[
+      {
+        title:"核心口径",
+        type:"note",
+        text:"客户资源归公司；跟进责任按实际承接流转；新签业绩原则上归实际完成成交闭环的顾问。首接、首邀约、客户最初分配、同日是否上班、是否同一校区，均不当然形成业绩归属。"
+      },
+      {
+        title:"三项原则",
+        type:"table",
+        headers:["原则","管理含义"],
+        rows:[
+          [
+            "客户资源公司所有",
+            "客户及其家庭成员、联系方式、需求、沟通记录均为公司资源，任何个人不得主张永久占有或私下转移。"
+          ],
+          [
+            "服务连续优先",
+            "客户到店、跨校区、顾问休息或临时缺席时，现场人员应先承接，不得以归属未定为由让客户等待。"
+          ],
+          [
+            "实际成单认定",
+            "新签业绩原则上归实际完成关键销售动作并达成有效订单的顾问；首接、首邀约和原分配仅是过程贡献。"
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    id:"roles",
+    title:"职责分工",
+    icon:"👥",
+    sections:[
+      {
+        title:"各角色核心职责",
+        type:"table",
+        headers:["角色","核心职责"],
+        rows:[
+          [
+            "课程顾问",
+            "真实建档、持续留痕；客户确认到本校区测试后按分配承接测试前联系和测试后销售跟进，不因业绩归属争议影响客户服务。"
+          ],
+          [
+            "校区副主管",
+            "维护本校区测试客户的顾问分配与承接记录；检查测试预约确认后的默认跟进是否执行，初判客户资源归属争议。"
+          ],
+          [
+            "校区主管",
+            "处理重大或跨校区争议，纠正不当行为，确保客户体验和校区协作优先。"
+          ],
+          [
+            "教顾运营组",
+            "抽检SCRM、WPS、测试预约、业务系统及AI录音记录一致性；复核跨校区或重大申诉；识别高频争议和流程漏洞。"
+          ],
+          [
+            "校区教务",
+            "根据测试预约完成测试安排、现场测试组织和结果记录；将测试结果同步顾问。"
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    id:"definitions",
+    title:"术语定义",
+    icon:"📖",
+    sections:[
+      {
+        title:"术语定义",
+        type:"table",
+        headers:["术语","定义"],
+        rows:[
+          [
+            "客户资源",
+            "以学员为核心并关联家长/监护人、家庭成员、手机号、微信、渠道来源及历史咨询记录的公司资源。"
+          ],
+          ["首接顾问","首次接听、加微、到店接待或登记客户信息的顾问。"],
+          ["邀约顾问","完成邀约并促成客户到店、到另一校区或参加测评/试听的顾问。"],
+          [
+            "承接顾问",
+            "客户确认到该顾问所在校区测试，或经公司正常分配后，实际承担测试前联系、测试后课程沟通及成交跟进的顾问。测试预约确认到B校区后，默认由B校区顾问承接。"
+          ],
+          [
+            "成单顾问",
+            "实际承担主要销售责任并促成客户作出报名缴费决定的顾问。综合需求诊断、测试结果/学情解读、课程方案、价格沟通、异议处理、报名意愿确认及成交推动认定。"
+          ],
+          [
+            "辅助接待",
+            "仅完成创建订单、录入课程、发送缴费链接、协助付款或代收款，未参与关键销售环节。"
+          ],
+          [
+            "有效订单",
+            "订单信息真实完整，业务系统录入完成，且不存在虚假拆单、挂单等情形。"
+          ],
+          [
+            "AI谈单录音",
+            "顾问在合规谈单过程中形成的完整录音及AI转写，用于核实客户的自然表达、计划上课校区、顾问选择及实际销售动作。"
+          ],
+          [
+            "有效课程沟通",
+            "顾问围绕客户需求、学情、课程方案、价格、异议或报名意愿开展的实质沟通，并对客户最终报名决定产生实际推动作用。一般问候、到店提醒、转发资料和订单操作不属于有效课程沟通。"
+          ],
+          [
+            "关键销售环节",
+            "需求诊断、测试结果/学情解读、课程及班型方案、价格沟通、异议处理、报名意愿确认和成交推动。"
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    id:"rules",
+    title:"业绩归属八条总规则",
+    icon:"📐",
+    sections:[
+      {
+        title:"以下规则为直接裁判口径",
+        type:"steps",
+        items:[
+          {
+            step:"1",
+            title:"新签业绩归实际成单顾问",
+            desc:"实际成单人是实际承担销售责任并促成客户作出报名缴费决定的顾问，不以谁先接触、谁先加微信、谁先建档、谁创建订单、谁发送缴费链接或资源最初分给谁认定。"
+          },
+          {
+            step:"2",
+            title:"客户有权选择沟通顾问",
+            desc:"客户主动转找另一顾问，由该顾问承接后续并实际成单的，业绩归该成单顾问。原顾问的首接、邀约或历史沟通不形成业绩分成。"
+          },
+          {
+            step:"3",
+            title:"同校区与跨校区适用同一标准",
+            desc:"顾问当天上班、休息、请假、外出、培训或排班不在店，均不改变实际成单人归属。"
+          },
+          {
+            step:"4",
+            title:"现场校区默认跟进（新增）",
+            desc:"客户确认到B校区测试后，自测试预约确认之时起，默认由B校区顾问负责测试前联系、到店衔接、测试后课程沟通及成交跟进。"
+          },
+          {
+            step:"5",
+            title:"跨校区测试由B校区承接（新增）",
+            desc:"若客户意向到B校区测试，则测试由B校区教务负责安排和组织。A顾问应在系统中帮助家长录入代预约信息，由B校区顾问主动联系安排，A顾问停止私下进行实质销售跟进；不得诱导客户测试后返回A处咨询或拒绝B顾问。"
+          },
+          {
+            step:"6",
+            title:"协作贡献不拆分业绩",
+            desc:"首接、邀约、陪谈和现场支持属于协作贡献，可在过程评价中记录，但不当然分割订单业绩。测试安排及测试组织由教务负责，不作为顾问个人业绩认定动作。"
+          },
+          {
+            step:"7",
+            title:"零沟通代录/代收可申诉（新增）",
+            desc:"若A顾问已完成实质课程沟通及主要成交推动并达成共识，成交的最后一步由老师或其他内部人员安排B顾问创建订单、录入课程、发送缴费链接或协助收款，而B顾问与家长零沟通或未参与任何课程沟通仅做费用核对，A顾问可以申诉；查证后业绩归A顾问。"
+          },
+          {
+            step:"8",
+            title:"凭证据认定",
+            desc:"任何业绩归属均以真实、完整、可核验的系统记录、完整AI谈单录音和实际销售动作为依据。单句录音、局部截图、顾问单方转述、事后补录或明显滞后的记录，不得作为唯一依据。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id:"scenarios",
+    title:"典型场景判定（15种）",
+    icon:"🔀",
+    sections:[
+      {
+        title:"同校区场景",
+        type:"table",
+        headers:["场景","事实摘要","归属","判定说明"],
+        rows:[
+          ["同校区·客户改找他人","A接待过家长；后续家长主动找到B，B进行课程沟通并成单","B","首接不锁定业绩；以实际成单人为准"],
+          ["同校区·A当天上班","A当班且曾接待；家长选择B咨询，B实际成单","B","是否上班不影响归属"],
+          ["同校区·A当天休息","A曾邀约/跟进；A休息时客户到店，B承接后持续跟进并成单","B","休息不形成业绩保留"]
+        ]
+      },
+      {
+        title:"跨校区场景",
+        type:"table",
+        headers:["场景","事实摘要","归属","判定说明"],
+        rows:[
+          [
+            "跨校区·计划B校区上课",
+            "A原邀约客户；客户确认到B校区测试，自预约确认起由B默认承接并实际完成后续销售成交",
+            "B",
+            "B教务负责测试，B顾问负责销售承接"
+          ],
+          [
+            "跨校区·测试便利",
+            "家长因距离/时间/场次便利确认到B校区测试，自预约确认起由B跟进并实际成交",
+            "B",
+            "测试原因不影响现场校区默认跟进"
+          ],
+          [
+            "跨校区·上课校区未定",
+            "客户确认到B校区测试时尚未决定上课校区，自预约确认起由B默认承接，B后续实际成交",
+            "B",
+            "测试预约确认即进入B校区跟进"
+          ],
+          [
+            "跨校区·测试后改选B",
+            "客户确认到B校区测试，自预约确认起由B承接并实际完成后续销售成交",
+            "B",
+            "无需A另行申请"
+          ],
+          [
+            "跨校区·客户只找A（申诉例外）",
+            "家长自然表达仅愿与A沟通，完整AI录音可核验；B教务完成测试，A承担完整销售闭环并成交",
+            "A",
+            "尊重客户真实选择；A不得提示、暗示或教授指定话术"
+          ],
+          ["跨校区·A诱导指定","A提示家长向B表示只找A，或要求家长测试后必须回A报名","暂缓","先调查违规；不得只凭收款结果直接认定"]
+        ]
+      },
+      {
+        title:"特殊场景",
+        type:"table",
+        headers:["场景","事实摘要","归属","判定说明"],
+        rows:[
+          [
+            "申诉例外·B仅代录代收",
+            "A已完成实质课程沟通及主要成交推动；老师仅安排B创建订单、发送缴费链接或协助收款，B与家长零沟通或未参与关键销售环节",
+            "A（申诉查证后）",
+            "订单操作不等于成单；以完整AI录音及实际销售动作查证"
+          ],
+          [
+            "联合谈单",
+            "A、B都参与销售过程，结合完整录音和关键销售动作，确认由B承担主要销售责任并促成成交",
+            "B",
+            "以实际承担人为准，不平均分配"
+          ],
+          ["客户主动点名","客户明确要求B继续沟通；B承接并成单","B","尊重客户选择并保障体验"],
+          ["原顾问离职/调岗","A离职或调岗，客户由B正式承接并成单","B","公司资源随正式承接流转"],
+          ["重复录入","同一学员/家庭被A、B分别建档，B实际成单","B","先合并资源，再按成单事实认定"],
+          ["恶意截客后成交","B主动诱导正在由A有效跟进的客户绕开A并成单","暂缓","先调查违规；不得只凭收款结果直接认定"]
+        ]
+      }
+    ]
+  },
+  {
+    id:"prohibited",
+    title:"禁止行为（8条）",
+    icon:"🚫",
+    sections:[
+      {
+        title:"禁止行为与处理原则",
+        type:"table",
+        headers:["禁止行为","识别示例","处理原则"],
+        rows:[
+          [
+            "恶意截客",
+            "明知客户正由他人有效跟进，主动诱导客户换顾问、换联系方式或删除原记录",
+            "暂停业绩结算，先调查事实；视情节纠正归属并按纪律处理"
+          ],
+          ["私自占单","仅因先加微信、先建档或历史接触，拒绝交接、阻碍现场人员服务","过程贡献不转化为业绩权利"],
+          ["篡改证据","删除、补造、倒填沟通记录或诱导客户配合虚假证明","相关主张不予采信，并升级校区主管/人力处理"],
+          ["损害客户体验","在客户面前争抢、互相贬损、推诿接待，或因归属争议延迟服务","先恢复服务，后内部追责；客户投诉从重处理"],
+          ["私下交易","绕开公司合同、账户或系统收款，私自答应返现/优惠","订单不予正常认定，并按公司红线及合规要求处理"],
+          [
+            "诱导客户回流",
+            "客户已确认到B校区测试，A仍提示、暗示或要求客户测试后返回A处咨询，或要求客户拒绝B顾问",
+            "停止不当跟进；按B校区默认承接及实际成单规则处理"
+          ],
+          [
+            "只提单不跟进",
+            "顾问未参与有效课程沟通或关键销售环节，仅凭创建订单、发送缴费链接或收款主张业绩",
+            "允许实际沟通顾问申诉"
+          ],
+          [
+            "拒绝现场承接",
+            "客户已确认到本校区测试，承接顾问未按默认跟进原则完成测试前联系和测试后销售跟进",
+            "由校区内部重新分配并记录"
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    id:"dispute",
+    title:"争议处理与证据规则",
+    icon:"⚖️",
+    sections:[
+      {
+        title:"可申诉范围",
+        type:"note",
+        text:"A顾问已完成实质课程沟通、主要成交推动并与家长达成报名共识，B顾问仅依内部安排（如老师提出协助创建订单）完成费用核对、订单创建、缴费链接发送或收款协助，与家长零沟通或未参与关键销售环节的，A顾问可提出申诉；经查证属实，业绩归A顾问。"
+      },
+      {
+        title:"处理层级",
+        type:"table",
+        headers:["层级","职责","输出"],
+        rows:[
+          ["校区副主管","日常初判、调取记录、组织双方说明","证据清单"],
+          ["校区主管","处理重大争议、恶意截客、跨校区异议或复核申请","最终校区意见"],
+          ["教顾运营组","统一多校区口径、处理重复性和制度性争议","终审意见及规则修订建议"]
+        ]
+      },
+      {
+        title:"证据采信顺序",
+        type:"steps",
+        items:[
+          {
+            step:"第一顺位",
+            title:"沟通与确认记录",
+            desc:"企业微信聊天记录、通话记录、学习方案记录、现场沟通记录及报名意愿确认记录，用于识别实际承担主要销售责任的人。"
+          },
+          {
+            step:"第二顺位",
+            title:"系统与流程记录",
+            desc:"尘锋SCRM过程记录、WPS365分配/交接记录、测试预约确认时间、业务系统订单、支付记录及老师/教务安排代录代收的内部记录。"
+          },
+          {
+            step:"辅助参考",
+            title:"口头陈述等",
+            desc:"顾问口头陈述、单句录音、局部截图和单方转述仅作辅助；应综合审查完整AI录音、记录形成时间、关键销售动作、成交推动作用及订单操作是否仅为内部代办。"
+          }
+        ]
+      },
+      {
+        title:"申诉时效",
+        type:"note",
+        text:"对业绩归属有异议的，应在客户成单后2个工作日内提交相关证明给校区副主管。校区副主管进行沟通取证，并于2个工作日内完成初判；跨校区、重大争议或双方均主张实际成单的，再于校区主管与教顾运营组3个工作日内完成复核。逾期/已进入薪酬核算的不再受理。"
+      },
+      {
+        title:"零沟通代录/代收申诉（唯一申诉例外）",
+        type:"steps",
+        items:[
+          {
+            step:"条件",
+            title:"适用条件",
+            desc:"A主张本人已完成实质课程沟通及主要成交推动；系统登记或订单操作人为B；B与家长零沟通，或未参与任何关键销售环节，仅创建订单、录入课程、发送缴费链接、协助付款或代收款。"
+          },
+          {
+            step:"材料",
+            title:"申诉材料",
+            desc:"A提交完整AI谈单录音、沟通记录、课程方案、价格或异议处理、报名意愿确认等证据；B订单操作时间及老师/内部人员安排代办的内部记录。"
+          },
+          {
+            step:"裁定",
+            title:"裁定标准",
+            desc:"查实A完成主要销售责任，B仅做订单提交与收款操作，未参与客户的课程销售沟通环节，则业绩归A。若A、B均参与课程沟通或关键销售环节的，不适用零沟通代录例外，业绩归实际成交的人。"
+          }
+        ]
+      }
+    ]
+  }
+];
+
+
+const BIZ_RULES = {
+  classroom:{title:'班课规则速查',icon:'📐',color:'#b5342e',type:'cards'},
+  attribution:{title:'客户资源与业绩归属',icon:'📊',color:'#c98850',type:'leads'},
+  leads:{title:'线索管理规则',icon:'🔍',color:'#3d6f9e',type:'leads'},
+
+
+  signup:{title:'签单规则',icon:'📝',color:'#c98850',sections:[
+    {title:'班课报名规则',items:[
+      {label:'测试要求',value:'体系课需参加散测或统测；高中可凭中考/统考成绩匹配；同份卷首次成绩有效'},
+      {label:'插班规则',value:'从下一节课开始上课，前面不收费不补课。小学最后两次课不允许插班（小低11-12次，小高14-15次）；初高中第3次课后不允许'},
+      {label:'旁听规则',value:'在读学员家长可旁听已报名科目，未缴费不可旁听。班课无试听课（不可支付1次课费用试听），可引导体验课'},
+      {label:'教材规则',value:'小学英语（朗文）收取教材费，其他不收取。插班生由顾问统筹沟通，教务负责教材准备与发放'},
+    ]},
+    {title:'【班课】调课规则',items:[
+      {label:'调课次数',value:'每学员每科目每学期4次调课机会；同一节课周期内任意调动只消耗1次；调回原班返还次数'},
+      {label:'调课条件',value:'同年份、同学期、同年级、同科目、同班型、同班次、总课次相同、剩余课次相同——学位不转移，只临时调一次课'},
+      {label:'调课限额',value:'所有班型调课限额为班型人数+1；0人班不可调入'},
+      {label:'调课权限',value:'上课前：家长/教务均可操作；已开课未结束：仅教务操作；已结束在周期内：教务通过"补课"按钮操作'},
+    ]},
+    {title:'【班课】转班规则',items:[
+      {label:'转班次数',value:'每学期每科体系课不限制次数（占学位）；短期班不限制次数'},
+      {label:'转班条件',value:'同年份/学期/年级/科目/体系/班次/总课次/剩余课次相同——学位转移'},
+      {label:'无法转入',value:'锁转入班级 / 0人班需提前沟通 / 有待缴费占用学位 / 成绩过期需补录'},
+      {label:'操作时效',value:'务必在当节课开始前办理；上课中可勾选进行中课次操作；已结束需通过补课+下次转班'},
+    ]},
+    {title:'【班课】补课规则',items:[
+      {label:'补课条件',value:'课程同体系/同年级/同科目/同班次/总课次相同/剩余课次相同/同一周期/该节课已过'},
+      {label:'补课次数',value:'无限次数，不占用调课次数'},
+      {label:'操作限制',value:'当节课结束后才可办理；考勤状态"未到"且已结束；被补课班级该次课未开课；被补课班级人数未满'},
+    ]},
+    {title:'【班课】升班规则',items:[
+      {label:'小学',value:'前台散测（每月可测/不可升高端班）+ 期末升班考（可跨级）+ 老师推荐（寒暑1个名额/春秋2个名额/换班型不换老师）'},
+      {label:'初中',value:'前台散测 + 统测 + 老师推荐（A预备→A→A+ 不可跨级，S体系不参与）'},
+      {label:'高中',value:'前台散测 + 任课教师推荐（换班型不换老师/需文字留痕）+ 学校成绩排名升班（需成绩单截图）'},
+    ]},
+    {title:'【1对1】签单规则',items:[
+      {label:'排课原则',value:'以教师归属校区为第一原则，客户需求为第一前提。以系统学位为准，教师私下拒排视为违规'},
+      {label:'新签预留备课',value:'春秋季周中≥1天；教师周六≥3次课时周五新签延至下周；寒暑假≥2天（连续≥3次课）或≥1天（<3次课）'},
+      {label:'试听规则',value:'班课无试听课；1对1可安排45分钟免费试听，前一晚21:00前系统缴费报名；18:00-21:00缴费需电话+企微告知教师'},
+      {label:'跨年级',value:'同段按实际年级收费；跨段按课程年级收费；升学段（六升初一/初升高）以课程规划年级收费'},
+    ]},
+    {title:'【1对1】调课规则',items:[
+      {label:'春秋季',value:'教务接收调课信息→核实教师课表→系统操作；教师接收→告知教务→教务与客户确认后操作'},
+      {label:'寒暑假',value:'禁止将完整课次分布多期多个时段占多个学位；调课需求集中开课前一周内调整'},
+      {label:'教室调整',value:'以教师归属校区为第一原则，客户需求为第一前提。客户主动提出更换/教师发出沟通同意截图，可调整至同一片区其他校区'},
+    ]},
+    {title:'【1对1】转班规则',items:[
+      {label:'转班条件',value:'同年份、学期、年级、科目、课程体系、总课次相同、剩余课次相同——学位转移'},
+      {label:'操作时效',value:'务必在当节课开始前办理；上课中可勾选进行中课次操作；已结束需通过补课+下次转班'},
+    ]}
+  ]},
+  refund:{title:'退费规则',icon:'💸',color:'#b5342e',sections:[
+    {title:'班课退费规则',items:[
+      {label:'申请时限',value:'下节课上课前申请退费，已过课次不退费；结课下周四24:00前截止'},
+      {label:'退费计算',value:'实退费用=实缴金额-已过课时×课时单价（课时单价=实缴金额÷总课时）；优惠金额均摊到每节课'},
+      {label:'连续缺课',value:'3次缺课需退学位不保留（需先和任课老师沟通）'},
+      {label:'已结课/集训队',value:'已结课不可退；集训队（含信竞）缺课只能调课或录课，无法单次退课'},
+      {label:'优惠券',value:'退费后优惠券作废不予返回；升班/降班/报错可申请补回'},
+      {label:'账户中心',value:'金额不能退费只做中转；不能跨业务单元/学段使用；不主动向家长介绍此功能'},
+    ]},
+    {title:'1对1退费规则',items:[
+      {label:'退费方式',value:'支持课前/课中随时退费；10个工作日内原路退回；往期剩余课次以课次抵扣形式退回账户中心'},
+      {label:'挽单流程',value:'收到退费需求必须发起OA挽单流程→教务和教师沟通原因和方案→协商挽单→OA填写挽单结果'},
+      {label:'无需挽单',value:'退过往课时、转体系/转学、退费重报至账户中心、全日制退费、教师离职交接、纯新生课前退费'},
+    ]}
+  ]},
+  payment:{title:'优惠与缴费',icon:'💳',color:'#2d6b5e',sections:[
+    {title:'缴费方式',items:[
+      {label:'线上',value:'课程中心公众号缴费（支持微信/支付宝）；对公转账（私对公/公对公）；数字人民币（仅小初）'},
+      {label:'线下',value:'扫码枪（一笔收款）；POS机刷卡（不允许多卡拆分）；POS机扫码；现金支付'},
+      {label:'时效',value:'链接/二维码24小时自动取消并释放学位；对公转账/数币/POS机/现金需当天录入系统'},
+      {label:'组合付款',value:'POS+现金可组合，系统需选择组合付款方式'},
+    ]},
+    {title:'收款账号',items:[
+      {label:'1对1+班课小初',value:'深圳桃李未来教育管理有限公司 / 招商银行深圳振华支行 / 755952725310401'},
+      {label:'班课高中',value:'深圳市福田区桃李未来教育培训中心 / 招商银行深圳振华支行 / 755963325910201'},
+    ]},
+    {title:'对公转账注意事项',items:[
+      {label:'回执核查',value:'主动收取转账回执单，审核无误后入账录单；无回执联系财务彭秋婵后台导出'},
+      {label:'备注要求',value:'有效备注：无 / "培训费"；不合理备注（如"货款""往来款"）→原路退回重新转账'},
+      {label:'异常处理',value:'限额/无法当日入账/暂无法确认→向周慧芳老师报备说明'},
+    ]},
+    {title:'折扣类型',items:[
+      {label:'固定折扣',value:'员工子女及亲属 / 中小学在职教职工子女 / 南科大在职教职工子女 / 深圳海关在职职工子女——均已事先明确'},
+      {label:'自定义折扣',value:'重大客诉处理 / 高端客户拓展 / 客户挽留——需单独审批，管理层评估后确定'},
+      {label:'叠加规则',value:'所有折扣不可与新招/续报优惠叠加，系统自动取最大优惠，可与优惠券叠加'},
+    ]},
+  ]},
+  invoice:{title:'发票指引',icon:'📄',color:'#6d4f9e',sections:[
+    {title:'发票规则',items:[
+      {label:'普票',value:'所有支付方式可开，微信公众号默认开出电子普票，服务类型"培训费"'},
+      {label:'专票',value:'仅对公转账+一般纳税人证明可开，需签署培训合同（教务协助）'},
+      {label:'开票条件',value:'按订单维度办理；实缴且已课消且未超一年的课程费用；未上课/未考勤/已退费不可开票'},
+    ]}
+  ]}
+};
+
+const TABS = [
+  {id:'overview',icon:'📋',label:'岗位全貌'},
+  {id:'lifecycle',icon:'🔄',label:'客户经营'},
+  {id:'daily',icon:'📅',label:'工作清单'},
+  {id:'product',icon:'📚',label:'产品知识'},
+  {id:'process',icon:'🔀',label:'核心业务流程'},
+  {id:'actions',icon:'📖',label:'核心动作库'},
+  {id:'classroom_rules',icon:'📐',label:'核心规则中心'},
+  {id:'kpi',icon:'🎯',label:'指标看板'},
+  {id:'rules',icon:'⚖️',label:'红黄线'},
+  {id:'tools',icon:'🧰',label:'工具资源'}
+];
+
+// ==================== STATE ====================
+let currentTab = 'overview';
+let selectedCadence = 'daily';
+let selectedActionCat = 'acquire';
+let selectedProcess = 0;
+let selectedProductCat = 'glossary';
+let selectedBizRuleCat = 'classroom';
+let selectedBizRuleTab = 'classroom_rules';
+let mobileNavInit = false;
+
+// ==================== RENDER ====================
+function initMobileNav() {
+  if (mobileNavInit) return; mobileNavInit = true;
+  const panel = document.getElementById('mobilePanel');
+  panel.innerHTML = TABS.map(t => `<a href="#" onclick="switchTab('${t.id}');toggleMobileNav()">${t.icon} ${t.label}</a>`).join('') + '<hr style="border-color:var(--stone);margin:6px 0;"><a href="#" onclick="preparePrint();toggleMobileNav()">📄 导出 PDF</a>';
+}
+function toggleMobileNav() {
+  initMobileNav();
+  document.getElementById('mobileOverlay').classList.toggle('show');
+  document.getElementById('mobilePanel').classList.toggle('show');
+}
+
+function switchTab(tab) {
+  currentTab = tab; selectedCadence = 'daily'; selectedActionCat = 'acquire'; selectedProcess = 0;
+  selectedProductCat = 'glossary';
+  if (tab === 'classroom_rules') { selectedBizRuleTab = 'classroom_rules'; selectedBizRuleCat = 'classroom'; }
+
+  document.querySelectorAll('.view-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+  const mts = document.getElementById('mobileTabSelect');
+  if (mts) mts.value = tab;
+  const panel = document.getElementById('mainPanel');
+  panel.style.opacity = '0'; panel.style.transform = 'translateY(8px)';
+  setTimeout(() => { renderAll(); panel.style.opacity = '1'; panel.style.transform = 'translateY(0)'; }, 180);
+}
+
+function selectCadence(k) { selectedCadence = k; updateCadenceNav(); renderChecklistDetail(); }
+function selectActionCat(k) { selectedActionCat = k; updateActionNav(); renderActionDetail(); }
+function selectProcess(i) { selectedProcess = i; updateProcessNav(); renderProcessDetail(); }
+function selectProductCat(k) { selectedProductCat = k; updateProductNav(); renderProductDetail(); }
+function selectBizRuleCat(k) { selectedBizRuleCat = k; selectedBizRuleTab = currentTab; updateBizRuleNav(); renderBizRuleDetail(); }
+
+function updateCadenceNav() {
+  document.querySelectorAll('#mainPanel .checklist-nav .checklist-nav-item').forEach(el => {
+    el.classList.toggle('active', el.textContent.trim() === CHECKLIST[selectedCadence]?.title);
+  });
+}
+function updateProcessNav() {
+  document.querySelectorAll('#mainPanel .sop-center-nav .sop-center-nav-item').forEach((el,i) => {
+    el.classList.toggle('active', i === selectedProcess);
+  });
+}
+function updateActionNav() {
+  const keys = Object.keys(ACTION_LIBRARY);
+  document.querySelectorAll('#mainPanel .sop-center-nav .sop-center-nav-item').forEach((el,i) => {
+    el.classList.toggle('active', keys[i] === selectedActionCat);
+  });
+}
+function updateProductNav() {
+  const keys = Object.keys(PRODUCT_KNOWLEDGE);
+  document.querySelectorAll('#mainPanel .sop-center-nav .sop-center-nav-item').forEach((el,i) => {
+    el.classList.toggle('active', keys[i] === selectedProductCat);
+  });
+}
+function updateBizRuleNav() {
+  const keys = ['classroom','signup','refund','payment','invoice','attribution'];
+  document.querySelectorAll('#mainPanel .sop-center-nav .sop-center-nav-item').forEach((el,i) => {
+    el.classList.toggle('active', keys[i] === selectedBizRuleCat);
+  });
+}
+
+function renderAll() { renderSubFilter(); renderMainPanel(); }
+
+function renderSubFilter() {
+  const el = document.getElementById('subFilter');
+  const tab = TABS.find(t => t.id === currentTab);
+  const prefix = `<span style="background:var(--accent-deep);color:#fff;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;margin-right:8px;">${tab.icon} ${tab.label}</span>`;
+  if (currentTab === 'overview') el.innerHTML = prefix + '<span style="font-size:13px;color:var(--text-secondary);">工作手册总览：岗位定位 · 五大职责模块 · 协同关系 · 快捷跳转</span>';
+  else if (currentTab === 'lifecycle') el.innerHTML = prefix + '<span style="font-size:13px;color:var(--text-secondary);">客户生命周期 · 分层规则 · 跟进频率 · 异议口径 · 典型案例</span>';
+  else if (currentTab === 'daily') el.innerHTML = prefix + Object.entries(CHECKLIST).map(([k,v]) => `<span class="filter-chip ${k===selectedCadence?'active':''}" onclick="selectCadence('${k}')">${v.title}</span>`).join('');
+  else if (currentTab === 'product') el.innerHTML = prefix + Object.entries(PRODUCT_KNOWLEDGE).map(([k,v]) => `<span class="filter-chip ${k===selectedProductCat?'active':''}" onclick="selectProductCat('${k}')">${v.title}</span>`).join('');
+  else if (currentTab === 'process') el.innerHTML = prefix + PROCESSES.map((p,i) => `<span class="filter-chip ${i===selectedProcess?'active':''}" onclick="selectProcess(${i})">${p.icon} ${p.name}</span>`).join('');
+  else if (currentTab === 'actions') el.innerHTML = prefix + Object.entries(ACTION_LIBRARY).map(([k,v]) => `<span class="filter-chip ${k===selectedActionCat?'active':''}" onclick="selectActionCat('${k}')">${v.title}（${v.actions.length}项）</span>`).join('');
+  else if (currentTab === 'classroom_rules') el.innerHTML = prefix + Object.entries(BIZ_RULES).filter(([k]) => ['classroom','signup','refund','payment','invoice'].includes(k)).map(([k,v]) => `<span class="filter-chip ${k===selectedBizRuleCat?'active':''}" onclick="selectBizRuleCat('${k}')">${v.icon} ${v.title}</span>`).join('');
+  else if (currentTab === 'kpi') el.innerHTML = prefix + '<span style="font-size:13px;color:var(--text-secondary);">7项核心经营指标 · 漏斗转化可视化 · 每日自检清单</span>';
+  else if (currentTab === 'rules') el.innerHTML = prefix + '<span style="font-size:13px;color:var(--text-secondary);">红线一票否决 · 黄线警告整改 · 红线看性质，黄线看频次</span>';
+  else if (currentTab === 'tools') el.innerHTML = prefix + '<span style="font-size:13px;color:var(--text-secondary);">系统工具 · 常用文档 · 常用表单 · 新人上手路径</span>';
+}
+
+function renderMainPanel() {
+  const panel = document.getElementById('mainPanel');
+  if (currentTab === 'overview') renderOverview(panel);
+  else if (currentTab === 'lifecycle') renderLifecycle(panel);
+  else if (currentTab === 'daily') renderChecklist(panel);
+  else if (currentTab === 'product') renderProduct(panel);
+  else if (currentTab === 'process') renderProcess(panel);
+  else if (currentTab === 'actions') renderActions(panel);
+  else if (currentTab === 'classroom_rules') renderBizRules(panel, 'classroom_rules');
+  else if (currentTab === 'kpi') renderKPI(panel);
+  else if (currentTab === 'rules') renderRules(panel);
+  else if (currentTab === 'tools') renderTools(panel);
+}
+
+// ==================== TAB 1: OVERVIEW ====================
+function renderOverview(panel) {
+  const barsHTML = MODULES.map((m,i) => `
+    <div class="resp-bar-row">
+      <span class="resp-bar-label">${m.name}</span>
+      <div class="resp-bar-track"><div class="resp-bar-fill w${i+1}"></div></div>
+      <span class="resp-bar-pct">${m.weight}</span>
+    </div>
+    <div style="margin:2px 0 10px 100px;font-size:11px;color:var(--text-secondary);line-height:1.6;">${m.actions.join(' · ')}</div>`).join('');
+
+  panel.innerHTML = `
+    <div style="padding:24px 28px;">
+      <div style="background:var(--card);border:1px solid var(--stone);border-left:4px solid var(--accent);border-radius:12px;padding:24px 28px;margin-bottom:20px;">
+        <h3 style="margin:0 0 10px 0;">岗位定位</h3>
+        <div style="font-family:'Noto Serif SC',serif;font-size:17px;line-height:2;letter-spacing:0.5px;color:var(--text);">顾问是校区<strong style="color:var(--accent-deep);">售前客户经营负责人</strong>，围绕<strong style="color:var(--accent-deep);">客户开发、客户转化、在读扩科、数据经营及交接协同</strong>开展工作，通过需求分析、测评试听、课程规划与专业沟通，推动新客户完成报名，承接在读学员新增科目需求，以<strong style="color:var(--accent-deep);">新签增长和在读扩科</strong>为核心经营结果。</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:16px;">
+        <div class="card-box" style="margin-bottom:0;">
+          <h3>岗位价值</h3>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:var(--accent-light);border-radius:8px;border-left:3px solid var(--accent);">
+              <span style="background:var(--accent);color:#fff;min-width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">1</span>
+              <div><span style="font-size:13px;font-weight:600;color:var(--accent-deep);">对客户：提供专业规划</span><br><span style="font-size:11px;color:var(--text-secondary);line-height:1.7;">基于真实学情设计匹配方案，帮助家长做出充分知情的课程决策。</span></div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:var(--vermillion-light);border-radius:8px;border-left:3px solid var(--vermillion);">
+              <span style="background:var(--vermillion);color:#fff;min-width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">2</span>
+              <div><span style="font-size:13px;font-weight:600;color:var(--vermillion-deep);">对校区：驱动业绩增长</span><br><span style="font-size:11px;color:var(--text-secondary);line-height:1.7;">通过新签和扩科创造营收，通过客户经营提升资源利用效率。</span></div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:var(--jade-light);border-radius:8px;border-left:3px solid var(--jade);">
+              <span style="background:var(--jade);color:#fff;min-width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">3</span>
+              <div><span style="font-size:13px;font-weight:600;color:var(--jade);">对团队：衔接售前售后</span><br><span style="font-size:11px;color:var(--text-secondary);line-height:1.7;">与教师、教务、主管高效协同，确保信息不中断、约定不遗漏。</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="card-box" style="margin-bottom:0;">
+          <h3>五大职责模块及占比</h3>
+          <div class="resp-bars">${barsHTML}</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
+        <div onclick="switchTab('lifecycle')" style="border:1px solid var(--stone);border-radius:12px;padding:16px;background:var(--card);cursor:pointer;transition:all var(--transition);text-align:center;" onmouseover="this.style.borderColor='var(--accent)';this.style.boxShadow='var(--shadow)'" onmouseout="this.style.borderColor='var(--stone)';this.style.boxShadow='none'">
+          <div style="font-size:24px;margin-bottom:6px;">🔄</div><div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;">客户经营体系</div><div style="font-size:11px;color:var(--text-muted);">生命周期+分层+四要素</div>
+        </div>
+        <div onclick="switchTab('actions')" style="border:1px solid var(--stone);border-radius:12px;padding:16px;background:var(--card);cursor:pointer;transition:all var(--transition);text-align:center;" onmouseover="this.style.borderColor='var(--vermillion)';this.style.boxShadow='var(--shadow)'" onmouseout="this.style.borderColor='var(--stone)';this.style.boxShadow='none'">
+          <div style="font-size:24px;margin-bottom:6px;">📖</div><div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;">核心动作库</div><div style="font-size:11px;color:var(--text-muted);">20个标准动作</div>
+        </div>
+        <div onclick="switchTab('product')" style="border:1px solid var(--stone);border-radius:12px;padding:16px;background:var(--card);cursor:pointer;transition:all var(--transition);text-align:center;" onmouseover="this.style.borderColor='var(--jade)';this.style.boxShadow='var(--shadow)'" onmouseout="this.style.borderColor='var(--stone)';this.style.boxShadow='none'">
+          <div style="font-size:24px;margin-bottom:6px;">📚</div><div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;">产品知识速查</div><div style="font-size:11px;color:var(--text-muted);">课程体系·班型·时段</div>
+        </div>
+      </div>
+
+      <h3 style="margin-top:20px;">顾问与教务职责边界</h3>
+      <div class="section-desc">明确售前到售后各阶段的职责分工，减少越位和漏球</div>
+      <div class="table-wrap" style="margin-bottom:0;">
+        <table><thead><tr><th style="width:120px;">客户阶段</th><th style="width:50%;">顾问负责</th><th>教务负责</th></tr></thead><tbody>
+        <tr><td style="font-weight:700;color:var(--accent-deep);">售前咨询 → 成交</td><td>需求挖掘、方案设计、成交推进</td><td>到场接待、测试安排、提供课程专业支持</td></tr>
+        <tr><td style="font-weight:700;color:var(--accent-deep);">新签交接</td><td>完成客户信息同步</td><td>承接服务关系</td></tr>
+        <tr><td style="font-weight:700;color:var(--accent-deep);">在读服务</td><td>关注增值机会、转介绍</td><td>负责日常服务、满意度维护</td></tr>
+        <tr><td style="font-weight:700;color:var(--accent-deep);">续费扩科</td><td>参与需求挖掘和方案推荐</td><td>提供学习效果反馈</td></tr>
+        </tbody></table>
+      </div>
+
+    </div>`;
+}
+
+// ==================== TAB 2: LIFECYCLE ====================
+function renderLifecycle(panel) {
+  const stageCards = LIFECYCLE.map((s,i) => `
+    <div style="flex-shrink:0;width:155px;background:#fff;border:1px solid var(--stone);border-radius:12px;overflow:hidden;transition:all var(--transition);box-shadow:0 2px 8px rgba(44,36,22,0.04);">
+      <div style="padding:10px 12px 6px;display:flex;align-items:center;gap:8px;">
+        <span style="background:var(--accent-deep);color:#fff;min-width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;">${String(i+1).padStart(2,'0')}</span>
+        <span style="font-size:12px;font-weight:700;color:var(--text);line-height:1.4;">${s.stage}</span>
+      </div>
+      <div style="padding:4px 12px 8px;"><span style="font-size:10px;padding:2px 8px;border-radius:10px;background:var(--accent-light);color:var(--accent-deep);font-weight:600;">${s.role}</span></div>
+      <div style="padding:0 12px 10px;font-size:10px;color:var(--text-muted);line-height:1.4;">${s.detail}</div>
+      <div style="padding:6px 12px 10px;font-size:10px;color:var(--jade);background:var(--jade-light);margin:0 8px 8px;border-radius:6px;text-align:center;">🎯 ${s.goal}</div>
+    </div>`).join(`<div style="display:flex;align-items:center;flex-shrink:0;padding:0 2px;"><svg width="20" height="20" viewBox="0 0 20 20"><path d="M6 4l6 6-6 6" stroke="%23b0a082" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>`);
+
+  const tierCards = CUSTOMER_TIERS.map(t => `
+    <div style="display:flex;align-items:flex-start;gap:12px;padding:14px 18px;background:var(--card);border:1px solid var(--stone);border-left:4px solid ${t.color};border-radius:10px;">
+      <span style="background:${t.color};color:#fff;min-width:42px;height:42px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;flex-shrink:0;">${t.tier}</span>
+      <div style="flex:1;">
+        <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;">${t.desc}</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <span style="display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:${t.color};background:${t.color}12;padding:4px 10px;border-radius:6px;">📞 ${t.freq}</span>
+          <span style="font-size:11px;color:var(--text-secondary);line-height:1.8;flex:1;">${t.focus}</span>
+        </div>
+      </div>
+    </div>`).join('');
+
+  panel.innerHTML = `
+    <div style="padding:24px 28px;">
+      <h3>客户生命周期</h3>
+      <div style="background:linear-gradient(135deg,var(--accent-light),#fef9f5);border:1px solid var(--stone);border-radius:14px;padding:16px;margin-bottom:18px;overflow-x:auto;">
+        <div style="display:flex;align-items:flex-start;gap:0;min-width:1050px;padding:4px 0;">${stageCards}</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px;">
+        <div>
+          <h3 style="margin-top:0;">客户分层规则</h3>
+          <div style="display:flex;flex-direction:column;gap:6px;">${tierCards}</div>
+        </div>
+        <div>
+          <h3 style="margin-top:0;">客户管理四要素</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+            <div class="card-box" style="border-left:3px solid var(--accent);margin-bottom:0;padding:12px 14px;"><strong style="color:var(--accent-deep);font-size:12px;">① 客户阶段</strong><br><span style="font-size:11px;color:var(--text-secondary);">首联、测试、试听、方案、成交还是暂停</span></div>
+            <div class="card-box" style="border-left:3px solid var(--vermillion);margin-bottom:0;padding:12px 14px;"><strong style="color:var(--vermillion-deep);font-size:12px;">② 核心需求</strong><br><span style="font-size:11px;color:var(--text-secondary);">家长最关注的问题和选课依据</span></div>
+            <div class="card-box" style="border-left:3px solid var(--gold);margin-bottom:0;padding:12px 14px;"><strong style="color:#6b4f10;font-size:12px;">③ 关键卡点</strong><br><span style="font-size:11px;color:var(--text-secondary);">未成交的真实原因，非"考虑中"</span></div>
+            <div class="card-box" style="border-left:3px solid var(--jade);margin-bottom:0;padding:12px 14px;"><strong style="color:var(--jade);font-size:12px;">④ 下一步动作</strong><br><span style="font-size:11px;color:var(--text-secondary);">谁在什么时间推进什么事项</span></div>
+          </div>
+          <div style="margin-top:14px;">
+            <h3 style="margin-top:0;">跟进记录：合格 vs 不合格</h3>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              ${RECORD_COMPARISON.map(r => `
+                <div class="card-box" style="border-left:4px solid ${r.color};margin-bottom:0;padding:12px 14px;">
+                  <span style="background:${r.color};color:#fff;padding:3px 10px;border-radius:10px;font-size:11px;font-weight:700;">${r.type}</span>
+                  <div style="font-size:12px;line-height:1.7;padding:6px 0;font-family:'Noto Serif SC',serif;">${r.text}</div>
+                  ${r.issues ? `<div style="font-size:10px;color:var(--vermillion);">${r.issues.map(i=>'❌ '+i).join(' · ')}</div>` : ''}
+                  ${r.strengths ? `<div style="font-size:10px;color:var(--jade);">${r.strengths.map(s=>'✅ '+s).join(' · ')}</div>` : ''}
+                </div>`).join('')}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px;">
+        <div>
+          <h3 style="margin-top:0;">每日客户管理动作</h3>
+          <div class="table-wrap" style="margin-bottom:0;"><table><thead><tr><th>动作</th><th>最低完成标准</th></tr></thead><tbody>
+          <tr><td>新增客户首联</td><td>当日完成首联并留痕</td></tr>
+          <tr><td>高意向推进</td><td>每位客户有明确推进动作</td></tr>
+          <tr><td>预约确认</td><td>家长明确回复确认</td></tr>
+          <tr><td>方案跟进</td><td>家长理解方案价值与下一步</td></tr>
+          <tr><td>扩科跟进</td><td>信息完整并形成结果</td></tr>
+          <tr><td>CRM更新</td><td>不得出现空泛记录</td></tr>
+          <tr><td>交接检查</td><td>教务已确认接收</td></tr>
+          </tbody></table></div>
+        </div>
+        <div>
+          <h3 style="margin-top:0;">客户跟进频率建议</h3>
+          <div class="table-wrap" style="margin-bottom:0;"><table><thead><tr><th>客户类型</th><th>频率</th><th>沟通重点</th></tr></thead><tbody>
+          <tr><td>当日新增</td><td>当日</td><td>确认需求并约定下一步</td></tr>
+          <tr><td>S类高意向</td><td>按节点高频</td><td>成交卡点、决策人和时间</td></tr>
+          <tr><td>A类意向</td><td>每2-3节点</td><td>测试、试听、方案和疑虑</td></tr>
+          <tr><td>B类培育</td><td>按周期触达</td><td>有价值信息，不机械催促</td></tr>
+          <tr><td>沉默客户</td><td>按周期激活</td><td>重新识别需求</td></tr>
+          <tr><td>扩科客户</td><td>机会转介后</td><td>新增需求、课表冲突</td></tr>
+          </tbody></table></div>
+        </div>
+      </div>
+
+      <h3>七大流量触点·留资规范</h3>
+      <div class="table-wrap" style="margin-bottom:16px;">
+        <table><thead><tr><th>触点</th><th>规范操作</th><th>首触时效</th><th>必填CRM字段/注意事项</th></tr></thead><tbody>
+        <tr><td style="font-weight:600;">① 直电进线</td><td>接听5秒内自我介绍→确认需求→30分钟内录入CRM→加企微</td><td>接听即首触，≤30min</td><td>手机号/渠道=直电/意向级别。无人接听需回拨（≤3次/天）</td></tr>
+        <tr><td style="font-weight:600;">② 直访进线</td><td>3分钟内接待→六步法挖需→当场录入CRM→加企微</td><td>到店即首触，≤当日下班前</td><td>手机号/渠道=直访/到访日期/意向级别。必须当场加企微</td></tr>
+        <tr><td style="font-weight:600;">③ 线上引流</td><td>系统分配→24h内首触→关联广告卖点定制首句</td><td>分配后24h内</td><td>手机号/渠道=平台名称/广告素材ID。来源须精确区分</td></tr>
+        <tr><td style="font-weight:600;">④ 转介绍</td><td>感谢介绍人→30分钟内联系→CRM标注介绍人信息</td><td>收到信息后30min</td><td>手机号/渠道=转介绍/介绍人姓名与关系。须关联学员ID</td></tr>
+        <tr><td style="font-weight:600;">⑤ 统测/活动</td><td>当天录入→24h内反馈→结合测评定制话术→约到访</td><td>活动结束后24h内</td><td>手机号/渠道=活动全称+日期/测评成绩。测评报告须附</td></tr>
+        <tr><td style="font-weight:600;">⑥ 在线表单/官网</td><td>系统推送→24h内电话→电话+企微双通路→补齐档案</td><td>提交后24h内</td><td>手机号/渠道=官网/小程序/H5区分。表单信息完整迁移</td></tr>
+        <tr><td style="font-weight:600;">⑦ 二维码扫码</td><td>30分钟内联系→确认来源→推送对应活动→引导到访</td><td>扫码后30min内</td><td>手机号/渠道=二维码+物料名称/地推位置。不同码不同参数</td></tr>
+        </tbody></table>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px;">
+        <div>
+          <h3 style="margin-top:0;">💬 常见家长异议回应口径</h3>
+          ${OBJECTION_HANDLING.map((o,i) => `
+            <details class="checklist-item" style="margin-bottom:3px;border:1px solid var(--stone);border-left:3px solid var(--jade);border-radius:0 8px 8px 0;overflow:hidden;">
+              <summary style="padding:7px 10px;cursor:pointer;font-size:11px;font-weight:600;color:var(--jade);background:var(--parchment-dark);list-style:none;display:flex;align-items:center;gap:6px;">
+                <span style="background:var(--jade);color:#fff;padding:1px 6px;border-radius:8px;font-size:9px;">#${i+1}</span>${o.objection}
+              </summary>
+              <div style="padding:8px 12px;font-size:10px;color:var(--text-secondary);line-height:1.8;border-top:1px solid var(--stone);">
+                <ul style="margin:0;padding-left:14px;">${o.respond.map(r=>`<li>${r}</li>`).join('')}</ul>
+              </div>
+            </details>`).join('')}
+        </div>
+        <div>
+          <h3 style="margin-top:0;">常见误区 & 典型案例</h3>
+          ${MISTAKES.slice(0,3).map(m=>`
+            <div style="border:1px solid var(--stone);border-left:4px solid var(--vermillion);border-radius:8px;padding:10px 14px;background:var(--card);margin-bottom:6px;">
+              <div style="font-size:12px;font-weight:700;color:var(--vermillion-deep);margin-bottom:2px;">⚠️ ${m.name}</div>
+              <div style="font-size:10px;color:var(--jade);">${m.correct}</div>
+            </div>`).join('')}
+          <details class="checklist-item" style="margin-top:6px;border:1px solid var(--stone);border-radius:8px;overflow:hidden;">
+            <summary style="padding:8px 12px;cursor:pointer;font-size:12px;font-weight:600;color:var(--accent-deep);background:var(--parchment-dark);list-style:none;">📝 典型案例（3个）</summary>
+            <div style="padding:10px 14px;border-top:1px solid var(--stone);">
+              ${CASES.map(c => `
+                <div class="card-box" style="border-left:4px solid ${c.color};margin-bottom:8px;padding:12px 14px;">
+                  <span style="font-size:13px;font-weight:700;color:${c.color};">${c.icon} ${c.type}：${c.title}</span>
+                  <div style="font-size:10px;color:var(--text-secondary);line-height:1.7;margin-top:4px;">${c.correct || c.takeaway || ''}</div>
+                </div>`).join('')}
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <details class="checklist-item" style="border:1px solid var(--stone);border-radius:8px;overflow:hidden;">
+        <summary style="padding:8px 12px;cursor:pointer;font-size:12px;font-weight:600;color:var(--accent-deep);background:var(--parchment-dark);list-style:none;">📋 一客一策推进卡</summary>
+        <div style="padding:10px 14px;border-top:1px solid var(--stone);">
+          <div class="table-wrap" style="margin-bottom:0;"><table><thead><tr><th>字段</th><th>填写要求</th></tr></thead><tbody>
+          <tr><td>客户现状</td><td>当前年级、科目、学习情况及已报课程</td></tr>
+          <tr><td>核心需求</td><td>家长最关注的问题及期望结果</td></tr>
+          <tr><td>当前阶段</td><td>首联、测试、试听、方案、决策或扩科</td></tr>
+          <tr><td>主要卡点</td><td>价格、时间、效果、决策人、竞争机构等</td></tr>
+          <tr><td>关键人</td><td>最终决策人及主要影响人</td></tr>
+          <tr><td>下一步动作</td><td>具体动作、负责人、时间和目标</td></tr>
+          <tr><td>预计结果</td><td>预计科目、金额、成交时间或暂停原因</td></tr>
+          </tbody></table></div>
+        </div>
+      </details>
+    </div>`;
+}
+
+// ==================== TAB 3: DAILY CHECKLIST ====================
+function renderChecklist(panel) {
+  const navHTML = Object.entries(CHECKLIST).map(([k,v]) => `
+    <div class="checklist-nav-item ${k===selectedCadence?'active':''}" onclick="selectCadence('${k}')">${v.title}</div>`).join('');
+  panel.innerHTML = `
+    <div class="checklist-view">
+      <div class="checklist-nav"><div class="checklist-nav-title">工作周期</div>${navHTML}</div>
+      <div class="checklist-detail" id="checklistDetail"></div></div>`;
+  renderChecklistDetail();
+}
+
+function renderChecklistDetail() {
+  const el = document.getElementById('checklistDetail');
+  if (!el) return;
+  const c = CHECKLIST[selectedCadence];
+  if (!c || !c.groups) return;
+  const total = c.groups.reduce((s,g)=>s+g.tasks.length,0);
+  const groupsHTML = c.groups.map(g => `
+    <div style="margin-bottom:16px;">
+      <div style="font-size:13px;font-weight:700;color:var(--accent-deep);margin-bottom:6px;">${g.phase}</div>
+      ${g.tasks.map(t => `
+        <details open class="checklist-item" style="margin-bottom:4px;border:1px solid var(--stone);border-radius:8px;overflow:hidden;">
+          <summary style="padding:10px 14px;cursor:pointer;font-size:12px;font-weight:600;color:var(--text);background:var(--parchment-dark);list-style:none;display:flex;align-items:center;gap:8px;border-left:3px solid var(--accent);">
+            <span>${t.task}</span>
+            <span style="font-size:10px;color:var(--accent-deep);font-weight:500;white-space:nowrap;flex-shrink:0;margin-left:auto;margin-right:4px;">${t.goal}</span>
+          </summary>
+          <div style="padding:10px 14px 10px 20px;font-size:11px;color:var(--text-secondary);line-height:1.9;border-top:1px solid var(--stone);background:var(--card);">${t.detail}</div>
+        </details>`).join('')}
+    </div>`).join('');
+  el.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+      <h3 style="margin:0;">${c.title}（${total}项）</h3>
+      <div style="display:flex;gap:6px;">
+        <span class="filter-chip" onclick="document.querySelectorAll('#checklistDetail .checklist-item').forEach(d=>d.open=true)" style="border-style:dashed;">全部展开</span>
+        <span class="filter-chip" onclick="document.querySelectorAll('#checklistDetail .checklist-item').forEach(d=>d.open=false)" style="border-style:dashed;">全部折叠</span>
+      </div>
+    </div>
+    ${selectedCadence === 'daily' ? `
+	    <div class="card-box" style="border-left:3px solid var(--accent);margin-bottom:14px;">
+	      <div style="font-size:13px;font-weight:700;color:var(--accent-deep);margin-bottom:4px;">📋 一日标准动作（按优先级）</div>
+	      <div style="font-size:11px;color:var(--text-muted);margin-bottom:10px;">售前的每一天 = 守时效 + 改状态 + 推进度</div>
+	      ${DAILY_SCHEDULE.map(d=>`
+	        <div style="display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px dashed var(--stone);">
+	          <span style="background:${d.color};color:#fff;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:700;white-space:nowrap;flex-shrink:0;min-width:55px;text-align:center;">${d.level}</span>
+	          <div style="flex:1;"><div style="font-size:12px;color:var(--text);line-height:1.7;">${d.actions}</div><div style="font-size:10px;color:${d.color};margin-top:2px;">→ ${d.output}</div></div>
+	        </div>`).join('')}
+	    </div>` : ''}
+    <div class="section-desc">${c.goal}</div>
+    ${groupsHTML}`;
+}
+
+// ==================== TAB 4: PROCESSES ====================
+function renderProcess(panel) {
+  const navHTML = PROCESSES.map((p,i) => `
+    <div class="sop-center-nav-item ${i===selectedProcess?'active':''}" onclick="selectProcess(${i})">${p.icon} ${p.name}</div>`).join('');
+  panel.innerHTML = `
+    <div class="sop-center-view">
+      <div class="sop-center-nav"><div class="sop-center-nav-title">业务流程</div>${navHTML}</div>
+      <div class="sop-center-detail" id="processDetail"></div></div>`;
+  renderProcessDetail();
+}
+
+function renderProcessDetail() {
+  const el = document.getElementById('processDetail');
+  if (!el) return;
+  const p = PROCESSES[selectedProcess];
+  el.innerHTML = `
+    <h3>${p.icon} ${p.name}</h3>
+    <div class="section-desc" style="margin-bottom:14px;">${p.goal}</div>
+    <div class="table-wrap">
+      <table><thead><tr><th>步骤</th><th>主责</th><th>标准输出</th><th>关键检查</th></tr></thead><tbody>
+      ${p.steps.map(s => `<tr>
+        <td style="font-weight:700;">${s.step}</td>
+        <td>${s.role}</td>
+        <td>${s.output}</td>
+        <td>${s.check}</td>
+      </tr>`).join('')}
+      </tbody></table>
+    </div>`;
+}
+
+// ==================== TAB 5: ACTIONS ====================
+function renderActions(panel) {
+  const navHTML = Object.entries(ACTION_LIBRARY).map(([k,v]) => `
+    <div class="sop-center-nav-item ${k===selectedActionCat?'active':''}" onclick="selectActionCat('${k}')">${v.title}<br><span style="font-size:10px;color:var(--text-muted);">${v.actions.length}个动作</span></div>`).join('');
+  panel.innerHTML = `
+    <div class="sop-center-view">
+      <div class="sop-center-nav"><div class="sop-center-nav-title">动作分类</div>${navHTML}</div>
+      <div class="sop-center-detail" id="actionDetail"></div>
+    </div>`;
+  renderActionDetail();
+}
+
+function renderActionDetail() {
+  const el = document.getElementById('actionDetail');
+  if (!el) return;
+  const cat = ACTION_LIBRARY[selectedActionCat];
+  const itemsHTML = cat.actions.map(a => `
+    <details class="checklist-item" style="margin-bottom:8px;border:1px solid var(--stone);border-left:3px solid ${cat.color};border-radius:0 8px 8px 0;overflow:hidden;">
+      <summary style="padding:12px 14px;cursor:pointer;font-size:13px;font-weight:600;color:var(--text);background:var(--parchment-dark);list-style:none;display:flex;align-items:center;gap:8px;">
+        <span style="flex:1;min-width:0;">${a.id} ${a.name}<span style="font-weight:400;font-size:11px;color:var(--text-muted);margin-left:8px;">触发：${a.trigger}</span></span>
+        <span style="font-size:10px;background:var(--accent-light);color:var(--accent-deep);padding:3px 10px;border-radius:10px;flex-shrink:0;white-space:nowrap;order:1;">${a.time}</span>
+      </summary>
+      <div style="padding:14px 16px;font-size:11px;line-height:1.9;border-top:1px solid var(--stone);background:var(--card);">
+        <div style="font-weight:600;color:var(--accent-deep);margin-bottom:4px;">🎯 动作目标：${a.goal}</div>
+        <div style="font-weight:600;color:var(--vermillion-deep);margin-bottom:4px;margin-top:8px;">📋 标准步骤</div>
+        ${a.steps.map((s,j)=>`<div style="display:flex;gap:8px;padding:5px 10px;background:var(--parchment-dark);border-radius:6px;align-items:flex-start;margin-bottom:3px;"><span style="background:${cat.color};color:#fff;min-width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;">${j+1}</span><span style="color:var(--text-secondary);">${s}</span></div>`).join('')}
+        <div style="font-weight:600;color:var(--jade);margin-bottom:4px;margin-top:8px;">✅ 质量标准</div>
+        <ul style="padding-left:16px;margin:0;color:var(--text-secondary);">${a.quality.map(q=>`<li>${q}</li>`).join('')}</ul>
+        <div style="font-weight:600;color:var(--vermillion);margin-bottom:4px;margin-top:8px;">⚠️ 常见错误</div>
+        <ul style="padding-left:16px;margin:0;color:var(--text-secondary);">${a.errors.map(e=>`<li>${e}</li>`).join('')}</ul>
+      </div>
+    </details>`).join('');
+  el.innerHTML = `
+    <div style="margin-bottom:10px;"><input type="text" placeholder="搜索动作..." oninput="filterActions(this.value)" style="width:100%;padding:7px 12px;border:1px solid var(--stone);border-radius:8px;font-size:12px;font-family:inherit;background:var(--parchment);"></div>
+    <h3>${cat.title}（${cat.actions.length}项）</h3>
+    <div style="display:flex;gap:6px;margin-bottom:12px;">
+      <span class="filter-chip" onclick="document.querySelectorAll('#actionDetail .checklist-item').forEach(d=>d.open=true)">全部展开</span>
+      <span class="filter-chip" onclick="document.querySelectorAll('#actionDetail .checklist-item').forEach(d=>d.open=false)">全部折叠</span>
+    </div>${itemsHTML}`;
+}
+
+function filterActions(query) {
+  const items = document.querySelectorAll('#actionDetail .checklist-item');
+  const q = query.toLowerCase();
+  items.forEach(item => {
+    item.style.display = q === '' || item.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+}
+
+// ==================== TAB 6: KPI ====================
+function renderKPI(panel) {
+  const cardsHTML = KPIS.map((k,i) => `
+    <div style="display:flex;align-items:center;gap:14px;padding:16px 20px;background:var(--card);border:1px solid var(--stone);border-radius:12px;border-left:4px solid ${k.bar};transition:all 0.3s ease;" onmouseover="this.style.boxShadow='0 4px 16px rgba(44,36,22,0.08)';this.style.transform='translateX(3px)';" onmouseout="this.style.boxShadow='none';this.style.transform='translateX(0)';">
+      <span style="background:${k.bar};color:#fff;min-width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;">${i+1}</span>
+      <div><span style="font-size:14px;font-weight:600;color:var(--text);">${k.name}</span><br><span style="font-size:11px;color:var(--text-muted);line-height:1.5;">${k.desc}</span></div>
+    </div>`).join('');
+  panel.innerHTML = `
+    <div style="padding:24px 28px;">
+      <h3>顾问经营指标</h3>
+      <div class="section-desc">核心评价维度：既看结果（达成率、转化率）也看过程（首联率、CRM达标率、交接达标率）</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">${cardsHTML}</div>
+      <h3 style="margin-top:24px;">转化漏斗</h3>
+      <div style="background:linear-gradient(135deg,var(--parchment-dark),var(--parchment));border:1px solid var(--stone);border-radius:14px;padding:24px 20px;margin-bottom:20px;display:flex;flex-direction:column;align-items:center;gap:2px;">
+        ${FUNNEL_STAGES.map((s,i) => {
+          const w = 85 - i * 14;
+          const colors = ['#c98850','#b5342e','#b8942e','#2d6b5e','#3d6f9e'];
+          return `<div style="width:${w}%;margin:0 auto;background:${colors[i]};color:#fff;padding:${14-i*1.5}px 14px;text-align:center;border-radius:${i===0?'12px 12px 4px 4px':i===FUNNEL_STAGES.length-1?'4px 4px 12px 12px':'4px'};transition:all 0.3s ease;" onmouseover="this.style.transform='scale(1.03)';this.style.boxShadow='0 4px 16px rgba(0,0,0,0.15)';" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none';">
+            <span style="font-size:${15-i}px;font-weight:700;">${s.stage}</span>
+            <div style="font-size:10px;opacity:0.8;margin-top:2px;">${s.desc}</div>
+          </div>`;
+        }).join('')}
+      </div>
+      <h3 style="margin-top:24px;">每日自检清单</h3>
+      <div class="section-desc">下班前逐项核验，全部打勾才算当日工作闭环</div>
+      <div class="table-wrap">
+        <table><thead><tr><th style="width:40px;">序号</th><th>检查项</th><th style="width:60px;">完成</th></tr></thead><tbody>
+        ${['新增线索是否全部首联','当日预约是否全部确认','约定回访是否按时完成','高意向客户是否有明确推进动作','CRM是否当日更新','已成交客户是否完成交接','是否存在逾期客户、异常订单或风险投诉'].map((item,i)=>`
+          <tr>
+            <td style="text-align:center;font-weight:700;color:var(--accent-deep);">${i+1}</td>
+            <td style="font-size:13px;font-weight:500;">${item}</td>
+            <td style="text-align:center;"><input type="checkbox" style="width:20px;height:20px;accent-color:var(--accent);cursor:pointer;" title="标记完成"></td>
+          </tr>`).join('')}
+        </tbody></table>
+      </div>
+    </div>`;
+}
+
+// ==================== TAB 7: PRACTICE ====================
+function renderPractice(panel) {
+  panel.innerHTML = `
+    <div style="padding:24px 28px;">
+      <h3>每日客户管理动作</h3>
+      <div class="table-wrap" style="margin-bottom:20px;">
+        <table><thead><tr><th>动作</th><th>具体做法</th><th>最低完成标准</th></tr></thead><tbody>
+        <tr><td>新增客户首联</td><td>优先电话或企业微信联系，确认需求与下一步</td><td>当日完成首联并留痕</td></tr>
+        <tr><td>高意向推进</td><td>逐客确认卡点、决策人、预算、时间与竞争情况</td><td>每位客户有明确推进动作</td></tr>
+        <tr><td>预约确认</td><td>测试、试听、到访前再次确认时间地点与注意事项</td><td>家长明确回复确认</td></tr>
+        <tr><td>方案跟进</td><td>根据测评、试听反馈调整方案并回应异议</td><td>家长理解方案价值与下一步</td></tr>
+        <tr><td>扩科跟进</td><td>核实学情、时间与家长意愿，形成新增科目方案</td><td>信息完整并形成结果</td></tr>
+        <tr><td>CRM更新</td><td>当日沟通当日录入，补齐客户阶段与下次时间</td><td>不得出现空泛记录</td></tr>
+        <tr><td>交接检查</td><td>检查已成交客户是否完成资料与责任交接</td><td>教务已确认接收</td></tr>
+        </tbody></table>
+      </div>
+
+      <h3>客户跟进频率建议</h3>
+      <div class="table-wrap" style="margin-bottom:20px;">
+        <table><thead><tr><th>客户类型</th><th>建议频率</th><th>沟通重点</th></tr></thead><tbody>
+        <tr><td>当日新增</td><td>当日完成首次联系</td><td>确认需求并约定下一步</td></tr>
+        <tr><td>S类高意向</td><td>按决策节点高频推进</td><td>成交卡点、决策人和时间</td></tr>
+        <tr><td>A类意向</td><td>每2—3个有效节点跟进</td><td>测试、试听、方案和疑虑</td></tr>
+        <tr><td>B类培育</td><td>按需求周期触达</td><td>有价值信息，不机械催促</td></tr>
+        <tr><td>沉默客户</td><td>按公司周期激活</td><td>重新识别需求，避免高频骚扰</td></tr>
+        <tr><td>扩科客户</td><td>机会转介后及时联系</td><td>新增需求、课表冲突和方案价值</td></tr>
+        </tbody></table>
+      </div>
+
+      <h3>一客一策推进卡</h3>
+      <div class="table-wrap" style="margin-bottom:20px;">
+        <table><thead><tr><th>字段</th><th>填写要求</th></tr></thead><tbody>
+        <tr><td>客户现状</td><td>当前年级、科目、学习情况及已报课程</td></tr>
+        <tr><td>核心需求</td><td>家长最关注的问题及期望结果</td></tr>
+        <tr><td>当前阶段</td><td>首联、测试、试听、方案、决策或扩科</td></tr>
+        <tr><td>主要卡点</td><td>价格、时间、效果、决策人、竞争机构等</td></tr>
+        <tr><td>关键人</td><td>最终决策人及主要影响人</td></tr>
+        <tr><td>下一步动作</td><td>具体动作、负责人、时间和目标</td></tr>
+        <tr><td>预计结果</td><td>预计科目、金额、成交时间或暂停原因</td></tr>
+        </tbody></table>
+      </div>
+
+      <h3>七大流量触点·留资规范</h3>
+      <div class="section-desc">所有触点均须在CRM中强制标注「渠道来源」字段，不填渠道来源的线索不予分配</div>
+      <div class="table-wrap" style="margin-bottom:16px;">
+        <table><thead><tr><th>触点</th><th>规范操作</th><th>首触时效</th><th>必填CRM字段/注意事项</th></tr></thead><tbody>
+        <tr><td style="font-weight:600;">① 直电进线（电话呼入）</td><td>接听5秒内自我介绍→确认年级/科目/需求→30分钟内录入CRM→即时发企微好友</td><td>接听即首触，CRM录入≤30min</td><td>手机号/渠道=直电/意向级别/需求关键词。无人接听需回拨（≤3次/天）</td></tr>
+        <tr><td style="font-weight:600;">② 直访进线（到店咨询）</td><td>3分钟内主动接待引导就坐→六步法挖需→当场录入CRM→加企微发资料</td><td>到店即首触，录入≤当日下班前</td><td>手机号/渠道=直访/到访日期/意向级别/面谈摘要。必须当场加企微</td></tr>
+        <tr><td style="font-weight:600;">③ 线上引流（广告/SEO/信息流）</td><td>系统分配或当天录入→24h内首触（优先电话，未通改企微+短信）→关联广告卖点定制首句</td><td>系统分配后24h内</td><td>手机号/渠道=平台名称/广告素材ID。来源须精确（抖音/小红书/百度要区分）</td></tr>
+        <tr><td style="font-weight:600;">④ 转介绍进线（老带新）</td><td>感谢介绍人→30分钟内联系被介绍人（提及介绍人建立信任）→CRM标注介绍人信息</td><td>收到信息后30分钟内</td><td>手机号/渠道=转介绍/介绍人姓名与关系。须关联介绍人学员ID，否则奖励无法结算</td></tr>
+        <tr><td style="font-weight:600;">⑤ 统测/活动进线</td><td>活动当天录入（标注活动全称）→24h内电话反馈测评结果→结合测评定制话术→高意向当天约下次到访</td><td>活动结束后24h内</td><td>手机号/渠道=活动名称+日期/测评成绩。来源填活动全称，测评报告须附上</td></tr>
+        <tr><td style="font-weight:600;">⑥ 在线表单/官网留资</td><td>系统推送CRM→24h内电话触达→查看家长填写意向定制话术→电话+企微双通路→补齐客户档案</td><td>表单提交后24h内</td><td>手机号/渠道=官网/小程序/H5（区分）。表单信息须完整迁移CRM</td></tr>
+        <tr><td style="font-weight:600;">⑦ 二维码扫码（海报/地推/物料）</td><td>触发后30分钟内联系（含企微欢迎语）→确认扫码来源标注CRM→推送对应活动/课程→引导到访预约</td><td>扫码后30分钟内</td><td>手机号/渠道=二维码+物料名称/地推位置。不同二维码用不同参数追踪</td></tr>
+        </tbody></table>
+      </div>
+
+      <h3>常见客户管理误区</h3>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        ${MISTAKES.map(m=>`
+          <div style="border:1px solid var(--stone);border-left:4px solid var(--vermillion);border-radius:8px;padding:12px 16px;background:var(--card);">
+            <div style="font-size:13px;font-weight:700;color:var(--vermillion-deep);margin-bottom:4px;">⚠️ ${m.name}</div>
+            <div style="font-size:11px;color:var(--text-secondary);margin-bottom:2px;"><strong>问题表现：</strong>${m.problem}</div>
+            <div style="font-size:11px;color:var(--jade);"><strong>正确做法：</strong>${m.correct}</div>
+          </div>`).join('')}
+      </div>
+    </div>`;
+}
+
+// ==================== TAB 8: CASES ====================
+function renderCases(panel) {
+  panel.innerHTML = `
+    <div style="padding:24px 28px;">
+      <h3>典型案例</h3>
+      <div class="section-desc">通过真实案例理解正确做法，识别常见错误，举一反三</div>
+      ${CASES.map(c => `
+        <div class="card-box" style="border-left:4px solid ${c.color};margin-bottom:14px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+            <span style="font-size:20px;">${c.icon}</span>
+            <span style="font-size:15px;font-weight:700;color:${c.color};">${c.type}案例：${c.title}</span>
+          </div>
+          <div style="font-size:12px;color:var(--text-secondary);line-height:1.8;margin-bottom:10px;"><strong>背景：</strong>${c.bg}</div>
+          ${c.actions ? `<div style="margin-bottom:10px;"><strong style="color:var(--jade);">顾问动作：</strong><ul style="padding-left:16px;font-size:12px;color:var(--text-secondary);line-height:2;">${c.actions.map(a=>`<li>${a}</li>`).join('')}</ul></div>` : ''}
+          ${c.analysis ? `<div style="margin-bottom:10px;"><strong style="color:var(--vermillion);">问题分析：</strong><ul style="padding-left:16px;font-size:12px;color:var(--text-secondary);line-height:2;">${c.analysis.map(a=>`<li>${a}</li>`).join('')}</ul></div>` : ''}
+          ${c.correct ? `<div style="padding:10px 14px;background:var(--jade-light);border-radius:8px;font-size:12px;color:var(--jade);line-height:1.8;margin-bottom:8px;"><strong>正确做法：</strong>${c.correct}</div>` : ''}
+          ${c.takeaway ? `<div style="padding:10px 14px;background:var(--accent-light);border-radius:8px;font-size:12px;color:var(--accent-deep);line-height:1.8;"><strong>💡 可复制点：</strong>${c.takeaway}</div>` : ''}
+        </div>`).join('')}
+    </div>`;
+}
+
+// ==================== TAB 9: RULES ====================
+function renderRules(panel) {
+  const redHTML = REDLINES.map((r,i) => `
+    <details class="checklist-item" open style="margin-bottom:4px;border:1px solid var(--stone);border-left:3px solid var(--vermillion);border-radius:0 8px 8px 0;overflow:hidden;">
+      <summary style="padding:10px 14px;cursor:pointer;font-size:12px;font-weight:600;color:var(--vermillion-deep);background:var(--parchment-dark);list-style:none;display:flex;align-items:center;gap:8px;">
+        <span style="background:var(--vermillion);color:#fff;padding:1px 7px;border-radius:10px;font-size:10px;">红线${String(i+1).padStart(2,'0')}</span>${r.title}
+      </summary>
+      <div style="padding:10px 14px 10px 24px;font-size:11px;color:var(--text-secondary);line-height:1.9;border-top:1px solid var(--stone);background:var(--card);">
+        <ul style="margin:0;padding-left:16px;">${r.items.map(x=>`<li>${x}</li>`).join('')}</ul>
+      </div>
+    </details>`).join('');
+  const yellowHTML = YELLOWLINES.map((y,i) => `
+    <details class="checklist-item" open style="margin-bottom:4px;border:1px solid var(--stone);border-left:3px solid #b8942e;border-radius:0 8px 8px 0;overflow:hidden;">
+      <summary style="padding:10px 14px;cursor:pointer;font-size:12px;font-weight:600;color:#6b4f10;background:var(--parchment-dark);list-style:none;display:flex;align-items:center;gap:8px;">
+        <span style="background:#b8942e;color:#fff;padding:1px 7px;border-radius:10px;font-size:10px;">黄线${String(i+1).padStart(2,'0')}</span>${y.title}
+      </summary>
+      <div style="padding:10px 14px 10px 24px;font-size:11px;color:var(--text-secondary);line-height:1.9;border-top:1px solid var(--stone);background:var(--card);">
+        <ul style="margin:0;padding-left:16px;">${y.items.map(x=>`<li>${x}</li>`).join('')}</ul>
+      </div>
+    </details>`).join('');
+  panel.innerHTML = `
+    <div style="padding:20px 24px;">
+      <div style="display:flex;gap:6px;margin-bottom:14px;align-items:center;flex-wrap:wrap;">
+        <span class="filter-chip" onclick="document.querySelectorAll('.checklist-item').forEach(d=>d.open=true)">全部展开</span>
+        <span class="filter-chip" onclick="document.querySelectorAll('.checklist-item').forEach(d=>d.open=false)">全部折叠</span>
+        <a href="https://365.kdocs.cn/l/caTPyueb5z7F" target="_blank" style="font-size:11px;color:var(--accent-deep);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:4px;margin-left:auto;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">📄 点击查看完整红黄线制度文档</a>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+        <div class="card-box" style="border-left:3px solid var(--vermillion);margin-bottom:0;">
+          <h3>红线行为（共${REDLINES.length}条 · 一票否决）</h3>
+          <div class="section-desc" style="color:var(--vermillion-deep);">触碰红线，直接进入纪律处理流程。</div>
+          ${redHTML}
+          <div style="margin-top:12px;padding:10px 14px;background:var(--vermillion-light);border-radius:8px;font-size:11px;line-height:1.8;">
+            <strong style="color:var(--vermillion-deep);">红线处罚规则</strong>
+            <ul style="margin:4px 0 0 16px;color:var(--text-secondary);">${REDLINES_DETAIL.map(x=>`<li>${x}</li>`).join('')}</ul>
+          </div>
+        </div>
+        <div class="card-box" style="border-left:3px solid #b8942e;margin-bottom:0;">
+          <h3>黄线行为（共${YELLOWLINES.length}类 · 警告整改）</h3>
+          <div class="section-desc" style="color:#6b4f10;">触碰黄线，纳入月度考核扣分，并要求整改。</div>
+          ${yellowHTML}
+          <div style="margin-top:12px;padding:10px 14px;background:var(--gold-light);border-radius:8px;font-size:11px;line-height:1.8;">
+            <strong style="color:#6b4f10;">黄线处罚规则</strong>
+            <ul style="margin:4px 0 0 16px;color:var(--text-secondary);">${YELLOWLINES_DETAIL.map(x=>`<li>${x}</li>`).join('')}</ul>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+// ==================== TAB 10: TOOLS ====================
+function renderTools(panel) {
+  panel.innerHTML = `
+    <div style="padding:20px 24px;">
+      <details open class="checklist-item" style="margin-bottom:10px;border:1px solid var(--stone);border-radius:10px;overflow:hidden;">
+        <summary style="padding:12px 16px;cursor:pointer;font-size:14px;font-weight:700;color:var(--accent-deep);background:var(--parchment-dark);list-style:none;">系统工具（${TOOLS.systems.length}个）</summary>
+        <div style="padding:14px 16px;display:flex;flex-wrap:wrap;gap:8px;">${TOOLS.systems.map(s=>`<span style="background:var(--accent-light);color:var(--accent-deep);padding:8px 16px;border-radius:8px;font-size:13px;font-weight:500;">${s}</span>`).join('')}</div>
+      </details>
+      <details class="checklist-item" style="margin-bottom:10px;border:1px solid var(--stone);border-radius:10px;overflow:hidden;">
+        <summary style="padding:12px 16px;cursor:pointer;font-size:14px;font-weight:700;color:var(--accent-deep);background:var(--parchment-dark);list-style:none;">常用文档（${TOOLS.docs.length+2}个）</summary>
+        <div style="padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px;color:var(--text-secondary);">
+          ${TOOLS.docs.map(d=>`<div style="padding:8px 12px;background:var(--parchment-dark);border-radius:6px;">${d}</div>`).join('')}
+          <div style="padding:8px 12px;background:var(--accent-light);border-radius:6px;color:var(--accent-deep);font-weight:500;">📐 学习顾问业务规则（整合中）</div>
+          <div style="padding:8px 12px;background:var(--accent-light);border-radius:6px;color:var(--accent-deep);font-weight:500;">📋 校区教务工作手册</div>
+        </div>
+      </details>
+      <details class="checklist-item" style="margin-bottom:10px;border:1px solid var(--stone);border-radius:10px;overflow:hidden;">
+        <summary style="padding:12px 16px;cursor:pointer;font-size:14px;font-weight:700;color:var(--accent-deep);background:var(--parchment-dark);list-style:none;">常用表单（${TOOLS.forms.length}个）</summary>
+        <div style="padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px;color:var(--text-secondary);">${TOOLS.forms.map(f=>`<div style="padding:8px 12px;background:var(--parchment-dark);border-radius:6px;">${f}</div>`).join('')}</div>
+      </details>
+      <details open class="checklist-item" style="margin-bottom:10px;border:1px solid var(--stone);border-radius:10px;overflow:hidden;">
+        <summary style="padding:12px 16px;cursor:pointer;font-size:14px;font-weight:700;color:var(--accent-deep);background:var(--parchment-dark);list-style:none;">工作优先级</summary>
+        <div style="padding:14px 16px;display:flex;flex-direction:column;gap:8px;">
+          ${WORK_PRIORITY.map(p=>`
+            <div style="border-left:4px solid ${p.color};padding:10px 14px;background:var(--parchment-dark);border-radius:0 8px 8px 0;">
+              <div style="font-size:13px;font-weight:700;color:${p.color};margin-bottom:4px;">${p.level}</div>
+              <div style="font-size:11px;color:var(--text-secondary);margin-bottom:4px;">${p.items.join(' · ')}</div>
+              <div style="font-size:11px;color:var(--text-muted);">📌 ${p.rule}</div>
+            </div>`).join('')}
+        </div>
+      </details>
+      <details open class="checklist-item" style="border:1px solid var(--stone);border-radius:10px;overflow:hidden;">
+        <summary style="padding:12px 16px;cursor:pointer;font-size:14px;font-weight:700;color:var(--accent-deep);background:var(--parchment-dark);list-style:none;">新人上岗建议</summary>
+        <div style="padding:14px 16px;">${TOOLS.onboarding.map(o=>`<div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px dashed var(--stone);font-size:13px;"><span style="font-weight:700;color:var(--accent-deep);min-width:70px;">${o.phase}</span><span style="color:var(--text-secondary);">${o.content}</span></div>`).join('')}</div>
+      </details>
+    </div>`;
+}
+
+// ==================== TAB 4: PRODUCT ====================
+function renderProduct(panel) {
+  const navHTML = Object.entries(PRODUCT_KNOWLEDGE).map(([k,v]) => `
+    <div class="sop-center-nav-item ${k===selectedProductCat?'active':''}" onclick="selectProductCat('${k}')">${v.title}</div>`).join('');
+  panel.innerHTML = `
+    <div class="sop-center-view">
+      <div class="sop-center-nav"><div class="sop-center-nav-title">产品分类</div>${navHTML}</div>
+      <div class="sop-center-detail" id="productDetail"></div></div>`;
+  renderProductDetail();
+}
+
+function renderProductDetail() {
+  const el = document.getElementById('productDetail');
+  if (!el) return;
+  const cat = PRODUCT_KNOWLEDGE[selectedProductCat];
+  el.innerHTML = `
+    <h3>${cat.title}</h3>
+    <div class="section-desc" style="margin-bottom:14px;">${cat.content.find(c=>c.note)?.note || ''}</div>
+    ${cat.content.map(c => `
+      <div class="card-box" style="border-left:3px solid ${cat.color};margin-bottom:12px;">
+        <div style="font-size:13px;font-weight:700;color:${cat.color};margin-bottom:6px;">${c.label}</div>
+        <ul style="padding-left:16px;font-size:12px;color:var(--text-secondary);line-height:2;margin:0;">
+          ${c.items.map(i=>`<li>${i}</li>`).join('')}
+        </ul>
+        ${c.note ? `<div style="margin-top:6px;padding:6px 10px;background:var(--accent-light);border-radius:6px;font-size:11px;color:var(--accent-deep);">⚠️ ${c.note}</div>` : ''}
+      </div>`).join('')}`;
+}
+
+// ==================== TAB 7: BIZ RULES ====================
+function renderBizRules(panel, tabId) {
+  const keys = ['classroom','signup','refund','payment','invoice','attribution'];
+  const entries = keys.map(k => [k, BIZ_RULES[k]]).filter(([k,v]) => v);
+  const navHTML = entries.map(([k,v]) => `
+    <div class="sop-center-nav-item ${k===selectedBizRuleCat?'active':''}" onclick="selectBizRuleCat('${k}')">${v.icon} ${v.title}</div>`).join('');
+  panel.innerHTML = `
+    <div class="sop-center-view">
+      <div class="sop-center-nav"><div class="sop-center-nav-title">核心规则中心</div>${navHTML}</div>
+      <div class="sop-center-detail" id="bizRuleDetail"></div></div>`;
+  renderBizRuleDetail();
+}
+
+function renderBizRuleDetail() {
+  const el = document.getElementById('bizRuleDetail');
+  if (!el) return;
+  const cat = BIZ_RULES[selectedBizRuleCat];
+
+  function renderSection(s, color) {
+    if (s.type === 'table') {
+      return `<div class="table-wrap" style="margin-bottom:10px;"><table><thead><tr>${s.headers.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${s.rows.map(r=>`<tr>${r.map((c,i)=>i===0?`<td style="font-weight:600;white-space:nowrap;">${c}</td>`:`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+    }
+    if (s.type === 'steps') {
+      return `<div style="display:flex;flex-direction:column;gap:5px;">${s.items.map(st=>`<div style="display:flex;gap:8px;padding:6px 10px;background:var(--parchment-dark);border-radius:6px;align-items:flex-start;"><span style="background:${color};color:#fff;min-width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;">${st.step}</span><div><span style="font-size:11px;font-weight:600;color:var(--text);">${st.title}</span><br><span style="font-size:10px;color:var(--text-secondary);">${st.desc}</span></div></div>`).join('')}</div>`;
+    }
+    if (s.type === 'red') {
+      return `<div style="padding:10px 14px;background:var(--vermillion-light);border-radius:8px;font-size:11px;line-height:1.8;"><strong style="color:var(--vermillion-deep);">红线</strong><ul style="margin:4px 0 0 16px;color:var(--text-secondary);">${s.items.map(i=>`<li>${i}</li>`).join('')}</ul></div>`;
+    }
+    if (s.type === 'note') {
+      return `<div style="padding:10px 14px;background:var(--accent-light);border-radius:8px;font-size:12px;color:var(--accent-deep);line-height:1.8;font-weight:500;">${s.text}</div>`;
+    }
+    if (s.type === 'dual') {
+      return `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div style="padding:12px 14px;background:var(--parchment-dark);border-radius:8px;border-top:3px solid ${color};"><div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:6px;">${s.left.title}</div><ul style="padding-left:14px;font-size:11px;color:var(--text-secondary);line-height:1.8;margin:0;">${s.left.items.map(i=>`<li>${i}</li>`).join('')}</ul></div><div style="padding:12px 14px;background:var(--parchment-dark);border-radius:8px;border-top:3px solid var(--jade);"><div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:6px;">${s.right.title}</div><ul style="padding-left:14px;font-size:11px;color:var(--text-secondary);line-height:1.8;margin:0;">${s.right.items.map(i=>`<li>${i}</li>`).join('')}</ul></div></div>`;
+    }
+    if (s.type === 'grid') {
+      return `<div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;">${s.items.map(item=>`<div style="display:flex;gap:8px;padding:6px 10px;background:var(--parchment-dark);border-radius:6px;align-items:flex-start;"><span style="font-weight:700;color:${color};min-width:65px;flex-shrink:0;font-size:11px;">${item.label}</span><span style="color:var(--text-secondary);line-height:1.6;font-size:11px;">${item.value}</span></div>`).join('')}</div>`;
+    }
+    return '';
+  }
+
+  if (cat.type === 'cards') {
+    el.innerHTML = `
+      <h3>${cat.icon} ${cat.title}</h3>
+      <div class="section-desc">班课核心业务规则一览，以最新发布为准，遇特殊场景请同步主管确认</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        ${CLASSROOM_RULES.map(r => `
+          <div class="card-box" style="border-left:3px solid ${r.color};margin-bottom:0;">
+            <h3 style="color:${r.color};margin-top:0;font-size:15px;">${r.icon} ${r.title}</h3>
+            <div style="display:flex;flex-direction:column;gap:5px;">
+              ${r.items.map(item => `
+                <div style="display:flex;gap:10px;padding:7px 10px;background:var(--parchment-dark);border-radius:6px;align-items:flex-start;">
+                  <span style="font-weight:600;color:var(--text);min-width:100px;flex-shrink:0;font-size:12px;">${item.label}</span>
+                  <span style="color:var(--text-secondary);line-height:1.6;font-size:12px;flex:1;">${item.value}</span>
+                </div>`).join('')}
+            </div>
+          </div>`).join('')}
+      </div>`;
+  } else if (cat.type === 'leads') {
+    const rulesData = selectedBizRuleCat === 'attribution' ? ATTRIBUTION_RULES : LEAD_RULES;
+    el.innerHTML = `
+      <h3>${cat.icon} ${cat.title}</h3>
+      ${rulesData.map(lr => `
+        <details class="checklist-item" open style="margin-bottom:8px;border:1px solid var(--stone);border-left:3px solid ${cat.color};border-radius:0 8px 8px 0;overflow:hidden;">
+          <summary style="padding:10px 14px;cursor:pointer;font-size:13px;font-weight:700;color:var(--text);background:var(--parchment-dark);list-style:none;display:flex;align-items:center;gap:8px;">
+            <span>${lr.icon} ${lr.title}</span>
+            <span style="font-size:10px;color:var(--text-muted);margin-left:auto;">${lr.sections.length}项</span>
+          </summary>
+          <div style="padding:14px 16px;font-size:11px;line-height:1.9;border-top:1px solid var(--stone);background:var(--card);">
+            ${lr.sections.map(s => `
+              <div style="margin-bottom:14px;">
+                <div style="font-size:12px;font-weight:700;color:${cat.color};margin-bottom:6px;">${s.title}</div>
+                ${renderSection(s, cat.color)}
+              </div>`).join('')}
+          </div>
+        </details>`).join('')}`;
+  } else {
+    el.innerHTML = `
+      <h3>${cat.icon} ${cat.title}</h3>
+      ${cat.sections.map(s => `
+        <div class="card-box" style="border-left:3px solid ${cat.color};margin-bottom:12px;">
+          <div style="font-size:13px;font-weight:700;color:${cat.color};margin-bottom:8px;">${s.title}</div>
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            ${s.items.map(item => `
+              <div style="display:flex;gap:10px;padding:7px 10px;background:var(--parchment-dark);border-radius:6px;align-items:flex-start;">
+                <span style="font-weight:600;color:var(--text);min-width:90px;flex-shrink:0;font-size:11px;">${item.label}</span>
+                <span style="color:var(--text-secondary);line-height:1.6;font-size:11px;flex:1;">${item.value}</span>
+              </div>`).join('')}
+          </div>
+        </div>`).join('')}`;
+  }
+}
+
+// ==================== PRINT ====================
+function preparePrint() {
+  document.title = '课程顾问作战手册';
+  const pc = document.getElementById('printContainer');
+  pc.innerHTML = '<div style="font-family:sans-serif;max-width:900px;margin:0 auto;padding:20px;color:#2c2416;"><h1 style="text-align:center;color:#8b5e2a;">课程顾问作战手册</h1><p style="text-align:center;color:#9b8e7a;">桃李未来 · 学科培优事业部</p></div>';
+  setTimeout(() => window.print(), 300);
+}
+
+function initTabs() {
+  document.getElementById('viewTabs').innerHTML = TABS.map(t =>
+    `<button class="view-tab ${t.id===currentTab?'active':''}" data-tab="${t.id}" onclick="switchTab('${t.id}')"><span class="tab-icon">${t.icon}</span>${t.label}</button>`
+  ).join('');
+  document.getElementById('mobileTabSelect').innerHTML = '<option value="">📂 请选择…</option>' + TABS.map(t =>
+    `<option value="${t.id}" ${t.id===currentTab?'selected':''}>${t.icon} ${t.label}</option>`
+  ).join('');
+}
+initTabs(); renderAll();
+</script>
+</body>
+</html>

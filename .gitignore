@@ -1,0 +1,8 @@
+# Source files
+*.docx
+*.xlsx
+SOP*.html
+
+# Other
+.claude/
+校区教务岗位手册.html
