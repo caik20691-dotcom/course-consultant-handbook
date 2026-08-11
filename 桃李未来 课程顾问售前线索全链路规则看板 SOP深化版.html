@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>桃李未来 · 售前线索管理体系</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=Cormorant+Garamond:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1C3768;--navy-deep:#0F2447;--navy-light:#2A4F8F;
+  --peach:#E8583A;--peach-deep:#C73F26;--peach-light:#FF7355;
+  --gold:#F5A623;--gold-deep:#D89010;
+  --green:#27AE60;--green-deep:#1E8E4D;
+  --teal:#1A9E8F;--purple:#6B4F92;--purple-deep:#523877;
+  --red:#C0392B;
+  --gray-50:#FAFBFC;--gray-100:#F4F6F8;--gray-200:#E8ECF1;--gray-300:#D0D7E2;
+  --gray-400:#9BA8BC;--gray-600:#555E70;--gray-800:#2D3548;
+  --ink:#1A1F2E;--paper:#FCFBF7;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;background:var(--paper);color:var(--ink);font-size:13.5px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+body{background-image:radial-gradient(circle at 12% 8%, rgba(28,55,104,.04) 0%, transparent 45%),radial-gradient(circle at 88% 92%, rgba(232,88,58,.04) 0%, transparent 45%),linear-gradient(180deg, var(--paper) 0%, #F7F5EF 100%);background-attachment:fixed;min-height:100vh;}
+
+/* 顶部 */
+.topbar{position:sticky;top:0;z-index:100;background:var(--navy-deep);color:#fff;padding:13px 36px;display:flex;align-items:center;gap:22px;box-shadow:0 4px 20px rgba(15,36,71,.25);border-bottom:3px solid var(--peach);}
+.topbar-brand{font-family:"Noto Serif SC",serif;font-weight:900;font-size:15px;letter-spacing:.5px;display:flex;align-items:center;gap:10px;}
+.topbar-brand::before{content:'';width:7px;height:22px;background:var(--peach);}
+.topbar-nav{display:flex;gap:16px;flex:1;flex-wrap:wrap;}
+.topbar-nav a{color:#9BB8D8;text-decoration:none;font-size:12px;font-weight:500;padding:4px 0;border-bottom:2px solid transparent;transition:all .2s;}
+.topbar-nav a:hover{color:var(--gold);border-bottom-color:var(--gold);}
+.btn{background:var(--peach);border:1.5px solid var(--peach);color:#fff;padding:6px 16px;border-radius:20px;cursor:pointer;font-size:12px;font-weight:600;font-family:inherit;transition:all .2s;}
+.btn:hover{background:var(--peach-deep);}
+
+.wrap{max-width:1320px;margin:0 auto;padding:0 30px 60px;}
+
+/* Hero */
+.hero{background:linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 55%, var(--navy-light) 100%);color:#fff;padding:58px 56px 50px;margin-top:30px;border-radius:8px;position:relative;overflow:hidden;box-shadow:0 12px 40px rgba(15,36,71,.25);}
+.hero::before{content:'';position:absolute;right:-110px;top:-110px;width:440px;height:440px;border-radius:50%;background:radial-gradient(circle, rgba(245,166,35,.16) 0%, transparent 70%);}
+.hero::after{content:'';position:absolute;left:-70px;bottom:-90px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle, rgba(232,88,58,.13) 0%, transparent 70%);}
+.hero-content{position:relative;z-index:2;}
+.hero-tag{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:17px;color:var(--gold);letter-spacing:3px;margin-bottom:12px;}
+.hero h1{font-family:"Noto Serif SC",serif;font-weight:900;font-size:44px;line-height:1.15;letter-spacing:1px;margin-bottom:8px;}
+.hero h2{font-family:"Noto Serif SC",serif;font-weight:400;font-size:22px;color:#C4D4EA;letter-spacing:2px;margin-bottom:26px;}
+.hero-divider{width:60px;height:4px;background:var(--peach);margin:22px 0;}
+.hero p{font-size:14.5px;color:#C4D4EA;max-width:840px;line-height:1.85;}
+.hero p strong{color:#fff;}
+.hero-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:32px;padding-top:26px;border-top:1px solid rgba(255,255,255,.12);}
+.meta-item .lbl{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:13px;color:#7E94B8;letter-spacing:1px;}
+.meta-item .val{font-size:15px;color:#fff;font-weight:500;margin-top:4px;}
+
+.section-head{display:flex;align-items:flex-end;gap:18px;margin:50px 0 22px;padding-bottom:14px;border-bottom:2px solid var(--navy-deep);}
+.section-num{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:52px;font-weight:600;line-height:.85;color:var(--peach);}
+.section-title{font-family:"Noto Serif SC",serif;font-weight:900;font-size:25px;color:var(--navy-deep);letter-spacing:1px;}
+.section-sub{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:14px;color:var(--gray-400);margin-left:auto;letter-spacing:2px;padding-bottom:6px;}
+
+/* 售前定位卡 */
+.role-card{background:#fff;border-radius:8px;padding:32px 36px;box-shadow:0 4px 16px rgba(28,55,104,.06);border-left:5px solid var(--navy);}
+.role-card h3{font-family:"Noto Serif SC",serif;font-weight:700;font-size:20px;color:var(--navy-deep);margin-bottom:4px;}
+.role-card .sub{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:13px;color:var(--gray-400);letter-spacing:1.5px;margin-bottom:20px;}
+.split-row{display:grid;grid-template-columns:1fr auto 1fr;gap:24px;align-items:stretch;}
+.split-col{background:var(--gray-50);border-radius:6px;padding:22px 24px;border-top:4px solid;}
+.split-col.presale{border-top-color:var(--peach);}
+.split-col.aftersale{border-top-color:var(--green);}
+.split-col .ctag{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:12px;letter-spacing:2px;color:var(--gray-400);}
+.split-col h4{font-family:"Noto Serif SC",serif;font-weight:700;font-size:18px;margin:3px 0 12px;}
+.split-col.presale h4{color:var(--peach-deep);}
+.split-col.aftersale h4{color:var(--green-deep);}
+.split-col ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.split-col ul li{font-size:12.5px;line-height:1.6;color:var(--gray-800);display:flex;gap:8px;align-items:flex-start;}
+.split-col ul li::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:7px;}
+.split-col.presale ul li::before{background:var(--peach);}
+.split-col.aftersale ul li::before{background:var(--green);}
+.split-divider{display:flex;align-items:center;justify-content:center;font-family:"Cormorant Garamond",serif;font-weight:700;font-size:18px;color:var(--gray-400);width:40px;}
+
+/* 售前两大主线 */
+.dual-line{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px;}
+.line-card{background:#fff;border-radius:8px;padding:24px 28px;box-shadow:0 4px 16px rgba(28,55,104,.06);border-left:4px solid var(--peach);}
+.line-card.recall{border-left-color:var(--gold-deep);}
+.line-card .lno{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:13px;color:var(--gray-400);letter-spacing:1.5px;}
+.line-card h4{font-family:"Noto Serif SC",serif;font-weight:700;font-size:17px;color:var(--navy-deep);margin:4px 0 8px;}
+.line-card p{font-size:12.5px;color:var(--gray-800);line-height:1.7;}
+.line-card p strong{color:var(--peach-deep);}
+.line-card.recall p strong{color:var(--gold-deep);}
+.line-card .def-box{margin-top:12px;padding:10px 14px;background:var(--gray-50);border-radius:4px;font-size:11.5px;color:var(--gray-600);line-height:1.6;}
+.line-card .def-box strong{color:var(--navy-deep);}
+
+/* 生命周期主图 */
+.lifecycle{background:#fff;border-radius:10px;padding:36px 40px;box-shadow:0 4px 16px rgba(28,55,104,.06);overflow-x:auto;}
+.lc-title{font-family:"Noto Serif SC",serif;font-weight:700;font-size:18px;color:var(--navy-deep);margin-bottom:6px;}
+.lc-sub{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:13px;color:var(--gray-400);margin-bottom:24px;letter-spacing:1.5px;}
+
+/* 触点-录入-清洗-评级-分配 时间轴 */
+.stage-flow{display:grid;grid-template-columns:repeat(7,1fr);gap:0;align-items:stretch;margin:8px 0;min-width:780px;}
+.stage-box{background:var(--gray-50);padding:18px 14px;text-align:center;position:relative;border-top:3px solid;}
+.stage-box:not(:last-child)::after{content:'→';position:absolute;right:-10px;top:50%;transform:translateY(-50%);font-size:20px;color:var(--gray-300);z-index:2;font-weight:700;}
+.stage-box .sno{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:11px;color:var(--gray-400);letter-spacing:1.5px;}
+.stage-box .sname{font-family:"Noto Serif SC",serif;font-weight:700;font-size:13px;color:var(--navy-deep);margin:4px 0 5px;}
+.stage-box .sdesc{font-size:10.5px;color:var(--gray-600);line-height:1.5;}
+.s1{border-top-color:var(--blue,#4A8EFF);} .s2{border-top-color:var(--teal);} .s3{border-top-color:var(--green);} .s4{border-top-color:var(--gold-deep);} .s5{border-top-color:var(--peach);} .s6{border-top-color:var(--purple);} .s7{border-top-color:var(--navy);}
+
+.lc-result{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:24px;}
+.lc-result .rc{background:var(--gray-50);border-radius:6px;padding:14px 18px;border-left:3px solid;}
+.lc-result .rc.win{border-left-color:var(--green);}
+.lc-result .rc.lost{border-left-color:var(--red);}
+.lc-result .rc.hold{border-left-color:var(--gold-deep);}
+.lc-result .rc .rn{font-size:11px;color:var(--gray-400);letter-spacing:1px;font-family:"Cormorant Garamond",serif;font-style:italic;}
+.lc-result .rc .rtitle{font-family:"Noto Serif SC",serif;font-weight:700;font-size:14px;color:var(--navy-deep);margin:2px 0 4px;}
+.lc-result .rc .rdesc{font-size:11.5px;color:var(--gray-600);line-height:1.5;}
+
+/* 触点定义 */
+.touch-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.touch-card{background:#fff;border-radius:8px;padding:18px 20px;box-shadow:0 3px 12px rgba(28,55,104,.05);border:1px solid var(--gray-200);transition:all .2s;}
+.touch-card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.06);border-color:var(--gold);}
+.touch-card .tc-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.touch-card .tc-no{font-family:"Cormorant Garamond",serif;font-weight:700;font-style:italic;font-size:24px;color:var(--peach);line-height:1;flex-shrink:0;}
+.touch-card .tc-name{font-family:"Noto Serif SC",serif;font-weight:700;font-size:14px;color:var(--navy-deep);}
+.touch-card .tc-row{display:flex;font-size:11.5px;line-height:1.6;margin-top:4px;}
+.touch-card .tc-row .tk{color:var(--gray-400);width:50px;flex-shrink:0;letter-spacing:.5px;}
+.touch-card .tc-row .tv{color:var(--gray-800);flex:1;}
+.touch-card .tc-row .tv strong{color:var(--peach-deep);}
+.touch-card .tc-row .tv .priority{display:inline-block;font-size:10px;font-weight:700;padding:1px 6px;border-radius:3px;font-family:"JetBrains Mono",monospace;}
+.touch-card .pri-high{background:#FCE8E3;color:var(--peach-deep);}
+.touch-card .pri-med{background:#FEF1D6;color:var(--gold-deep);}
+.touch-card .pri-low{background:#EDE4F5;color:var(--purple-deep);}
+
+/* 表格 */
+.std-table{width:100%;border-collapse:collapse;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 4px 16px rgba(28,55,104,.06);font-size:12.5px;}
+.std-table thead th{background:var(--navy-deep);color:#fff;padding:13px 14px;text-align:left;font-family:"Noto Serif SC",serif;font-weight:500;letter-spacing:.5px;}
+.std-table tbody td{padding:12px 14px;border-bottom:1px solid var(--gray-200);vertical-align:top;line-height:1.65;}
+.std-table tbody tr:nth-child(even) td{background:var(--gray-50);}
+.std-table tbody tr:hover td{background:#FFF8E9;}
+.std-table .ccol1{font-weight:700;color:var(--navy-deep);font-family:"Noto Serif SC",serif;}
+.std-table .req{color:var(--red);font-weight:700;margin-right:3px;}
+.field-chip{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:10.5px;padding:1px 7px;background:var(--gray-100);color:var(--gray-800);border-radius:3px;margin:1px 3px 1px 0;border:1px solid var(--gray-200);}
+.field-chip.req{background:#FCE8E3;color:var(--peach-deep);border-color:#F8C9BD;}
+
+/* 等级标签 */
+.grade-tag{display:inline-block;font-family:"JetBrains Mono",monospace;font-weight:700;font-size:11px;padding:2px 9px;border-radius:3px;color:#fff;letter-spacing:.5px;}
+.g-a{background:var(--peach);} .g-b{background:var(--gold-deep);} .g-c{background:var(--teal);} .g-d{background:#9BA8BC;}
+
+/* 评级分布 */
+.grade-distribution{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:8px;}
+.grade-card{background:#fff;border-radius:8px;padding:18px 20px;box-shadow:0 4px 16px rgba(28,55,104,.06);border-top:4px solid;}
+.grade-card.ga{border-top-color:var(--peach);}
+.grade-card.gb{border-top-color:var(--gold-deep);}
+.grade-card.gc{border-top-color:var(--teal);}
+.grade-card.gd{border-top-color:var(--gray-400);}
+.grade-card .gtag{font-family:"Cormorant Garamond",serif;font-weight:700;font-style:italic;font-size:30px;line-height:1;}
+.grade-card.ga .gtag{color:var(--peach);}
+.grade-card.gb .gtag{color:var(--gold-deep);}
+.grade-card.gc .gtag{color:var(--teal);}
+.grade-card.gd .gtag{color:var(--gray-400);}
+.grade-card .gname{font-family:"Noto Serif SC",serif;font-weight:700;font-size:14px;color:var(--navy-deep);margin:4px 0 8px;}
+.grade-card .gcrit{font-size:11.5px;color:var(--gray-800);line-height:1.55;}
+.grade-card .gcrit strong{color:var(--navy-deep);}
+.grade-card .gtime{margin-top:10px;font-size:11px;color:var(--peach-deep);font-weight:600;padding-top:8px;border-top:1px dashed var(--gray-200);}
+
+/* 分配规则 */
+.alloc-flow{background:#fff;border-radius:8px;padding:28px 32px;box-shadow:0 4px 16px rgba(28,55,104,.06);}
+.alloc-row{display:grid;grid-template-columns:140px 1fr;gap:18px;padding:16px 0;border-bottom:1px solid var(--gray-200);}
+.alloc-row:last-child{border-bottom:none;}
+.alloc-row .arule{font-family:"Noto Serif SC",serif;font-weight:700;font-size:14px;color:var(--navy-deep);}
+.alloc-row .arule .anum{display:inline-block;width:24px;height:24px;border-radius:50%;background:var(--peach);color:#fff;font-family:"Cormorant Garamond",serif;font-weight:700;text-align:center;line-height:24px;font-size:13px;margin-right:6px;}
+.alloc-row .acontent{font-size:12.5px;color:var(--gray-800);line-height:1.7;}
+.alloc-row .acontent strong{color:var(--navy-deep);}
+.alloc-row .acontent .sla{display:inline-block;font-family:"JetBrains Mono",monospace;font-weight:700;font-size:11px;padding:2px 8px;background:var(--peach);color:#fff;border-radius:3px;margin:0 3px;}
+
+/* 公海规则 */
+.pool-section{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.pool-card{background:#fff;border-radius:8px;padding:24px 28px;box-shadow:0 4px 16px rgba(28,55,104,.06);border-left:4px solid var(--teal);}
+.pool-card.in{border-left-color:var(--peach);}
+.pool-card.out{border-left-color:var(--green);}
+.pool-card h4{font-family:"Noto Serif SC",serif;font-weight:700;font-size:16px;color:var(--navy-deep);margin-bottom:4px;display:flex;align-items:center;gap:8px;}
+.pool-card .psub{font-size:11.5px;color:var(--gray-600);margin-bottom:14px;line-height:1.5;}
+.pool-card ol{list-style:none;counter-reset:item;display:flex;flex-direction:column;gap:8px;}
+.pool-card ol li{counter-increment:item;font-size:12.5px;line-height:1.6;color:var(--gray-800);display:flex;gap:10px;align-items:flex-start;padding-left:0;}
+.pool-card ol li::before{content:counter(item);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-family:"JetBrains Mono",monospace;font-weight:700;font-size:11px;flex-shrink:0;margin-top:1px;}
+.pool-card.in ol li::before{background:var(--peach);}
+.pool-card.out ol li::before{background:var(--green);}
+.pool-card ol li strong{color:var(--navy-deep);}
+.pool-card .sla-tag{display:inline-block;font-family:"JetBrains Mono",monospace;font-weight:700;font-size:10.5px;padding:1px 6px;background:var(--gray-100);color:var(--peach-deep);border-radius:3px;border:1px solid #F8C9BD;}
+
+/* 沉睡激活专题 */
+.recall-hero{background:linear-gradient(135deg, #2A1F00 0%, #4A3A0F 60%, var(--gold-deep) 130%);color:#fff;padding:36px 40px;border-radius:10px;position:relative;overflow:hidden;}
+.recall-hero::before{content:'';position:absolute;right:-50px;top:-50px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle, rgba(245,166,35,.2) 0%, transparent 60%);}
+.recall-hero-content{position:relative;z-index:2;}
+.recall-hero .rtag{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:13px;color:var(--gold-bright,#FFC04A);letter-spacing:3px;margin-bottom:8px;}
+.recall-hero h3{font-family:"Noto Serif SC",serif;font-weight:900;font-size:24px;margin-bottom:12px;}
+.recall-hero p{font-size:13.5px;color:#E8DCB8;line-height:1.85;max-width:760px;}
+.recall-hero p strong{color:#FFC04A;}
+
+.recall-timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:18px;background:#fff;border-radius:8px;padding:24px 28px;box-shadow:0 4px 16px rgba(28,55,104,.06);position:relative;}
+.recall-stage{padding:0 12px;position:relative;text-align:center;}
+.recall-stage:not(:last-child)::after{content:'→';position:absolute;right:-6px;top:14px;font-size:18px;color:var(--gray-300);font-weight:700;}
+.recall-stage .rday{display:inline-block;font-family:"JetBrains Mono",monospace;font-weight:700;font-size:13px;padding:4px 12px;background:var(--gold-deep);color:#fff;border-radius:14px;letter-spacing:.5px;}
+.recall-stage .ract{font-family:"Noto Serif SC",serif;font-weight:700;font-size:13px;color:var(--navy-deep);margin:8px 0 4px;}
+.recall-stage .rsubdesc{font-size:11px;color:var(--gray-600);line-height:1.55;}
+
+/* SLA表 */
+.sla-table{width:100%;border-collapse:collapse;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 4px 16px rgba(28,55,104,.06);font-size:12.5px;}
+.sla-table thead th{background:var(--navy-deep);color:#fff;padding:13px 14px;text-align:left;font-family:"Noto Serif SC",serif;font-weight:500;letter-spacing:.5px;}
+.sla-table tbody td{padding:11px 14px;border-bottom:1px solid var(--gray-200);vertical-align:middle;}
+.sla-table .stage-cell{font-family:"Noto Serif SC",serif;font-weight:700;color:var(--navy-deep);}
+.sla-table .sla-val{font-family:"JetBrains Mono",monospace;font-weight:700;color:var(--peach-deep);}
+.sla-table tbody tr:nth-child(even) td{background:var(--gray-50);}
+
+/* KPI 卡 */
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.kpi-card{background:#fff;border-radius:8px;padding:22px 24px;box-shadow:0 4px 16px rgba(28,55,104,.06);border-top:4px solid var(--navy);}
+.kpi-card.cons{border-top-color:var(--peach);}
+.kpi-card.mgr{border-top-color:var(--gold-deep);}
+.kpi-card.area{border-top-color:var(--green);}
+.kpi-card .ktarget{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:13px;color:var(--gray-400);letter-spacing:1.5px;}
+.kpi-card h4{font-family:"Noto Serif SC",serif;font-weight:700;font-size:16px;color:var(--navy-deep);margin:3px 0 12px;}
+.kpi-card ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.kpi-card ul li{display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:6px 0;border-bottom:1px dashed var(--gray-200);}
+.kpi-card ul li:last-child{border-bottom:none;}
+.kpi-card ul li .kname{color:var(--gray-800);}
+.kpi-card ul li .kval{font-family:"JetBrains Mono",monospace;font-weight:700;color:var(--peach-deep);}
+.kpi-card.cons li .kval{color:var(--peach-deep);}
+.kpi-card.mgr li .kval{color:var(--gold-deep);}
+.kpi-card.area li .kval{color:var(--green-deep);}
+
+/* note */
+.note{background:#FFF9E7;border-left:4px solid var(--gold-deep);padding:14px 18px;border-radius:0 4px 4px 0;margin:20px 0 4px;font-size:12.5px;color:#6B5200;line-height:1.7;}
+.note strong{color:#3D2E00;}
+.note .label{display:inline-block;background:var(--gold-deep);color:#fff;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:3px;letter-spacing:1px;margin-right:8px;}
+
+.note-red{background:#FFF4F0;border-left:4px solid var(--red);padding:14px 18px;border-radius:0 4px 4px 0;margin:20px 0 4px;font-size:12.5px;color:#5A1A10;line-height:1.7;}
+.note-red strong{color:var(--red);}
+.note-red .label{display:inline-block;background:var(--red);color:#fff;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:3px;letter-spacing:1px;margin-right:8px;}
+
+/* footer */
+.footer{margin-top:56px;padding:30px 40px;background:var(--navy-deep);color:#9BB8D8;border-radius:8px;display:flex;justify-content:space-between;align-items:center;font-size:12px;}
+.footer .left{font-family:"Noto Serif SC",serif;}
+.footer .left strong{color:#fff;font-size:14px;}
+.footer .right{font-family:"Cormorant Garamond",serif;font-style:italic;letter-spacing:1.5px;}
+
+/* 响应式 */
+@media (max-width:1100px){
+  .touch-grid,.grade-distribution,.kpi-grid{grid-template-columns:repeat(2,1fr);}
+  .pool-section,.dual-line{grid-template-columns:1fr;}
+  .split-row{grid-template-columns:1fr;}
+  .split-divider{transform:rotate(90deg);}
+  .recall-timeline{grid-template-columns:repeat(2,1fr);gap:18px;}
+  .recall-stage::after{display:none;}
+  .hero-meta{grid-template-columns:repeat(2,1fr);}
+}
+@media (max-width:768px){
+  .topbar{padding:11px 14px;flex-wrap:wrap;} .topbar-nav{display:none;}
+  .wrap{padding:0 14px 40px;} .hero{padding:36px 22px;} .hero h1{font-size:28px;}
+  .touch-grid,.grade-distribution,.kpi-grid{grid-template-columns:1fr;}
+  .recall-timeline{grid-template-columns:1fr;}
+  .alloc-row{grid-template-columns:1fr;}
+}
+@media print{
+  .topbar,.btn{display:none;} body{background:#fff;}
+  .role-card,.lifecycle,.alloc-flow,.pool-card,.recall-hero,.recall-timeline{break-inside:avoid;box-shadow:none;border:1px solid #ddd;}
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+.touch-card,.grade-card,.line-card,.kpi-card,.pool-card{animation:fadeUp .5s ease backwards;}
+
+/* ===== 融合版新增组件 ===== */
+/* 客户类型 A/B/C/D */
+.ctype-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.ctype-card{background:#fff;border-radius:8px;padding:20px;box-shadow:0 4px 16px rgba(28,55,104,.06);border-top:4px solid;position:relative;}
+.ctype-card.ta{border-top-color:var(--peach);}
+.ctype-card.tb{border-top-color:var(--gold-deep);}
+.ctype-card.tc{border-top-color:var(--teal);}
+.ctype-card.td{border-top-color:var(--gray-400);}
+.ctype-card .ct-no{font-family:"Cormorant Garamond",serif;font-weight:700;font-style:italic;font-size:13px;letter-spacing:1.5px;color:var(--gray-400);}
+.ctype-card .ct-name{font-family:"Noto Serif SC",serif;font-weight:700;font-size:15px;color:var(--navy-deep);margin:3px 0 8px;line-height:1.3;}
+.ctype-card .ct-def{font-size:11.5px;color:var(--gray-800);line-height:1.6;margin-bottom:10px;}
+.ctype-card .ct-owner{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;margin-bottom:8px;}
+.ctype-card.ta .ct-owner,.ctype-card.tb .ct-owner{background:#FCE8E3;color:var(--peach-deep);}
+.ctype-card.tc .ct-owner{background:#FEF1D6;color:var(--gold-deep);}
+.ctype-card.td .ct-owner{background:#DDF4E5;color:var(--green-deep);}
+.ctype-card .ct-logic{font-size:10.5px;color:var(--gray-600);line-height:1.5;padding-top:8px;border-top:1px dashed var(--gray-200);font-family:"JetBrains Mono",monospace;}
+
+/* 决策树 */
+.dtree{background:#fff;border-radius:8px;padding:30px 36px;box-shadow:0 4px 16px rgba(28,55,104,.06);}
+.dtree-node{display:flex;flex-direction:column;align-items:center;gap:0;}
+.dtree-q{background:var(--navy-deep);color:#fff;padding:10px 22px;border-radius:8px;font-weight:600;font-size:13px;text-align:center;max-width:560px;}
+.dtree-branch{display:flex;gap:40px;justify-content:center;margin-top:0;}
+.dtree-leg{display:flex;flex-direction:column;align-items:center;position:relative;padding-top:28px;}
+.dtree-leg::before{content:'';position:absolute;top:0;left:50%;width:1px;height:28px;background:var(--gray-300);}
+.dtree-yn{position:absolute;top:4px;left:50%;transform:translateX(-50%);font-size:11px;font-weight:700;background:var(--paper);padding:0 6px;color:var(--peach-deep);}
+.dtree-result{padding:10px 18px;border-radius:8px;font-size:12px;font-weight:600;text-align:center;color:#fff;}
+.dt-a{background:var(--peach);} .dt-b{background:var(--gold-deep);} .dt-c{background:var(--teal);} .dt-d{background:var(--green);} .dt-obs{background:var(--gray-400);}
+.dtree-line{width:1px;height:22px;background:var(--gray-300);}
+
+/* 状态机 S1-S12 */
+.status-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.status-card{background:#fff;border-radius:8px;padding:16px 18px;box-shadow:0 3px 12px rgba(28,55,104,.05);border-left:4px solid var(--navy-light);transition:all .2s;}
+.status-card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.06);}
+.status-card.terminal{border-left-color:var(--gray-400);background:var(--gray-50);}
+.status-card.pool{border-left-color:var(--teal);}
+.status-card.win{border-left-color:var(--green);}
+.status-card .st-head{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.status-card .st-code{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:12px;padding:2px 8px;background:var(--navy-deep);color:#fff;border-radius:4px;flex-shrink:0;}
+.status-card.pool .st-code{background:var(--teal);} .status-card.win .st-code{background:var(--green);} .status-card.terminal .st-code{background:var(--gray-400);}
+.status-card .st-name{font-family:"Noto Serif SC",serif;font-weight:700;font-size:14px;color:var(--navy-deep);}
+.status-card .st-def{font-size:11.5px;color:var(--gray-800);line-height:1.55;margin-bottom:8px;}
+.status-card .st-row{font-size:11px;line-height:1.5;margin-top:5px;display:flex;gap:6px;}
+.status-card .st-row .stk{color:var(--gray-400);flex-shrink:0;width:38px;}
+.status-card .st-row .stv{color:var(--gray-600);flex:1;}
+.status-card .st-row .stv.next{color:var(--peach-deep);font-weight:600;}
+.status-card .st-limit{margin-top:8px;padding-top:6px;border-top:1px dashed var(--gray-200);font-size:10.5px;color:var(--peach-deep);font-family:"JetBrains Mono",monospace;font-weight:600;}
+
+/* 扭转 T1-T5 */
+.transfer-list{display:flex;flex-direction:column;gap:12px;}
+.transfer-item{background:#fff;border-radius:8px;padding:18px 22px;box-shadow:0 3px 12px rgba(28,55,104,.05);border-left:4px solid var(--purple);display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:flex-start;}
+.transfer-item .tf-code{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--purple),var(--purple-deep));color:#fff;display:flex;align-items:center;justify-content:center;font-family:"JetBrains Mono",monospace;font-weight:700;font-size:15px;flex-shrink:0;}
+.transfer-item .tf-body{flex:1;}
+.transfer-item .tf-title{font-family:"Noto Serif SC",serif;font-weight:700;font-size:14px;color:var(--navy-deep);margin-bottom:2px;}
+.transfer-item .tf-dir{font-size:11px;color:var(--purple-deep);font-family:"JetBrains Mono",monospace;margin-bottom:8px;}
+.transfer-item .tf-rows{display:grid;grid-template-columns:1fr 1fr;gap:8px 18px;}
+.transfer-item .tf-r{font-size:11.5px;line-height:1.55;}
+.transfer-item .tf-r .tfk{color:var(--gray-400);font-family:"Cormorant Garamond",serif;font-style:italic;letter-spacing:.5px;margin-right:4px;}
+.transfer-item .tf-r .tfv{color:var(--gray-800);}
+.transfer-item .tf-r .tfv strong{color:var(--navy-deep);}
+
+/* 双轨到访 */
+.visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.visit-card{background:#fff;border-radius:8px;padding:24px 28px;box-shadow:0 4px 16px rgba(28,55,104,.06);border-top:4px solid var(--peach);}
+.visit-card.natural{border-top-color:var(--teal);}
+.visit-card h4{font-family:"Noto Serif SC",serif;font-weight:700;font-size:16px;color:var(--navy-deep);margin-bottom:4px;}
+.visit-card .vsub{font-size:11.5px;color:var(--gray-400);font-family:"Cormorant Garamond",serif;font-style:italic;letter-spacing:1px;margin-bottom:12px;}
+.visit-card .vrule{font-size:12.5px;color:var(--gray-800);line-height:1.7;}
+.visit-card .vrule strong{color:var(--peach-deep);}
+.visit-card.natural .vrule strong{color:var(--teal);}
+
+/* 速查卡 */
+.quick-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.quick-item{background:#fff;border-radius:6px;padding:14px 18px;box-shadow:0 3px 10px rgba(28,55,104,.05);border-left:3px solid var(--gold-deep);display:flex;gap:12px;align-items:flex-start;}
+.quick-item .qk{font-family:"Noto Serif SC",serif;font-weight:700;font-size:12.5px;color:var(--navy-deep);white-space:nowrap;flex-shrink:0;min-width:64px;}
+.quick-item .qv{font-size:12px;color:var(--gray-800);line-height:1.6;}
+.quick-item .qv strong{color:var(--peach-deep);}
+
+@media (max-width:1100px){
+  .ctype-grid,.status-grid{grid-template-columns:repeat(2,1fr);}
+  .visit-grid,.quick-grid{grid-template-columns:1fr;}
+  .transfer-item .tf-rows{grid-template-columns:1fr;}
+  .dtree-branch{flex-direction:column;gap:14px;}
+}
+@media (max-width:768px){
+  .ctype-grid,.status-grid{grid-template-columns:1fr;}
+}
+
+/* ===== 深化版 SOP / 流程 组件 ===== */
+/* SOP 步骤条（纵向带序号） */
+.sop-steps{display:flex;flex-direction:column;gap:0;position:relative;margin:8px 0;}
+.sop-steps::before{content:'';position:absolute;left:21px;top:18px;bottom:18px;width:2px;background:linear-gradient(180deg,var(--peach) 0%,var(--gold-deep) 50%,var(--green) 100%);}
+.sop-step{display:grid;grid-template-columns:46px 1fr;gap:16px;padding:10px 0;position:relative;}
+.sop-step .ss-no{width:44px;height:44px;border-radius:50%;background:#fff;border:2.5px solid var(--peach);display:flex;align-items:center;justify-content:center;font-family:"Cormorant Garamond",serif;font-weight:700;font-size:19px;color:var(--peach-deep);z-index:2;flex-shrink:0;box-shadow:0 3px 10px rgba(0,0,0,.05);}
+.sop-step .ss-body{background:var(--gray-50);border-radius:6px;padding:13px 18px;border-left:3px solid var(--peach);}
+.sop-step .ss-title{font-family:"Noto Serif SC",serif;font-weight:700;font-size:13.5px;color:var(--navy-deep);margin-bottom:3px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.sop-step .ss-time{font-family:"JetBrains Mono",monospace;font-size:10.5px;font-weight:700;padding:1px 8px;border-radius:10px;background:var(--peach);color:#fff;}
+.sop-step .ss-desc{font-size:12px;color:var(--gray-800);line-height:1.65;}
+.sop-step .ss-desc strong{color:var(--navy-deep);}
+.sop-step.green .ss-no{border-color:var(--green);color:var(--green-deep);} .sop-step.green .ss-body{border-left-color:var(--green);}
+.sop-step.gold .ss-no{border-color:var(--gold-deep);color:var(--gold-deep);} .sop-step.gold .ss-body{border-left-color:var(--gold-deep);}
+.sop-step.teal .ss-no{border-color:var(--teal);color:var(--teal);} .sop-step.teal .ss-body{border-left-color:var(--teal);}
+
+/* SOP 容器标题 */
+.sop-box{background:#fff;border-radius:8px;padding:24px 28px;box-shadow:0 4px 16px rgba(28,55,104,.06);margin-bottom:18px;border-top:3px solid var(--peach);}
+.sop-box.green{border-top-color:var(--green);} .sop-box.gold{border-top-color:var(--gold-deep);} .sop-box.teal{border-top-color:var(--teal);} .sop-box.navy{border-top-color:var(--navy);}
+.sop-box .sb-title{font-family:"Noto Serif SC",serif;font-weight:700;font-size:16px;color:var(--navy-deep);margin-bottom:4px;display:flex;align-items:center;gap:10px;}
+.sop-box .sb-badge{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:12px;letter-spacing:1.5px;color:#fff;background:var(--peach);padding:2px 10px;border-radius:10px;}
+.sop-box.green .sb-badge{background:var(--green);} .sop-box.gold .sb-badge{background:var(--gold-deep);} .sop-box.teal .sb-badge{background:var(--teal);} .sop-box.navy .sb-badge{background:var(--navy);}
+.sop-box .sb-sub{font-size:12px;color:var(--gray-600);margin-bottom:14px;line-height:1.6;}
+
+/* 横向流程图 */
+.flowchart{display:flex;align-items:stretch;flex-wrap:wrap;gap:0;margin:8px 0;}
+.flow-node{background:var(--gray-50);border:1.5px solid var(--gray-300);border-radius:8px;padding:12px 16px;flex:1;min-width:120px;text-align:center;position:relative;}
+.flow-node.start{border-color:var(--navy);background:#E6EDF8;}
+.flow-node.decision{border-color:var(--gold-deep);background:#FEF1D6;border-radius:8px;}
+.flow-node.end-win{border-color:var(--green);background:#DDF4E5;}
+.flow-node.end-lose{border-color:var(--red);background:#FFF1ED;}
+.flow-node .fn-label{font-size:12px;font-weight:600;color:var(--navy-deep);line-height:1.4;}
+.flow-node .fn-sub{font-size:10.5px;color:var(--gray-600);margin-top:3px;}
+.flow-arrow-h{display:flex;align-items:center;justify-content:center;padding:0 6px;color:var(--peach);font-weight:700;font-size:18px;flex-shrink:0;}
+
+/* 话术脚本卡 */
+.script-card{background:#fff;border-radius:8px;padding:0;box-shadow:0 4px 16px rgba(28,55,104,.06);overflow:hidden;margin-bottom:14px;border:1px solid var(--gray-200);}
+.script-head{background:var(--navy-deep);color:#fff;padding:11px 18px;display:flex;align-items:center;gap:10px;}
+.script-head .sc-icon{font-size:15px;}
+.script-head .sc-title{font-family:"Noto Serif SC",serif;font-weight:700;font-size:13.5px;}
+.script-head .sc-scene{margin-left:auto;font-size:11px;color:#9BB8D8;font-family:"Cormorant Garamond",serif;font-style:italic;}
+.script-body{padding:16px 18px;}
+.script-line{display:flex;gap:12px;margin-bottom:10px;align-items:flex-start;}
+.script-line:last-child{margin-bottom:0;}
+.script-line .sl-who{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:10px;white-space:nowrap;flex-shrink:0;}
+.script-line .sl-who.adv{background:#FCE8E3;color:var(--peach-deep);}
+.script-line .sl-who.tip{background:#FEF1D6;color:var(--gold-deep);}
+.script-line .sl-who.parent{background:var(--gray-100);color:var(--gray-600);}
+.script-line .sl-text{font-size:12.5px;color:var(--gray-800);line-height:1.7;flex:1;}
+.script-line .sl-text em{color:var(--navy-deep);font-style:normal;font-weight:600;background:linear-gradient(180deg,transparent 60%,#FEF1D6 60%);}
+
+/* 评分卡 */
+.scorecard{width:100%;border-collapse:collapse;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 4px 16px rgba(28,55,104,.06);font-size:12.5px;}
+.scorecard th{background:var(--navy-deep);color:#fff;padding:11px 12px;text-align:left;font-family:"Noto Serif SC",serif;font-weight:500;}
+.scorecard td{padding:10px 12px;border-bottom:1px solid var(--gray-200);vertical-align:middle;}
+.scorecard tbody tr:nth-child(even) td{background:var(--gray-50);}
+.scorecard .dim{font-weight:700;color:var(--navy-deep);font-family:"Noto Serif SC",serif;}
+.scorecard .pts{font-family:"JetBrains Mono",monospace;font-weight:700;color:var(--peach-deep);text-align:center;}
+
+/* 每日作战时间轴 */
+.daily-line{background:#fff;border-radius:8px;padding:24px 28px;box-shadow:0 4px 16px rgba(28,55,104,.06);}
+.daily-slot{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:12px 0;border-bottom:1px dashed var(--gray-200);}
+.daily-slot:last-child{border-bottom:none;}
+.daily-slot .ds-time{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:12px;color:var(--peach-deep);background:#FCE8E3;border-radius:6px;padding:6px 8px;text-align:center;height:fit-content;}
+.daily-slot .ds-acts{font-size:12.5px;color:var(--gray-800);line-height:1.75;}
+.daily-slot .ds-acts strong{color:var(--navy-deep);}
+
+/* 提示小卡 */
+.minibox{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:8px 0;}
+.minibox .mb{background:var(--gray-50);border-radius:6px;padding:12px 16px;border-left:3px solid var(--teal);}
+.minibox .mb .mbt{font-family:"Noto Serif SC",serif;font-weight:700;font-size:12.5px;color:var(--navy-deep);margin-bottom:4px;}
+.minibox .mb .mbd{font-size:11.5px;color:var(--gray-700,#555E70);line-height:1.6;}
+@media(max-width:1100px){.flowchart{flex-direction:column;}.flow-arrow-h{transform:rotate(90deg);padding:6px 0;}.minibox{grid-template-columns:1fr;}.daily-slot{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-brand">课程顾问售前线索全链路规则看板</div>
+  <div class="topbar-nav">
+    <a href="#position">售前定位</a>
+    <a href="#ctype">新签定义</a>
+    <a href="#touch">7大触点</a>
+    <a href="#grade">意向评级</a>
+    <a href="#dedup">去重规则</a>
+    <a href="#alloc">分配规则</a>
+    <a href="#status">状态流转</a>
+    <a href="#transfer">扭转规则</a>
+    <a href="#pool">公海与到访</a>
+    <a href="#exception">异常仲裁</a>
+    <a href="#quick">规则速查</a>
+  </div>
+  <button class="btn" onclick="window.print()">导出 PDF</button>
+</div>
+
+<div class="wrap">
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-tag">PRE-SALES · LEAD · FULL-CHAIN · SOP 深化版 · V2.0</div>
+      <h1>课程顾问售前线索全链路规则看板</h1>
+      <h2>规则 + SOP + 流程图 · 每章可落地到动作</h2>
+      <div class="hero-divider"></div>
+      <p>
+        本看板系统梳理课程顾问售前工作中的<strong>线索全链路管理规则</strong>，统一全国 20+ 校区作业标准。
+        涵盖：①七大触点留资规范；②新签客户判定（含 A/B/C/D 四类型与促加报边界）；③线索去重与归属裁定；
+        ④顾问 / 校区 / 片区三层分配机制；⑤线索 12 状态全流转图；⑥扭转与公海规则；⑦异常与仲裁处罚。
+        <strong>适用对象</strong>：课程顾问（日常执行）、校区主管（监督核查）、中台校区支持部（分配管控、制度维护）。
+      </p>
+      <div class="hero-meta">
+        <div class="meta-item"><div class="lbl">SCOPE</div><div class="val">全国 20+ 直营校区</div></div>
+        <div class="meta-item"><div class="lbl">出品</div><div class="val">课程顾问部</div></div>
+        <div class="meta-item"><div class="lbl">SYSTEM</div><div class="val">CRM 强制承载</div></div>
+        <div class="meta-item"><div class="lbl">VERSION</div><div class="val">V 1.0 · 2026.05</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 01 售前定位 -->
+  <div class="section-head" id="position">
+    <div class="section-num">01</div>
+    <div class="section-title">售前定位 · 职责边界</div>
+    <div class="section-sub">SCOPE & BOUNDARY</div>
+  </div>
+  <section class="role-card">
+    <h3>课程顾问（售前） vs 教务（售后） · 职责边界</h3>
+    <div class="sub">DIVISION OF WORK</div>
+    <div class="split-row">
+      <div class="split-col presale">
+        <div class="ctag">PRE-SALES · 课程顾问（售前）</div>
+        <h4>新签与激活主导</h4>
+        <ul>
+          <li><strong>新签：</strong>所有全新客户（类型 A）从线索到首签全流程</li>
+          <li><strong>激活新签：</strong>历史流失客户（类型 B，超 2 学期无课消）重新激活新签</li>
+          <li><strong>促加报：</strong>在读无当前课消客户（类型 C）的加报推进</li>
+          <li>链路：线索维护 → 邀约到店 → 转化</li>
+        </ul>
+      </div>
+      <div class="split-divider">vs</div>
+      <div class="split-col aftersale">
+        <div class="ctag">AFTER-SALES · 教务（售后）</div>
+        <h4>在读维护主导</h4>
+        <ul>
+          <li><strong>课消维护：</strong>在读且正常课消客户（类型 D）</li>
+          <li><strong>学情服务：</strong>排课、上课跟进、家长沟通</li>
+          <li><strong>续费交付：</strong>常规续费</li>
+          <li>对在读学员体验与正常课消负责</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note-red">
+      <span class="label">扭转红线</span>
+      <strong>课程顾问不可将教务线索领入自己名下；教务不可领取课程顾问新签线索。违者扣绩效。</strong>
+      售前与售后的边界以「客户类型 A/B/C/D」为准（详见第 02 章），不得跨界领单。
+    </div>
+  </section>
+
+  <div class="sop-box green" style="margin-top:18px;">
+    <div class="sb-title"><span class="sb-badge">SOP</span>售前 → 售后 客户交接标准流程（S11 签约后）</div>
+    <div class="sb-sub">签约只是售前工作的终点、售后服务的起点。交接不清，后续课消、续费、客诉全部受影响。</div>
+    <div class="sop-steps">
+      <div class="sop-step green"><div class="ss-no">1</div><div class="ss-body"><div class="ss-title">系统录入签约信息 <span class="ss-time">签约当场</span></div><div class="ss-desc">顾问在 CRM 录入签约金额、课程包、科目、课时数，<strong>上传合同扫描件</strong>，线索状态置为 S11 已签约。</div></div></div>
+      <div class="sop-step green"><div class="ss-no">2</div><div class="ss-body"><div class="ss-title">填写《新学员交接表》<span class="ss-time">签约当日</span></div><div class="ss-desc">完整记录学员学情、家长关注点、承诺事项、性格特点等<strong>软信息</strong>，这些是教务接手后维护的关键，不可省略。</div></div></div>
+      <div class="sop-step green"><div class="ss-no">3</div><div class="ss-body"><div class="ss-title">按学期规则完成交接<span class="ss-time">见时限</span></div><div class="ss-desc">① 学期中：开课前一天内交接（当天签当天上课则当天交接）；② 春签暑秋 / 秋签寒春：对应学期开课前 10 天交接。</div></div></div>
+      <div class="sop-step green"><div class="ss-no">4</div><div class="ss-body"><div class="ss-title">三方拉群 + 教务接手<div class="ss-desc" style="display:inline"></div></div><div class="ss-desc">引导家长加入家校群，<strong>顾问当群介绍教务老师并做信任背书</strong>，教务正式接手排课与课消跟进。</div></div></div>
+      <div class="sop-step green"><div class="ss-no">5</div><div class="ss-body"><div class="ss-title">首课后回访（1对1 客户）<span class="ss-time">首课后 3 天内</span></div><div class="ss-desc">顾问对 1对1 客户做首课后回访，确认体验良好后正式退出服务，<strong>线索流转终止于此</strong>。</div></div></div>
+    </div>
+  </div>
+
+  <div class="sop-box navy">
+    <div class="sb-title"><span class="sb-badge">流程</span>售前↔售后 跨界争议处理流程</div>
+    <div class="sb-sub">当一条客户的归属在售前与售后之间产生分歧（如：算流失客户该顾问新签，还是算在读该教务维护）时，按下列流程裁定。</div>
+    <div class="flowchart">
+      <div class="flow-node start"><div class="fn-label">产生归属分歧</div><div class="fn-sub">顾问 vs 教务</div></div>
+      <div class="flow-arrow-h">→</div>
+      <div class="flow-node decision"><div class="fn-label">查 A/B/C/D 客户类型</div><div class="fn-sub">以第 02 章决策树为准</div></div>
+      <div class="flow-arrow-h">→</div>
+      <div class="flow-node"><div class="fn-label">校区主管核验 CRM 数据</div><div class="fn-sub">课消记录 / 余额 / 合同</div></div>
+      <div class="flow-arrow-h">→</div>
+      <div class="flow-node end-win"><div class="fn-label">按类型裁定归属</div><div class="fn-sub">A/B→顾问 C→促加报 D→教务</div></div>
+    </div>
+    <div class="note-red" style="margin-top:14px;"><span class="label">争议铁律</span>分歧期间<strong>线索不得停摆</strong>——由校区主管指定临时跟进人，裁定后再正式归属，避免客户在扯皮中流失。</div>
+  </div>
+
+  <!-- 02 新签客户定义 -->
+  <div class="section-head" id="ctype">
+    <div class="section-num">02</div>
+    <div class="section-title">新签客户定义 · A / B / C / D 四类型</div>
+    <div class="section-sub">CUSTOMER TYPE</div>
+  </div>
+  <p style="font-size:13.5px;color:var(--gray-800);line-height:1.8;margin-bottom:18px;">
+    新签客户的判定是课程顾问工作分工的<strong style="color:var(--navy-deep);">核心依据</strong>，所有分配与流转均以此为基础。客户按在读与课消状态分为四种类型，<strong style="color:var(--peach-deep);">其中类型 A、B 归课程顾问新签，类型 C 归课程顾问促加报，类型 D 归教务维护。</strong>
+  </p>
+  <div class="ctype-grid">
+    <div class="ctype-card ta">
+      <div class="ct-no">TYPE · A</div>
+      <div class="ct-name">全新客户<br>（从未在读）</div>
+      <div class="ct-def">从未在本机构报名过任何课程的家长 / 学员。最常见的新签场景，各触点进线均适用。</div>
+      <div class="ct-owner">课程顾问 · 新签</div>
+      <div class="ct-logic">系统无学员档案，或档案中无任何历史订单</div>
+    </div>
+    <div class="ctype-card tb">
+      <div class="ct-no">TYPE · B</div>
+      <div class="ct-name">历史流失客户<br>（超 2 学期无课消）</div>
+      <div class="ct-def">曾经在读，但距上次实际上课已超过 2 个完整学期，且当前无未消耗课时。</div>
+      <div class="ct-owner">课程顾问 · 新签</div>
+      <div class="ct-logic">当前日期 − 最后课消日 &gt; 2 学期(约8月) 且 课时余额=0</div>
+    </div>
+    <div class="ctype-card tc">
+      <div class="ct-no">TYPE · C</div>
+      <div class="ct-name">在读无当前课消<br>（促加报）</div>
+      <div class="ct-def">当前有未开课 / 进行中课程，但本学期内尚无实际课消记录。</div>
+      <div class="ct-owner">课程顾问 · 促加报</div>
+      <div class="ct-logic">有效合同 + 课时余额&gt;0 + 本学期课消=0</div>
+    </div>
+    <div class="ctype-card td">
+      <div class="ct-no">TYPE · D</div>
+      <div class="ct-name">在读且正常课消<br>（教务维护）</div>
+      <div class="ct-def">当前学期有实际课消记录，且课时余额&gt;0。课程顾问不可介入。</div>
+      <div class="ct-owner">教务 · 维护</div>
+      <div class="ct-logic">有效合同 + 本学期有课消 + 余额&gt;0</div>
+    </div>
+  </div>
+
+  <div class="note">
+    <span class="label">促加报 ≠ 新签</span>
+    类型 C（在读无当前课消）由课程顾问负责<strong>促加报</strong>，但<strong>促加报不等于新签——须用促加报话术，不可用新签话术</strong>。类型 B（历史流失）虽曾在读，但因超 2 学期无课消已脱离正常服务轨道，<strong>必须由课程顾问按新签流程重新跟进，不得归教务</strong>。
+  </div>
+
+  <h3 style="font-family:'Noto Serif SC',serif;font-weight:700;font-size:17px;color:var(--navy-deep);margin:28px 0 14px;">在读状态判断决策树</h3>
+  <section class="dtree">
+    <div class="dtree-node">
+      <div class="dtree-q">Q1 · 系统中是否存在该手机号对应的学员档案？</div>
+      <div class="dtree-branch">
+        <div class="dtree-leg"><span class="dtree-yn">否</span>
+          <div class="dtree-result dt-a">类型 A · 全新客户<br><span style="font-size:10px;opacity:.85;">课程顾问新签</span></div>
+        </div>
+        <div class="dtree-leg"><span class="dtree-yn">是</span>
+          <div class="dtree-q" style="font-size:12px;">Q2 · 是否有有效课程合同（未结束 / 余额&gt;0）？</div>
+          <div class="dtree-branch">
+            <div class="dtree-leg"><span class="dtree-yn">否</span>
+              <div class="dtree-q" style="font-size:11.5px;background:var(--navy-light);">Q3 · 距最后课消超 2 学期？</div>
+              <div class="dtree-branch" style="gap:18px;">
+                <div class="dtree-leg"><span class="dtree-yn">是</span><div class="dtree-result dt-b" style="font-size:11px;padding:8px 12px;">类型 B<br><span style="font-size:9px;">新签</span></div></div>
+                <div class="dtree-leg"><span class="dtree-yn">否</span><div class="dtree-result dt-obs" style="font-size:11px;padding:8px 12px;">不足2学期<br><span style="font-size:9px;">观察池</span></div></div>
+              </div>
+            </div>
+            <div class="dtree-leg"><span class="dtree-yn">是</span>
+              <div class="dtree-q" style="font-size:11.5px;background:var(--navy-light);">Q4 · 本学期是否有实际课消？</div>
+              <div class="dtree-branch" style="gap:18px;">
+                <div class="dtree-leg"><span class="dtree-yn">否</span><div class="dtree-result dt-c" style="font-size:11px;padding:8px 12px;">类型 C<br><span style="font-size:9px;">促加报</span></div></div>
+                <div class="dtree-leg"><span class="dtree-yn">是</span><div class="dtree-result dt-d" style="font-size:11px;padding:8px 12px;">类型 D<br><span style="font-size:9px;">教务</span></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <h3 style="font-family:'Noto Serif SC',serif;font-weight:700;font-size:17px;color:var(--navy-deep);margin:28px 0 14px;">重要边界说明</h3>
+  <table class="std-table">
+    <thead><tr><th style="width:14%">编号</th><th style="width:24%">议题</th><th>说明</th></tr></thead>
+    <tbody>
+      <tr><td class="ccol1">B01</td><td>2 学期的时间计算</td><td>以自然学期为单位：秋季(9月–次年1月) / 春季(2月–6月) / 暑假(7–8月) / 寒假(1–2月)。超过 2 个完整自然学期无课消即满足类型 B。暑期短期课不计入正式学期。</td></tr>
+      <tr><td class="ccol1">B02</td><td>课时余额 ≠ 在读</td><td>家长账户有余额但已超 2 学期未上课的，仍判定为类型 B（课程顾问新签），而非教务维护。余额问题由教务协助退课或说明，课程顾问专注重新销售。</td></tr>
+      <tr><td class="ccol1">B03</td><td>多孩家庭</td><td>同一家长名下多个孩子时逐孩判断。A 孩子在读（类型 D）不等于 B 孩子在读，B 孩子的线索按各自标准独立判定。</td></tr>
+      <tr><td class="ccol1">B04</td><td>特殊品类</td><td>人机课、短期集训营等非常规品类的在读判定标准，由中台运营另行发文明确，本看板暂不覆盖。</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sop-box">
+    <div class="sb-title"><span class="sb-badge">SOP</span>接到线索 → 客户类型识别 操作三步法</div>
+    <div class="sb-sub">每条线索分配后，顾问首触前必须先在 CRM 完成类型识别，决定用「新签 / 促加报 / 退回教务」哪套打法。</div>
+    <div class="sop-steps">
+      <div class="sop-step"><div class="ss-no">1</div><div class="ss-body"><div class="ss-title">查档案 <span class="ss-time">30 秒</span></div><div class="ss-desc">CRM 输入家长手机号 → 看是否存在学员档案。<strong>无档案 = 类型 A 全新客户</strong>，直接走新签；有档案进第 2 步。</div></div></div>
+      <div class="sop-step"><div class="ss-no">2</div><div class="ss-body"><div class="ss-title">查合同与余额 <span class="ss-time">30 秒</span></div><div class="ss-desc">看是否有有效课程合同（未结束 / 余额&gt;0）。<strong>无有效合同</strong> → 进第 3 步判断流失；<strong>有合同</strong> → 看本学期课消（有课消=类型D退教务，无课消=类型C促加报）。</div></div></div>
+      <div class="sop-step"><div class="ss-no">3</div><div class="ss-body"><div class="ss-title">算流失时长 <span class="ss-time">30 秒</span></div><div class="ss-desc">查最后一次实际课消日期：<strong>距今超 2 个完整学期 = 类型 B</strong>（顾问按新签重启）；不足 2 学期 → 进观察池，暂不主动激活。</div></div></div>
+    </div>
+    <div class="note"><span class="label">关键动作</span>识别完成后，<strong>在 CRM「客户类型」字段打标（A/B/C/D）</strong>，这是后续分配、考核、业绩归属的统一依据，不可不填或填错。</div>
+  </div>
+
+  <div class="minibox">
+    <div class="mb" style="border-left-color:var(--gold-deep);"><div class="mbt">类型 B 激活 SOP（历史流失客户）</div><div class="mbd">① 调阅历史学情与流失原因（教务协查）→ ② 首触<strong>不提续费先做关怀</strong>，了解孩子现状 → ③ 用"老学员专属回归礼"破冰 → ④ 邀约到店重新测评 → ⑤ 按新签流程谈单。<strong>切忌一上来就催报名。</strong></div></div>
+    <div class="mb" style="border-left-color:var(--teal);"><div class="mbt">类型 C 促加报 SOP（在读无课消）</div><div class="mbd">① 联合教务确认未课消原因（没排上课？时间冲突？观望？）→ ② 解决课消障碍优先于加报 → ③ 待正常课消后再切入加报场景（加科目/加课时）→ ④ <strong>用促加报话术，不可用新签话术</strong>。</div></div>
+  </div>
+
+  <div class="script-card">
+    <div class="script-head"><span class="sc-icon">💬</span><span class="sc-title">促加报话术（类型 C 专用，区别于新签）</span><span class="sc-scene">在读无课消客户</span></div>
+    <div class="script-body">
+      <div class="script-line"><span class="sl-who tip">场景</span><span class="sl-text">家长已报名但本学期一直没来上课，顾问推进其开始课消并考虑加报。</span></div>
+      <div class="script-line"><span class="sl-who adv">顾问开场</span><span class="sl-text">"X 妈妈您好，我是 XX 校区的课程顾问 XX。注意到 XX 同学这学期的课时还<em>一直没开始用</em>，我有点担心耽误孩子的学习节奏，特地联系您看看是<em>时间不方便还是有其他顾虑</em>？"</span></div>
+      <div class="script-line"><span class="sl-who adv">推进</span><span class="sl-text">"咱们先把现在的课时安排上，让孩子学起来。等孩子上了几次课、状态稳定了，我再根据老师反馈看看<em>要不要给薄弱的科目补一补</em>，这样最稳妥。"</span></div>
+      <div class="script-line"><span class="sl-who parent">注意</span><span class="sl-text">促加报客户已是付费学员，话术核心是"<strong>帮孩子用好已购课时 + 顺势加报</strong>"，绝不能用对待新客户的"从零介绍课程、逼单成交"话术，否则引发反感。</span></div>
+    </div>
+  </div>
+
+  <!-- 03 七大触点 -->
+  <div class="section-head" id="touch">
+    <div class="section-num">03</div>
+    <div class="section-title">七大流量触点 · 留资规范</div>
+    <div class="section-sub">7 TOUCHPOINTS SOP</div>
+  </div>
+  <p style="font-size:13.5px;color:var(--gray-800);line-height:1.8;margin-bottom:18px;">
+    课程顾问需承接<strong style="color:var(--navy-deep);">七大流量触点</strong>，每个触点从「进线动作 → 规范操作 → 首触要求 → 注意事项」全链路标准化。
+    <strong style="color:var(--peach-deep);">所有触点均须在 CRM 中强制标注「渠道来源」字段，不填渠道来源的线索不予分配，责任由课程顾问承担。</strong>
+  </p>
+  <table class="std-table">
+    <thead><tr><th style="width:13%">触点</th><th style="width:34%">规范操作（SOP）</th><th style="width:17%">首触时效</th><th>必填 CRM 字段 / 注意事项</th></tr></thead>
+    <tbody>
+      <tr><td class="ccol1">① 直电进线<br>（电话呼入）</td><td>接听 5 秒内自我介绍 → 确认孩子年级/科目/需求 → 30 分钟内录入 CRM 并评级 → 即时发企微好友</td><td><strong style="color:var(--peach-deep);">接听即首触</strong><br>CRM 录入 ≤30min</td><td>手机号 / 渠道=直电 / 意向级别 / 需求关键词。<br>注意：无人接听需回拨（≤3 次/天）；勿在首通电话直接报价</td></tr>
+      <tr><td class="ccol1">② 直访进线<br>（到店咨询）</td><td>3 分钟内主动接待、引导就坐 → 六步法挖需 → 当场用 PAD/手机录入 CRM → 加企微发资料</td><td><strong style="color:var(--peach-deep);">到店即首触</strong><br>录入 ≤当日下班前</td><td>手机号 / 渠道=直访 / 到访日期 / 意向级别 / 面谈摘要。<br>注意：必须当场加企微，不可仅留电话；面谈记录须同步 CRM</td></tr>
+      <tr><td class="ccol1">③ 线上引流<br>（广告/SEO/信息流）</td><td>系统自动分配或当天录入 → 24h 内首触（优先电话，未通改企微+短信）→ 关联广告卖点定制首句 → S/A/B/C 评级</td><td>系统分配后 <strong style="color:var(--peach-deep);">24h 内</strong></td><td>手机号 / 渠道=平台名称 / 广告素材 ID / 意向级别。<br>注意：来源须精确（抖音/小红书/百度要区分，勿填"线上"）；话术须关联广告内容</td></tr>
+      <tr><td class="ccol1">④ 转介绍进线<br>（老带新）</td><td>第一时间感谢介绍人 → 30 分钟内联系被介绍人（提及介绍人建立信任）→ CRM 标注介绍人信息 → 签约后结算奖励</td><td>收到信息后 <strong style="color:var(--peach-deep);">30 分钟内</strong></td><td>手机号 / 渠道=转介绍 / 介绍人姓名 / 与被介绍人关系。<br>注意：须关联介绍人学员 ID 否则奖励无法结算；归属争议以 CRM 录入时间为准</td></tr>
+      <tr><td class="ccol1">⑤ 统测/活动进线<br>（讲座/测评/体验课）</td><td>活动当天录入（标注活动全称）→ 24h 内电话反馈测评/体验结果 → 结合测评定制话术 → 高意向当天约下次到访</td><td>活动结束后 <strong style="color:var(--peach-deep);">24h 内</strong></td><td>手机号 / 渠道=活动名称+日期 / 测评成绩 / 意向级别。<br>注意：来源填活动全称（如"2026年5月28日散测"）；测评报告须附上</td></tr>
+      <tr><td class="ccol1">⑥ 在线表单/官网留资</td><td>系统推送 CRM → 24h 内电话触达 → 查看家长填写意向定制话术 → 电话+企微双通路 → 补齐客户档案</td><td>表单提交后 <strong style="color:var(--peach-deep);">24h 内</strong></td><td>手机号 / 渠道=官网/小程序/H5（区分）/ 表单科目意向。<br>注意：来源须区分三类，影响转化数据分析；表单信息须完整迁移 CRM</td></tr>
+      <tr><td class="ccol1">⑦ 二维码扫码<br>（海报/地推/物料）</td><td>触发后 30 分钟内联系（含企微欢迎语）→ 确认扫码来源标注 CRM → 推送对应活动/课程 → 引导到访预约</td><td>扫码后 <strong style="color:var(--peach-deep);">30 分钟内</strong></td><td>手机号 / 渠道=二维码+物料名称 / 地推位置。<br>注意：不同二维码用不同参数追踪；地推顾问须实名标注，防止抢单</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sop-box">
+    <div class="sb-title"><span class="sb-badge">SOP</span>电话首触 5 步法（直电 / 线上引流 / 活动回访通用）</div>
+    <div class="sb-sub">电话是售前最高频的首触方式。一通好的首触电话，目标不是成交，而是"建立信任 + 拿到需求 + 约下一步"。</div>
+    <div class="sop-steps">
+      <div class="sop-step"><div class="ss-no">1</div><div class="ss-body"><div class="ss-title">开场报名（5 秒内）</div><div class="ss-desc">"您好，我是桃李未来 XX 校区课程顾问 XX"——<strong>报清机构+校区+身份</strong>，建立正规感，降低戒备。</div></div></div>
+      <div class="sop-step"><div class="ss-no">2</div><div class="ss-body"><div class="ss-title">说明来意（关联来源）</div><div class="ss-desc">关联客户的进线来源（看了哪条广告/参加了哪场活动/谁介绍的），<strong>让家长想起"我确实留过资"</strong>，而非陌生推销。</div></div></div>
+      <div class="sop-step"><div class="ss-no">3</div><div class="ss-body"><div class="ss-title">挖需求（3 问）</div><div class="ss-desc">问孩子<strong>年级 → 薄弱科目 → 当前最头疼的问题</strong>。多听少说，记录关键词，为后续定制方案铺垫。</div></div></div>
+      <div class="sop-step"><div class="ss-no">4</div><div class="ss-body"><div class="ss-title">给钩子 + 约到店</div><div class="ss-desc">用"免费学情测评 / 体验课 / 诊断报告"做钩子，<strong>给两个具体时间二选一</strong>约到店（"您看周六上午还是周日下午方便？"）。</div></div></div>
+      <div class="sop-step"><div class="ss-no">5</div><div class="ss-body"><div class="ss-title">加企微 + 录 CRM <span class="ss-time">通话后即时</span></div><div class="ss-desc">挂电话前主动加企微，挂断后<strong>30 分钟内录入 CRM + 完成 S/A/B/C 意向评级</strong>。不可只在脑子里记。</div></div></div>
+    </div>
+    <div class="note-red"><span class="label">首触红线</span>① 勿在首通电话直接报价；② 无人接听需回拨，<strong>每天不超过 3 次</strong>；③ 未接通改企微+短信同步触达。</div>
+  </div>
+
+  <div class="sop-box teal">
+    <div class="sb-title"><span class="sb-badge">SOP</span>直访接待 · 面谈六步法（到店 → 签约）</div>
+    <div class="sb-sub">到店客户意向最高、最值钱。六步法是把"到访"转化为"签约"的标准接待动作。</div>
+    <div class="sop-steps">
+      <div class="sop-step teal"><div class="ss-no">1</div><div class="ss-body"><div class="ss-title">迎接破冰（3 分钟内）</div><div class="ss-desc">起身迎接、引导就坐、递水，<strong>先聊孩子不聊课程</strong>，营造轻松氛围，建立第一印象信任。</div></div></div>
+      <div class="sop-step teal"><div class="ss-no">2</div><div class="ss-body"><div class="ss-title">需求挖掘</div><div class="ss-desc">问现状（成绩/排名）→ 问期望（目标）→ 问痛点（最急的问题）→ 问决策（谁做主/预算概念）。<strong>挖得越深，方案越准。</strong></div></div></div>
+      <div class="sop-step teal"><div class="ss-no">3</div><div class="ss-body"><div class="ss-title">测评诊断</div><div class="ss-desc">安排学科测评或调出测评结果，<strong>用客观数据暴露问题</strong>，让家长意识到"确实需要补"，而非顾问空口说。</div></div></div>
+      <div class="sop-step teal"><div class="ss-no">4</div><div class="ss-body"><div class="ss-title">方案呈现</div><div class="ss-desc">基于诊断给个性化学习方案（科目/课时/老师/周期），<strong>把方案和孩子的具体问题一一对应</strong>，体现专业与针对性。</div></div></div>
+      <div class="sop-step teal"><div class="ss-no">5</div><div class="ss-body"><div class="ss-title">价值塑造 + 报价</div><div class="ss-desc">先讲价值（效果/师资/服务）再报价，用"每节课成本/孩子收益"对比化解价格异议，适时给限时优惠促决策。</div></div></div>
+      <div class="sop-step teal"><div class="ss-no">6</div><div class="ss-body"><div class="ss-title">促成签约 / 未签当日跟进</div><div class="ss-desc">临门一脚逼单（名额/优惠紧迫感）。<strong>当场签约最佳；未签当日或次日必跟进</strong>，趁热打铁，状态置 S8→S11 或 S8→S3。</div></div></div>
+    </div>
+  </div>
+
+  <div class="script-card">
+    <div class="script-head"><span class="sc-icon">💬</span><span class="sc-title">转介绍首触话术（提及介绍人建立信任）</span><span class="sc-scene">收到信息 30 分钟内</span></div>
+    <div class="script-body">
+      <div class="script-line"><span class="sl-who adv">顾问</span><span class="sl-text">"X 妈妈您好，我是桃李未来的 XX。是 <em>XX 同学的妈妈</em> 把您的联系方式推荐给我，说您家孩子也在找 <em>XX 科目</em> 的辅导，特地联系您了解一下孩子的学习情况~"</span></div>
+      <div class="script-line"><span class="sl-who tip">要点</span><span class="sl-text">第一句必须<strong>点出介绍人</strong>——这是转介绍最大的信任杠杆。同时第一时间私信感谢介绍人，告知"已联系上"。</span></div>
+      <div class="script-line"><span class="sl-who tip">CRM</span><span class="sl-text">录入时<strong>必须关联介绍人学员 ID + 标注关系</strong>，否则签约后介绍奖励无法结算，引发介绍人投诉。</span></div>
+    </div>
+  </div>
+
+  <!-- 04 意向评级 -->
+  <div class="section-head" id="grade">
+    <div class="section-num">04</div>
+    <div class="section-title">意向评级 · S / A / B / C 四级</div>
+    <div class="section-sub">INTENT GRADING</div>
+  </div>
+  <div class="note-red" style="margin-top:0;">
+    <span class="label">概念区分</span>
+    <strong>请勿混淆两套分级：</strong>「客户类型 A/B/C/D」（第 02 章）是按<strong>在读与课消状态</strong>划分的归属依据；「意向评级 S/A/B/C」（本章）是课程顾问首触后按<strong>成交意向强弱</strong>打的跟进优先级标签。两者维度不同，并行使用。
+  </div>
+  <div class="grade-distribution">
+    <div class="grade-card ga">
+      <div class="gtag">S</div>
+      <div class="gname">极高意向</div>
+      <div class="gcrit"><strong>判定：</strong>明确预算+明确科目+期望近期开课+主动询价，可当天约访</div>
+      <div class="gtime">高意向当天约下次到访</div>
+    </div>
+    <div class="grade-card gb">
+      <div class="gtag">A</div>
+      <div class="gname">高意向</div>
+      <div class="gcrit"><strong>判定：</strong>有明确需求且沟通积极，预算或时间待敲定</div>
+      <div class="gtime">优先重点跟进</div>
+    </div>
+    <div class="grade-card gc">
+      <div class="gtag">B</div>
+      <div class="gname">中意向</div>
+      <div class="gcrit"><strong>判定：</strong>有一定意向但观望/比较/资金待定，进培育池</div>
+      <div class="gtime">每 1-2 周轻量触达</div>
+    </div>
+    <div class="grade-card gd">
+      <div class="gtag">C</div>
+      <div class="gname">低意向</div>
+      <div class="gcrit"><strong>判定：</strong>需求模糊、态度一般，长周期培育</div>
+      <div class="gtime">定期培育，30天无互动入公海</div>
+    </div>
+  </div>
+  <div class="note">
+    <span class="label">评级动态化</span>
+    意向评级在首触后录入，并随跟进进展<strong>动态修订</strong>（如 C 升 A 或 A 降 B），系统记录每次变更及原因。评级直接影响该线索的跟进优先级与培育节奏。
+  </div>
+
+  <h3 style="font-family:'Noto Serif SC',serif;font-weight:700;font-size:16px;color:var(--navy-deep);margin:24px 0 12px;">意向评级 · 四维评分卡（量化判定，减少主观）</h3>
+  <table class="scorecard">
+    <thead><tr><th style="width:22%">评估维度</th><th>3 分（强）</th><th>2 分（中）</th><th>1 分（弱）</th></tr></thead>
+    <tbody>
+      <tr><td class="dim">预算明确度</td><td>已知大致预算且认可</td><td>问过价格未表态</td><td>未涉及价格</td></tr>
+      <tr><td class="dim">需求紧迫度</td><td>临考/急需提分</td><td>有计划但不急</td><td>随便了解</td></tr>
+      <tr><td class="dim">决策话语权</td><td>沟通者本人可拍板</td><td>需与配偶/孩子商量</td><td>仅一方了解</td></tr>
+      <tr><td class="dim">需求明确度</td><td>科目/目标清晰</td><td>方向模糊</td><td>说不清需求</td></tr>
+    </tbody>
+  </table>
+  <div class="minibox" style="margin-top:12px;">
+    <div class="mb" style="border-left-color:var(--peach);"><div class="mbt">总分 → 评级映射</div><div class="mbd"><strong>11-12 分 = S</strong>（极高，当天约访）｜<strong>9-10 分 = A</strong>（高，重点跟进）｜<strong>6-8 分 = B</strong>（中，进培育池）｜<strong>≤5 分 = C</strong>（低，长周期培育）。</div></div>
+    <div class="mb"><div class="mbt">动态修订</div><div class="mbd">评分非一次性，每次有效沟通后重新打分，<strong>系统记录变更轨迹</strong>。一次深度沟通后从 C 升到 A 很常见。</div></div>
+  </div>
+
+  <div class="sop-box gold">
+    <div class="sb-title"><span class="sb-badge">SOP</span>S / A / B / C 各级跟进节奏</div>
+    <div class="sb-sub">不同意向等级匹配不同的跟进强度，避免"高意向跟丢、低意向耗死"。</div>
+    <div class="sop-steps">
+      <div class="sop-step gold"><div class="ss-no">S</div><div class="ss-body"><div class="ss-title">极高意向 · 闪电跟</div><div class="ss-desc"><strong>当天约到访 / 当天逼单</strong>。趁热打铁，2 小时内发方案，当天或次日邀约到店，48 小时内未推进即升级主管协助。</div></div></div>
+      <div class="sop-step gold"><div class="ss-no">A</div><div class="ss-body"><div class="ss-title">高意向 · 紧密跟</div><div class="ss-desc"><strong>每 1-2 天一次有效触达</strong>，持续提供价值（案例/测评/试听邀约），1 周内争取到店，重点攻坚。</div></div></div>
+      <div class="sop-step gold"><div class="ss-no">B</div><div class="ss-body"><div class="ss-title">中意向 · 培育跟</div><div class="ss-desc">进培育池，<strong>每周 1 次轻量触达</strong>（活动/资讯/学习干货），持续养熟，意向回升即转 A 重点跟。</div></div></div>
+      <div class="sop-step gold"><div class="ss-no">C</div><div class="ss-body"><div class="ss-title">低意向 · 节点跟</div><div class="ss-desc"><strong>每 1-2 周节点触达</strong>（节日问候/大型活动），低成本维系。30 天无任何互动则按规则入公海，不死耗。</div></div></div>
+    </div>
+  </div>
+
+  <!-- 05 去重规则 -->
+  <div class="section-head" id="dedup">
+    <div class="section-num">05</div>
+    <div class="section-title">线索去重规则 · 六大场景</div>
+    <div class="section-sub">DEDUPLICATION</div>
+  </div>
+  <p style="font-size:13.5px;color:var(--gray-800);line-height:1.8;margin-bottom:18px;">
+    去重是防止重复跟进、保证线索归属公平的核心机制。分场景拆解去重逻辑、归属裁定与处理时效。
+  </p>
+  <table class="std-table">
+    <thead><tr><th style="width:16%">去重场景</th><th style="width:30%">触发与处理</th><th style="width:30%">归属裁定原则</th><th>责任人 / 时效</th></tr></thead>
+    <tbody>
+      <tr><td class="ccol1">① 同渠道同手机号<br>24h 内重复</td><td>系统自动合并为 1 条，保留最早提交，重复记录入备注</td><td>归属第一条线索已分配的课程顾问</td><td>系统自动<br><strong style="color:var(--peach-deep);">无时效要求</strong></td></tr>
+      <tr><td class="ccol1">② 跨渠道同手机号</td><td>系统识别同手机号触发去重提醒，人工确认后合并</td><td><strong>以最早进入 CRM 时间为准（先到先得）</strong>；两顾问均已跟进则按最早有效沟通时间戳裁定</td><td>校区主管<br><strong style="color:var(--peach-deep);">1 小时内裁定</strong></td></tr>
+      <tr><td class="ccol1">③ 跨校区同手机号</td><td>系统提醒双方校区主管，片区主管介入</td><td><strong>以家长明确意向校区为准</strong>；无明确意向则以最早触达校区为准</td><td>片区主管<br><strong style="color:var(--peach-deep);">6 小时内裁定</strong></td></tr>
+      <tr><td class="ccol1">④ 同家长不同孩子<br>（多孩家庭）</td><td>不视为重复，各孩子独立建档、独立分配</td><td>各孩子独立归属，可同一或不同顾问（主管决定）</td><td>顾问录入<br>主管审核</td></tr>
+      <tr><td class="ccol1">⑤ 无效线索标记</td><td>顾问标记无效需上传证据（通话/号码状态截图）</td><td>不计入公海、不占名额；同渠道连续 3 次无效需上报中台</td><td>顾问操作<br>主管 <strong style="color:var(--peach-deep);">24h 审核</strong></td></tr>
+      <tr><td class="ccol1">⑥ 黑名单线索</td><td>系统识别黑名单手机号自动拦截，不分配</td><td>自动归档；认定有误可经主管上报中台申诉</td><td>系统自动<br>中台管理</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sop-box navy">
+    <div class="sb-title"><span class="sb-badge">流程</span>线索去重处理流程（系统 + 人工）</div>
+    <div class="sb-sub">线索进入或被识别重复时的标准处理路径，确保归属公平、处理及时。</div>
+    <div class="flowchart">
+      <div class="flow-node start"><div class="fn-label">检测到同手机号</div><div class="fn-sub">系统自动比对</div></div>
+      <div class="flow-arrow-h">→</div>
+      <div class="flow-node decision"><div class="fn-label">同渠道 24h 内？</div><div class="fn-sub">判断重复类型</div></div>
+      <div class="flow-arrow-h">→</div>
+      <div class="flow-node"><div class="fn-label">系统自动合并 / 弹去重提醒</div><div class="fn-sub">保留最早一条</div></div>
+      <div class="flow-arrow-h">→</div>
+      <div class="flow-node end-win"><div class="fn-label">按归属原则裁定</div><div class="fn-sub">先到先得 / 意向校区</div></div>
+    </div>
+  </div>
+
+  <div class="sop-box">
+    <div class="sb-title"><span class="sb-badge">SOP</span>归属裁定标准动作（跨渠道 / 跨校区）</div>
+    <div class="sop-steps">
+      <div class="sop-step"><div class="ss-no">1</div><div class="ss-body"><div class="ss-title">系统弹提醒，冻结操作</div><div class="ss-desc">系统识别同手机号多条记录，<strong>向相关主管推送去重提醒</strong>，争议线索暂不可被任一方继续推进。</div></div></div>
+      <div class="sop-step"><div class="ss-no">2</div><div class="ss-body"><div class="ss-title">各方提交时间戳证据</div><div class="ss-desc">涉及的顾问各自提交<strong>首次有效沟通的时间戳 + 截图</strong>（通话记录/企微聊天），作为裁定依据。</div></div></div>
+      <div class="sop-step"><div class="ss-no">3</div><div class="ss-body"><div class="ss-title">主管按原则裁定 <span class="ss-time">跨渠道 1h / 跨校区 6h</span></div><div class="ss-desc">跨渠道：<strong>以最早进入 CRM 时间为准（先到先得）</strong>，校区主管 1h 内裁定；跨校区：<strong>以家长明确意向校区为准</strong>，无意向则最早触达校区，片区主管 6h 内裁定。</div></div></div>
+      <div class="sop-step"><div class="ss-no">4</div><div class="ss-body"><div class="ss-title">更新 CRM + 通知各方</div><div class="ss-desc">裁定结果写入 CRM，后进线索标记【重复-已合并】，<strong>通知各方关闭争议</strong>。如对裁定有异议走异常仲裁 E1 申诉。</div></div></div>
+    </div>
+  </div>
+
+  <!-- 06 分配规则 -->
+  <div class="section-head" id="alloc">
+    <div class="section-num">06</div>
+    <div class="section-title">线索分配规则 · 顾问 / 校区 / 片区三层机制</div>
+    <div class="section-sub">3-TIER ALLOCATION</div>
+  </div>
+
+  <h3 style="font-family:'Noto Serif SC',serif;font-weight:700;font-size:17px;color:var(--navy-deep);margin-bottom:14px;">一、顾问层 · 接收与分配机制</h3>
+  <table class="std-table">
+    <thead><tr><th style="width:16%">分配方式</th><th style="width:30%">分配逻辑</th><th style="width:26%">接收后操作</th><th>时效 / 异常处理</th></tr></thead>
+    <tbody>
+      <tr><td class="ccol1">系统自动轮询</td><td>线上渠道新线索按顾问在线状态轮询分配；满额转待分配队列。顾问不可拒绝接收</td><td>24h 内首触 + 录入意向级别 + 更新状态</td><td><strong style="color:var(--peach-deep);">收到后 24h 内首触</strong>；超时提醒，再 2h 未触达转给在线顾问</td></tr>
+      <tr><td class="ccol1">指定分配<br>（主管手动）</td><td>直访、VIP、复杂跟进、顾问申请接手；主管后台手动指定。有 5 分钟确认窗口（特殊可拒绝并说明）</td><td>确认接收 + 30 分钟内首触 + 更新备注</td><td><strong style="color:var(--peach-deep);">确认后 30 分钟内首触</strong>；有异议向主管反馈裁定</td></tr>
+      <tr><td class="ccol1">公海自捞取</td><td>顾问浏览<strong>本校区公海</strong>自行领取，有积分/等级上限（每天 X 条）</td><td>捞取后有效触达 + 更新评级 + 建跟进计划</td><td><strong style="color:var(--peach-deep);">捞取后 24h 内有效触达</strong>；未触达自动退回公海并扣分</td></tr>
+      <tr><td class="ccol1">跨顾问移交</td><td>顾问离职/请假/客户点名换人；主管批量或单条移交</td><td>接收顾问 24h 内打招呼告知换人，不可重置意向级别</td><td>接收后 24h 内首次打招呼；可拒绝（需说明），主管再分配</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="font-family:'Noto Serif SC',serif;font-weight:700;font-size:17px;color:var(--navy-deep);margin:26px 0 14px;">二、校区层 · 主管分配管控</h3>
+  <table class="std-table">
+    <thead><tr><th style="width:22%">职责项</th><th style="width:48%">具体内容</th><th>频率 / 标准</th></tr></thead>
+    <tbody>
+      <tr><td class="ccol1">每日线索分配检查</td><td>核查当日进线是否已分配，未分配线索在 15:00 前完成补分配</td><td>每日 · 15:00 前清零</td></tr>
+      <tr><td class="ccol1">分配公平性管控</td><td><strong>确保各顾问手上线索量均衡（±20% 范围内）</strong>；对业绩优秀顾问可适当倾斜高质量线索</td><td>每周 · 无明显倾斜</td></tr>
+      <tr><td class="ccol1">去重与归属裁定</td><td>处理系统提交的跨渠道去重申请</td><td>即时 · 6h 内处理</td></tr>
+      <tr><td class="ccol1">公海监控</td><td>每日查看公海积压；超 3 天无人捞的高意向线索主动指定分配</td><td>每日 · 无超 48h 高意向积压</td></tr>
+      <tr><td class="ccol1">分配异常上报</td><td>渠道线索量日环比波动 &gt;30% 时上报片区与中台</td><td>即时 · 无延迟上报</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="font-family:'Noto Serif SC',serif;font-weight:700;font-size:17px;color:var(--navy-deep);margin:26px 0 14px;">三、片区层 · 监督机制</h3>
+  <table class="std-table">
+    <thead><tr><th style="width:22%">监督项</th><th style="width:36%">监督内容</th><th>介入条件 / 权限</th></tr></thead>
+    <tbody>
+      <tr><td class="ccol1">跨校区分配仲裁</td><td>同一家长在多校区均有线索时，决定最终归属校区</td><td>系统提醒或主管上报 · 裁定归属</td></tr>
+      <tr><td class="ccol1">线索供给监控</td><td>监控各校区线索量、转化率，差异时介入</td><td>某校区转化率 &lt; 均值 60% · 协助排查</td></tr>
+      <tr><td class="ccol1">违规处理</td><td>顾问私自抢线索、教务与顾问私下交换线索等</td><td>系统告警/举报 · 上报中台启动调查</td></tr>
+      <tr><td class="ccol1">资源配置优化</td><td>反馈某渠道线索质量持续偏低，建议调整投放</td><td>季度复盘 · 建议权，中台决策</td></tr>
+    </tbody>
+  </table>
+  <div class="note">
+    <span class="label">核心时效</span>
+    <strong>线索进入 CRM 后，中台/系统应在 1 小时内完成分配；顾问接收后，自动轮询线索 24h 内首触、指定分配 30 分钟内首触、公海捞取 24h 内有效触达。</strong>
+  </div>
+
+  <div class="sop-box navy" style="margin-top:18px;">
+    <div class="sb-title"><span class="sb-badge">流程</span>线索分配决策流程（进 CRM → 到顾问）</div>
+    <div class="sb-sub">一条线索进入 CRM 后，系统/主管如何决定它花落谁家。</div>
+    <div class="flowchart">
+      <div class="flow-node start"><div class="fn-label">线索进 CRM</div><div class="fn-sub">已填渠道来源</div></div>
+      <div class="flow-arrow-h">→</div>
+      <div class="flow-node decision"><div class="fn-label">是否直访/转介绍/VIP？</div></div>
+      <div class="flow-arrow-h">→</div>
+      <div class="flow-node"><div class="fn-label">是 → 指定分配</div><div class="fn-sub">主管手动指定专人</div></div>
+      <div class="flow-arrow-h">→</div>
+      <div class="flow-node"><div class="fn-label">否 → 系统轮询分配</div><div class="fn-sub">按在线状态轮询</div></div>
+      <div class="flow-arrow-h">→</div>
+      <div class="flow-node end-win"><div class="fn-label">到顾问名下</div><div class="fn-sub">1h 内完成分配</div></div>
+    </div>
+  </div>
+
+  <div class="sop-box gold">
+    <div class="sb-title"><span class="sb-badge">SOP</span>校区主管 · 每日线索分配动作清单</div>
+    <div class="sb-sub">分配是否及时准确，直接决定转化率。主管每日须完成下列固定动作。</div>
+    <div class="sop-steps">
+      <div class="sop-step gold"><div class="ss-no">晨</div><div class="ss-body"><div class="ss-title">查昨夜/今晨进线，补分配</div><div class="ss-desc">检查系统轮询是否有未分配/分配失败的线索，<strong>优先分配高意向（S/A）和转介绍线索</strong>。</div></div></div>
+      <div class="sop-step gold"><div class="ss-no">午</div><div class="ss-body"><div class="ss-title">处理去重 / 归属裁定</div><div class="ss-desc">处理系统提交的跨渠道去重申请（1h 内），核验抢单争议（2h 内）。</div></div></div>
+      <div class="sop-step gold"><div class="ss-no">15:00</div><div class="ss-body"><div class="ss-title">未分配线索清零 <span class="ss-time">硬指标</span></div><div class="ss-desc"><strong>15:00 前确保当日无未分配线索</strong>，这是校区主管的硬性检查标准。</div></div></div>
+      <div class="sop-step gold"><div class="ss-no">晚</div><div class="ss-body"><div class="ss-title">查公海积压 + 均衡核查</div><div class="ss-desc">超 3 天无人捞的高意向主动指定分配；核查各顾问在跟量是否均衡（<strong>±20% 内</strong>），失衡则次日调剂。</div></div></div>
+      <div class="sop-step gold"><div class="ss-no">异常</div><div class="ss-body"><div class="ss-title">渠道波动上报</div><div class="ss-desc">发现某渠道线索量日环比波动 &gt;30%，<strong>24h 内上报片区主管和中台</strong>排查（可能投放异常或系统故障）。</div></div></div>
+    </div>
+  </div>
+
+  <!-- 07 状态流转 -->
+  <div class="section-head" id="status">
+    <div class="section-num">07</div>
+    <div class="section-title">线索状态全流转图 · S1–S12</div>
+    <div class="section-sub">12-STATE MACHINE</div>
+  </div>
+  <p style="font-size:13.5px;color:var(--gray-800);line-height:1.8;margin-bottom:18px;">
+    线索从进入 CRM 到最终成交的完整状态机，<strong style="color:var(--navy-deep);">每个状态定义唯一，转换有明确触发条件与最长停留时限</strong>。
+  </p>
+  <div class="status-grid">
+    <div class="status-card">
+      <div class="st-head"><span class="st-code">S1</span><span class="st-name">新建待分配</span></div>
+      <div class="st-def">线索刚进 CRM，尚未分配给任何顾问</div>
+      <div class="st-row"><span class="stk">触发</span><span class="stv">任一触点留资成功自动推送 CRM</span></div>
+      <div class="st-row"><span class="stk">下一步</span><span class="stv next">→ S2 已分配待触达</span></div>
+      <div class="st-limit">运营/系统：1 小时内完成分配</div>
+    </div>
+    <div class="status-card">
+      <div class="st-head"><span class="st-code">S2</span><span class="st-name">已分配待触达</span></div>
+      <div class="st-def">已分配给顾问，尚未完成首次有效触达</div>
+      <div class="st-row"><span class="stk">动作</span><span class="stv">查看详情、准备话术、限时首触</span></div>
+      <div class="st-row"><span class="stk">下一步</span><span class="stv next">→ S3 跟进中 / S4 无法联系</span></div>
+      <div class="st-limit">顾问：收到分配后 30 分钟内</div>
+    </div>
+    <div class="status-card">
+      <div class="st-head"><span class="st-code">S3</span><span class="st-name">跟进中</span></div>
+      <div class="st-def">已与家长建立有效沟通，持续跟进</div>
+      <div class="st-row"><span class="stk">触发</span><span class="stv">电话接通 或 企微实质性回复</span></div>
+      <div class="st-row"><span class="stk">下一步</span><span class="stv next">→ S5 邀约 / S6 培育 / S7 公海</span></div>
+      <div class="st-limit">有效跟进每 3 天 ≥1 条，否则预警</div>
+    </div>
+    <div class="status-card">
+      <div class="st-head"><span class="st-code">S4</span><span class="st-name">无法联系</span></div>
+      <div class="st-def">多次尝试触达，家长无响应</div>
+      <div class="st-row"><span class="stk">触发</span><span class="stv">连续 3 次拨打无接通 + 企微/短信无回复</span></div>
+      <div class="st-row"><span class="stk">动作</span><span class="stv">第 1/2/4/7 天各 push 1 次，持续 7 天</span></div>
+      <div class="st-limit">7 天仍无响应 → 自动入公海</div>
+    </div>
+    <div class="status-card">
+      <div class="st-head"><span class="st-code">S5</span><span class="st-name">邀约确认</span></div>
+      <div class="st-def">家长已明确答应到访，时间已定</div>
+      <div class="st-row"><span class="stk">动作</span><span class="stv">发确认 + 前 1 天提醒 + 当天早提醒 + 协调接待</span></div>
+      <div class="st-row"><span class="stk">下一步</span><span class="stv next">→ S8 已到访 / S9 爽约跟进</span></div>
+      <div class="st-limit">邀约日当天需更新状态</div>
+    </div>
+    <div class="status-card">
+      <div class="st-head"><span class="st-code">S6</span><span class="st-name">培育池</span></div>
+      <div class="st-def">有意向但暂不能决策（观望/比较/资金）</div>
+      <div class="st-row"><span class="stk">触发</span><span class="stv">B/C 级，跟进超 2 周未邀约成功</span></div>
+      <div class="st-row"><span class="stk">动作</span><span class="stv">每 1-2 周轻量触达（资讯/活动/问候）</span></div>
+      <div class="st-limit">30 天无互动 → 自动入公海</div>
+    </div>
+    <div class="status-card pool">
+      <div class="st-head"><span class="st-code">S7</span><span class="st-name">公海</span></div>
+      <div class="st-def">暂无人跟进，等待顾问捞取</div>
+      <div class="st-row"><span class="stk">触发</span><span class="stv">3天无有效跟进 / 7天无法联系 / 30天培育无互动</span></div>
+      <div class="st-row"><span class="stk">下一步</span><span class="stv next">→ S3 跟进中 / S10 沉睡唤醒</span></div>
+      <div class="st-limit">系统每周自动发干货尝试唤醒</div>
+    </div>
+    <div class="status-card">
+      <div class="st-head"><span class="st-code">S8</span><span class="st-name">已到访</span></div>
+      <div class="st-def">家长已到校区参加面谈/体验课</div>
+      <div class="st-row"><span class="stk">动作</span><span class="stv">六步法接待、试听后30min交反馈表、促当场签约</span></div>
+      <div class="st-row"><span class="stk">下一步</span><span class="stv next">→ S11 已签约 / S3 跟进中</span></div>
+      <div class="st-limit">到访当日更新状态</div>
+    </div>
+    <div class="status-card">
+      <div class="st-head"><span class="st-code">S9</span><span class="st-name">爽约跟进</span></div>
+      <div class="st-def">已确认到访但未出现</div>
+      <div class="st-row"><span class="stk">触发</span><span class="stv">预约时间过 30 分钟未到</span></div>
+      <div class="st-row"><span class="stk">动作</span><span class="stv">1h 内联系了解原因、重新邀约；3 次爽约转培育</span></div>
+      <div class="st-limit">爽约当日必须处理</div>
+    </div>
+    <div class="status-card pool">
+      <div class="st-head"><span class="st-code">S10</span><span class="st-name">沉睡线索</span></div>
+      <div class="st-def">公海中长期无捞取且无自主响应</div>
+      <div class="st-row"><span class="stk">触发</span><span class="stv">公海停留 &gt;30 天，3 次自动 push 无点击/回复</span></div>
+      <div class="st-row"><span class="stk">下一步</span><span class="stv next">→ S3 跟进中 / S12 永久封存</span></div>
+      <div class="st-limit">沉睡超 6 个月进入封存</div>
+    </div>
+    <div class="status-card win">
+      <div class="st-head"><span class="st-code">S11</span><span class="st-name">已签约</span></div>
+      <div class="st-def">家长已付款，课程合同生效</div>
+      <div class="st-row"><span class="stk">动作</span><span class="stv">完成交接表、引导加家校群、首课后3天回访(1对1)</span></div>
+      <div class="st-row"><span class="stk">下一步</span><span class="stv next">→ 移交教务，顾问退出服务</span></div>
+      <div class="st-limit">按学期规则完成交接（见下注）</div>
+    </div>
+    <div class="status-card terminal">
+      <div class="st-head"><span class="st-code">S12</span><span class="st-name">无效 / 封存</span></div>
+      <div class="st-def">线索确认无效或超期永久封存</div>
+      <div class="st-row"><span class="stk">触发</span><span class="stv">主管审核通过无效标记 或 沉睡超 6 个月</span></div>
+      <div class="st-row"><span class="stk">下一步</span><span class="stv">终态，不再流转</span></div>
+      <div class="st-limit">—</div>
+    </div>
+  </div>
+  <div class="note">
+    <span class="label">S11 签约交接时限</span>
+    ① 春秋、寒春学期中，签约后开课前一天内完成交接（当天签约当天上课客户，当天交接）；
+    ② 春季签约暑秋、秋季签约寒春的，暑假和寒假对应学期开课前 10 天完成交接。
+  </div>
+
+  <div class="minibox" style="margin-top:18px;">
+    <div class="mb" style="border-left-color:var(--peach);"><div class="mbt">S5 邀约确认 SOP · 三次提醒法</div><div class="mbd">① 邀约成功当场<strong>发确认信息</strong>（时间/地址/导航/携带物）→ ② 到访<strong>前 1 天下午提醒</strong>并确认仍能来 → ③ <strong>到访当天早上再提醒</strong>一次 → ④ 有需要提前协调教务/教师准备接待。三次提醒可显著降低爽约率。</div></div>
+    <div class="mb" style="border-left-color:var(--gold-deep);"><div class="mbt">S9 爽约挽回 SOP</div><div class="mbd">① 预约时间过 <strong>30 分钟</strong>未到 → 标记爽约 → ② <strong>1 小时内</strong>电话联系了解原因（堵车/临时有事/犹豫）→ ③ 表达理解，<strong>重新邀约</strong>给两个新时间二选一 → ④ <strong>三次爽约</strong>转入培育池，不再硬约，转长周期养熟。</div></div>
+  </div>
+  <div class="note"><span class="label">状态操作要点</span>状态机的价值在于<strong>每个状态都有人负责、有动作、有时限</strong>。顾问每次跟进后必须及时更新 CRM 状态——状态不更新，系统的自动预警、自动入公海、SLA 考核全部失效。<strong>"改状态"是顾问每次跟进的收尾动作，不可省略。</strong></div>
+
+  <!-- 08 扭转规则 -->
+  <div class="section-head" id="transfer">
+    <div class="section-num">08</div>
+    <div class="section-title">线索扭转规则 · T1–T5</div>
+    <div class="section-sub">TRANSFER RULES</div>
+  </div>
+  <p style="font-size:13.5px;color:var(--gray-800);line-height:1.8;margin-bottom:18px;">
+    扭转指线索在不同顾问、校区、层级之间的主动转移，须按对应触发条件、操作流程与审批要求执行。
+  </p>
+  <div class="transfer-list">
+    <div class="transfer-item">
+      <div class="tf-code">T1</div>
+      <div class="tf-body">
+        <div class="tf-title">顾问 → 公海（自动）</div>
+        <div class="tf-dir">顾问名下线索 → 公海</div>
+        <div class="tf-rows">
+          <div class="tf-r"><span class="tfk">触发</span><span class="tfv"><strong>3 天无有效跟进</strong>（仅发消息未回复不算）；或顾问离职未交接</span></div>
+          <div class="tf-r"><span class="tfk">操作</span><span class="tfv">系统自动判断，提前 1 天发预警，顾问可补跟进记录避免掉入</span></div>
+          <div class="tf-r"><span class="tfk">审批</span><span class="tfv">无需审批（系统自动）</span></div>
+          <div class="tf-r"><span class="tfk">说明</span><span class="tfv">第 4 天 0 点自动入公海</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="transfer-item">
+      <div class="tf-code">T2</div>
+      <div class="tf-body">
+        <div class="tf-title">顾问 → 顾问（主管指定移交）</div>
+        <div class="tf-dir">顾问 A 名下线索 → 顾问 B</div>
+        <div class="tf-rows">
+          <div class="tf-r"><span class="tfk">触发</span><span class="tfv">A 离职/长假、客户点名换人、A 工作量严重超载</span></div>
+          <div class="tf-r"><span class="tfk">操作</span><span class="tfv">主管系统移交 → B 接收 → <strong>B 24h 内打招呼告知换人</strong></span></div>
+          <div class="tf-r"><span class="tfk">审批</span><span class="tfv">校区主管审批</span></div>
+          <div class="tf-r"><span class="tfk">注意</span><span class="tfv">跟进记录必须完整移交，B 不可删除原记录</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="transfer-item">
+      <div class="tf-code">T3</div>
+      <div class="tf-body">
+        <div class="tf-title">校区 → 校区（跨校区移交）</div>
+        <div class="tf-dir">A 校区顾问 → B 校区顾问</div>
+        <div class="tf-rows">
+          <div class="tf-r"><span class="tfk">触发</span><span class="tfv">家长明确表示要就读 B 校区</span></div>
+          <div class="tf-r"><span class="tfk">操作</span><span class="tfv">家长提出 → A 顾问上报 → 双方主管对接确认 → 审批 → 系统移交</span></div>
+          <div class="tf-r"><span class="tfk">审批</span><span class="tfv">任一校区主管审批（未经审批不可私自移交）</span></div>
+          <div class="tf-r"><span class="tfk">业绩</span><span class="tfv"><strong>归 B 校区，不计入 A 校区</strong></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="transfer-item">
+      <div class="tf-code">T4</div>
+      <div class="tf-body">
+        <div class="tf-title">校区 → 中台（升级）</div>
+        <div class="tf-dir">校区线索 → 中台介入</div>
+        <div class="tf-rows">
+          <div class="tf-r"><span class="tfk">触发</span><span class="tfv">归属争议无法裁定、跨校区争议、违规投诉、高价值大客户</span></div>
+          <div class="tf-r"><span class="tfk">操作</span><span class="tfv">主管提交上报 → 中台 2h 内响应 → 裁定后更新通知各方</span></div>
+          <div class="tf-r"><span class="tfk">审批</span><span class="tfv">中台直接裁定</span></div>
+          <div class="tf-r"><span class="tfk">注意</span><span class="tfv">高价值大客户上报是提醒非移交，仍由校区顾问跟进</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="transfer-item">
+      <div class="tf-code">T5</div>
+      <div class="tf-body">
+        <div class="tf-title">线索 → 退回运营部（质量问题）</div>
+        <div class="tf-dir">顾问名下线索 → 运营部核查</div>
+        <div class="tf-rows">
+          <div class="tf-r"><span class="tfk">触发</span><span class="tfv">核实发现手机号无效/虚假、渠道来源标注错误影响归属</span></div>
+          <div class="tf-r"><span class="tfk">操作</span><span class="tfv">顾问申请退回核查 → 运营部 24h 核实 → 有效重分配/无效标记</span></div>
+          <div class="tf-r"><span class="tfk">审批</span><span class="tfv">运营部核实（无需主管审批）</span></div>
+          <div class="tf-r"><span class="tfk">注意</span><span class="tfv">不可滥用规避跟进，恶意退回有效线索扣绩效</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sop-box">
+    <div class="sb-title"><span class="sb-badge">SOP</span>T2 跨顾问移交标准动作（最易出纠纷，重点规范）</div>
+    <div class="sb-sub">移交最容易丢跟进记录、伤客户体验。下列动作确保"交得清、接得顺、客户无感伤"。</div>
+    <div class="sop-steps">
+      <div class="sop-step"><div class="ss-no">1</div><div class="ss-body"><div class="ss-title">发起 + 主管审批</div><div class="ss-desc">原顾问申请或主管主动发起（离职/长假/客户点名/超载），<strong>校区主管系统审批</strong>。</div></div></div>
+      <div class="sop-step"><div class="ss-no">2</div><div class="ss-body"><div class="ss-title">完整移交跟进记录</div><div class="ss-desc"><strong>原顾问不可删除任何跟进记录</strong>，接收顾问可查看全部历史。离职顾问由主管在离职当日完成全部移交。</div></div></div>
+      <div class="sop-step"><div class="ss-no">3</div><div class="ss-body"><div class="ss-title">接收顾问 24h 内打招呼 <span class="ss-time">24h</span></div><div class="ss-desc">接手后主动联系家长："我是接替 XX 继续为您服务的 XX"，<strong>态度衔接顺滑，不可重置意向级别、不可让家长重述需求</strong>。</div></div></div>
+    </div>
+  </div>
+
+  <div class="sop-box teal">
+    <div class="sb-title"><span class="sb-badge">流程</span>T3 跨校区移交流程（家长要换校区）</div>
+    <div class="flowchart">
+      <div class="flow-node start"><div class="fn-label">家长提出就读 B 校区</div></div>
+      <div class="flow-arrow-h">→</div>
+      <div class="flow-node"><div class="fn-label">A 校区顾问上报本校主管</div></div>
+      <div class="flow-arrow-h">→</div>
+      <div class="flow-node decision"><div class="fn-label">A / B 主管对接确认</div><div class="fn-sub">任一主管审批</div></div>
+      <div class="flow-arrow-h">→</div>
+      <div class="flow-node"><div class="fn-label">系统操作移交</div></div>
+      <div class="flow-arrow-h">→</div>
+      <div class="flow-node end-win"><div class="fn-label">业绩归 B 校区</div><div class="fn-sub">不计入 A 校区</div></div>
+    </div>
+    <div class="note-red" style="margin-top:14px;"><span class="label">扭转红线</span>① 未经主管审批<strong>不可私自移交</strong>；② 顾问不可将教务线索领入自己名下，教务不可领顾问新签线索；③ 不可滥用 T5"退回核查"功能规避跟进，恶意退回有效线索扣绩效。</div>
+  </div>
+
+  <!-- 09 公海与到访 -->
+  <div class="section-head" id="pool">
+    <div class="section-num">09</div>
+    <div class="section-title">公海管理 · 到访接待对应</div>
+    <div class="section-sub">PUBLIC POOL & VISIT</div>
+  </div>
+
+  <h3 style="font-family:'Noto Serif SC',serif;font-weight:700;font-size:17px;color:var(--navy-deep);margin-bottom:14px;">一、公海层级 · 只设校区公海，不设片区公海</h3>
+  <div class="note" style="margin-top:0;">
+    <span class="label">公海划分结论</span>
+    <strong>公海只做「校区公海」，不做「片区公海」。</strong>
+    线索天然绑定校区（客户就近上课），校区公海由本校区顾问捞取，符合就近服务原则；
+    <strong>片区层定位是「监督 + 跨校区仲裁 + 资源调剂」而非持池</strong>。当某校区公海积压严重或线索枯竭时，由片区主管发起<strong>临时跨校区调剂（一事一议）</strong>，而非常设片区公海，以避免跨校区抢单与客户被分至远校区。
+  </div>
+
+  <h3 style="font-family:'Noto Serif SC',serif;font-weight:700;font-size:17px;color:var(--navy-deep);margin:24px 0 14px;">二、入公海与捞取规则</h3>
+  <div class="pool-section">
+    <div class="pool-card in">
+      <h4>📥 入公海触发</h4>
+      <div class="psub">满足任一条件，线索由顾问名下移入校区公海</div>
+      <ol>
+        <li><div><strong>3 天无有效跟进</strong>（仅发消息无回复不算）<span class="sla-tag">第 4 天 0 点自动入</span></div></li>
+        <li><div><strong>无法联系满 7 天</strong>：连续 3 次无接通 + push 无响应</div></li>
+        <li><div><strong>培育池 30 天无互动</strong></div></li>
+        <li><div><strong>顾问离职</strong>且未完成交接</div></li>
+      </ol>
+    </div>
+    <div class="pool-card out">
+      <h4>📤 公海捞取规则</h4>
+      <div class="psub">顾问从本校区公海主动捞取，重新进入个人跟进池</div>
+      <ol>
+        <li><div><strong>可见范围</strong>：本校区公海对本校区顾问可见</div></li>
+        <li><div><strong>捞取上限</strong>：每天 X 条，按积分/等级上限不同</div></li>
+        <li><div><strong>捞取后</strong>：<span class="sla-tag">24h 内必须有效触达</span></div></li>
+        <li><div><strong>未触达</strong>：自动退回公海并扣分</div></li>
+        <li><div><strong>系统唤醒</strong>：公海线索每周自动发干货尝试唤醒</div></li>
+      </ol>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Noto Serif SC',serif;font-weight:700;font-size:17px;color:var(--navy-deep);margin:26px 0 14px;">三、上门到访 ↔ 接待顾问对应关系（双轨制）</h3>
+  <div class="visit-grid">
+    <div class="visit-card">
+      <h4>已邀约到访</h4>
+      <div class="vsub">APPOINTED VISIT</div>
+      <div class="vrule">
+        顾问主动邀约而来的客户，<strong>由邀约顾问本人接待</strong>。<br><br>
+        理由：已建立信任与完整跟进记录，保持服务一致性；业绩归属清晰，对应状态 S5 邀约确认 → S8 已到访。<br><br>
+        若邀约顾问当日不在，由主管指定同组顾问代接待，<strong>归属仍计原邀约顾问</strong>。
+      </div>
+    </div>
+    <div class="visit-card natural">
+      <h4>自然到访（无预约）</h4>
+      <div class="vsub">WALK-IN VISIT</div>
+      <div class="vrule">
+        家长直接上门、系统中无归属顾问的客户，<strong>由当班轮值顾问接待，接待即归属</strong>（先到先得）。<br><br>
+        对应「直访进线 = 指定分配、到店即首触」。<br><br>
+        前台/CRM 在到访登记时<strong>自动核验手机号是否已有归属顾问</strong>——有则通知原顾问接待，无则按轮值分配。
+      </div>
+    </div>
+  </div>
+  <div class="note-red">
+    <span class="label">到访接待铁律</span>
+    一切到访先在 CRM/前台<strong>查归属</strong>：<strong>有归属 → 原顾问（或其代接人）接待；无归属 → 轮值接待并即时建档归属。</strong>
+    严禁多名顾问现场争抢同一到访客户，违者按抢单争议（E1）处理。
+  </div>
+
+  <div class="minibox" style="margin-top:18px;">
+    <div class="mb" style="border-left-color:var(--green);"><div class="mbt">公海捞取 SOP（捞得准、用得上）</div><div class="mbd">① 看公海线索的<strong>历史跟进记录与入海原因</strong>（别捞死单）→ ② 优先捞<strong>曾有有效沟通、近期入海</strong>的线索 → ③ 捞取后 <strong>24h 内必须有效触达</strong>（电话接通或企微回复）→ ④ 触达后立即更新意向评级、建跟进计划。<strong>未触达自动退回并扣分</strong>，别占着不跟。</div></div>
+    <div class="mb" style="border-left-color:var(--peach);"><div class="mbt">入公海预警 · 自救 SOP</div><div class="mbd">系统在线索掉入公海<strong>前 1 天发预警</strong>。收到预警后：① 立即检查该线索为何 3 天无有效跟进 → ② <strong>当天补一次有效触达</strong>（不是发条消息，要拿到回复）→ ③ 更新跟进记录与状态。<strong>有效跟进后即可避免掉入公海。</strong>别等掉了再捞回来浪费保护期。</div></div>
+  </div>
+  <div class="sop-box teal">
+    <div class="sb-title"><span class="sb-badge">SOP</span>到访登记 · 归属核验动作（前台/顾问）</div>
+    <div class="sb-sub">这是"双轨到访"落地的关键——任何客户到店，先查归属，再定接待人。</div>
+    <div class="sop-steps">
+      <div class="sop-step teal"><div class="ss-no">1</div><div class="ss-body"><div class="ss-title">到店即录手机号查归属</div><div class="ss-desc">前台/接待顾问第一时间用手机号在 CRM 查询，<strong>判断是否已有归属顾问</strong>。</div></div></div>
+      <div class="sop-step teal"><div class="ss-no">2</div><div class="ss-body"><div class="ss-title">有归属 → 通知原顾问</div><div class="ss-desc">已有归属（多为已邀约客户）→ <strong>由原邀约顾问本人接待</strong>；原顾问不在则主管指定代接，归属仍计原顾问。</div></div></div>
+      <div class="sop-step teal"><div class="ss-no">3</div><div class="ss-body"><div class="ss-title">无归属 → 轮值接待即归属</div><div class="ss-desc">自然到访无归属 → <strong>当班轮值顾问接待，接待即归属</strong>（先到先得），当场建档打类型标。</div></div></div>
+      <div class="sop-step teal"><div class="ss-no">4</div><div class="ss-body"><div class="ss-title">进入六步法接待</div><div class="ss-desc">确定接待人后，进入第 03 章「面谈六步法」全流程，状态置 S8 已到访。<strong>严禁多人现场争抢，违者按 E1 抢单处理。</strong></div></div></div>
+    </div>
+  </div>
+
+  <!-- 10 异常与仲裁 -->
+  <div class="section-head" id="exception">
+    <div class="section-num">10</div>
+    <div class="section-title">异常处理与仲裁 · E1–E6</div>
+    <div class="section-sub">DISPUTE & ARBITRATION</div>
+  </div>
+  <p style="font-size:13.5px;color:var(--gray-800);line-height:1.8;margin-bottom:18px;">
+    覆盖线索链路常见异常场景，明确认定标准、处理流程与处罚规则。
+    <strong style="color:var(--peach-deep);">总原则：私下交易零容忍 / 虚假跟进与恶意标记二次警告 / 所有争议 24h 内响应裁定。</strong>所有处罚由片区主管最终确认，中台存档。
+  </p>
+  <table class="std-table">
+    <thead><tr><th style="width:14%">异常类型</th><th style="width:28%">认定标准</th><th style="width:30%">处理流程</th><th>处罚规则</th></tr></thead>
+    <tbody>
+      <tr><td class="ccol1">E1 抢单争议</td><td>2 名及以上顾问均声称对某线索有跟进权</td><td>各方提交首次有效沟通时间戳+截图 → 主管 2h 内裁定 → 以最早有效沟通为准</td><td>败诉方本次不扣罚；同一顾问年内争议 ≥3 次降等级</td></tr>
+      <tr><td class="ccol1">E2 虚假跟进</td><td>记录与实际通话不符；记录时间与通话时长不匹配；家长反映从未接到电话</td><td>主管调取记录+录音对比，24h 内核实，属实启动处罚</td><td><strong style="color:var(--peach-deep);">首次警告+扣月绩效10%；二次扣30%；三次开除</strong></td></tr>
+      <tr><td class="ccol1">E3 恶意标记无效</td><td>对有效线索故意标记无效以降工作量/报复；被标无效后经其他渠道重新留资并转化</td><td>系统自动比对 → 主管核实标记理由 → 属实处罚</td><td>首次警告+补回线索；二次扣绩效20%；三次开除</td></tr>
+      <tr><td class="ccol1">E4 私下交易线索</td><td>顾问与顾问/外部人员私下交换或买卖客户资源</td><td>举报受理 → 中台 24h 内介入调查 → 属实立即终止归属并处罚</td><td><strong style="color:var(--peach-deep);">直接开除，情节严重依法追责（零容忍，不接受申诉）</strong></td></tr>
+      <tr><td class="ccol1">E5 离职线索转移</td><td>顾问离职时名下有未处理线索</td><td>离职申请当日主管启动清查 → 当日完成全部移交（高意向优先）→ 不得自行删除 CRM 记录</td><td>未完成移交：暂缓发放最后一月绩效，完成后补发</td></tr>
+      <tr><td class="ccol1">E6 系统故障处理</td><td>CRM 故障导致无法正常录入/跟进</td><td>用 Excel/纸质记录 → 恢复后 24h 内补录 → 时效以恢复时间为起点顺延 → 主管上报中台存档</td><td>故障期间无绩效扣罚</td></tr>
+    </tbody>
+  </table>
+  <div class="note">
+    <span class="label">申诉路径</span>
+    抢单争议（E1）裁定后 3 天内向校区主管书面申诉，主管无法裁定上升中台；虚假跟进/恶意标记（E2/E3）被认定后 7 天内向片区主管申诉并提供录音等证明；私下交易（E4）零容忍不接受申诉。
+  </div>
+
+  <div class="sop-box navy">
+    <div class="sb-title"><span class="sb-badge">流程</span>E1 抢单争议裁定流程（最高频争议）</div>
+    <div class="flowchart">
+      <div class="flow-node start"><div class="fn-label">2+ 顾问争同一线索</div></div>
+      <div class="flow-arrow-h">→</div>
+      <div class="flow-node"><div class="fn-label">各方提交时间戳+截图</div><div class="fn-sub">首次有效沟通证据</div></div>
+      <div class="flow-arrow-h">→</div>
+      <div class="flow-node decision"><div class="fn-label">主管 2h 内裁定</div><div class="fn-sub">以最早有效沟通为准</div></div>
+      <div class="flow-arrow-h">→</div>
+      <div class="flow-node end-win"><div class="fn-label">更新 CRM + 通知各方</div></div>
+    </div>
+  </div>
+  <div class="sop-box">
+    <div class="sb-title"><span class="sb-badge">流程</span>统一申诉路径</div>
+    <div class="sop-steps">
+      <div class="sop-step"><div class="ss-no">1</div><div class="ss-body"><div class="ss-title">E1 抢单争议申诉 <span class="ss-time">3 天内</span></div><div class="ss-desc">裁定后 3 天内向<strong>校区主管</strong>书面申诉；主管无法裁定的上升至中台。</div></div></div>
+      <div class="sop-step"><div class="ss-no">2</div><div class="ss-body"><div class="ss-title">E2/E3 处罚申诉 <span class="ss-time">7 天内</span></div><div class="ss-desc">被认定虚假跟进/恶意标记后 7 天内向<strong>片区主管</strong>申诉，须提供通话录音等证明材料。</div></div></div>
+      <div class="sop-step"><div class="ss-no">3</div><div class="ss-body"><div class="ss-title">E4 私下交易 <span class="ss-time">零容忍</span></div><div class="ss-desc">私下买卖/交换线索<strong>不接受申诉</strong>，直接开除，情节严重依法追责。</div></div></div>
+    </div>
+    <div class="note-red"><span class="label">总原则</span>私下交易零容忍（开除）／ 虚假跟进·恶意标记二次警告 ／ 所有争议 24h 内响应裁定。<strong>所有处罚由片区主管最终确认，中台存档。</strong></div>
+  </div>
+
+  <!-- 11 核心规则速查 -->
+  <div class="section-head" id="quick">
+    <div class="section-num">11</div>
+    <div class="section-title">核心规则速查（开始使用前必读）</div>
+    <div class="section-sub">QUICK REFERENCE</div>
+  </div>
+  <div class="quick-grid">
+    <div class="quick-item"><span class="qk">新签定义</span><span class="qv">① 从未在读的客户；② 非在读学员超连续 2 学期无实际课消 → 归课程顾问<strong>新签</strong>（类型 A/B）</span></div>
+    <div class="quick-item"><span class="qk">促加报</span><span class="qv">在读但本学期无课消（类型 C）→ 顾问<strong>促加报</strong>，须用促加报话术，不可用新签话术</span></div>
+    <div class="quick-item"><span class="qk">去重原则</span><span class="qv">同手机号 24h 内重复 → 合并为同一条；跨渠道同手机号 → 以<strong>最早进入 CRM 时间</strong>为准（先到先得）</span></div>
+    <div class="quick-item"><span class="qk">分配时效</span><span class="qv">进 CRM 后系统 <strong>1 小时内</strong>分配；指定分配顾问接收后 <strong>30 分钟内</strong>首触，线上轮询 24h 内首触</span></div>
+    <div class="quick-item"><span class="qk">公海规则</span><span class="qv"><strong>3 天无有效跟进</strong>（仅发消息无回复不算）→ 第 4 天 0 点自动入公海；捞取后 <strong>24h 内必须有效触达</strong></span></div>
+    <div class="quick-item"><span class="qk">公海层级</span><span class="qv">只设<strong>校区公海</strong>，不设片区公海；片区做监督、跨校区仲裁与临时调剂</span></div>
+    <div class="quick-item"><span class="qk">到访接待</span><span class="qv">先查归属：<strong>已邀约 → 邀约顾问接待；自然到访 → 轮值接待即归属</strong>，严禁现场争抢</span></div>
+    <div class="quick-item"><span class="qk">扭转限制</span><span class="qv">顾问不可将<strong>教务线索</strong>领入自己名下；教务不可领取顾问新签线索，违者扣绩效</span></div>
+    <div class="quick-item"><span class="qk">跨校区归属</span><span class="qv">同手机号多校区 → 片区主管 <strong>6h 内</strong>裁定，以家长意向校区为准，无意向则最早触达校区</span></div>
+    <div class="quick-item"><span class="qk">红线</span><span class="qv"><strong>私下交易零容忍（开除）</strong>；虚假跟进/恶意标记二次警告；所有争议 24h 响应</span></div>
+  </div>
+  <div class="note-red">
+    <span class="label">落地前提</span>
+    本看板所有规则需与 CRM 系统功能配合落地。<strong>如 CRM 暂不支持某项校验（如自动去重、自动入公海、归属时间戳），须以人工审核替代</strong>，并由校区主管承担核查责任。上线前须完成 CRM 配置、制度宣贯与全员 CRM 操作认证。
+  </div>
+
+  <h3 style="font-family:'Noto Serif SC',serif;font-weight:700;font-size:17px;color:var(--navy-deep);margin:30px 0 14px;">课程顾问 · 一日标准动作 SOP（把全套规则落进一天）</h3>
+  <div class="daily-line">
+    <div class="daily-slot"><div class="ds-time">09:00<br>晨会</div><div class="ds-acts"><strong>查数据 + 排优先级：</strong>查看昨日遗留与今晨新分配线索，<strong>先处理 S/A 高意向与转介绍</strong>；查收"入公海预警"，对将掉海线索当天补跟。</div></div>
+    <div class="daily-slot"><div class="ds-time">09:30<br>首触</div><div class="ds-acts"><strong>清首触队列：</strong>新分配线索按 SLA 首触（指定 30min / 线上 24h）；<strong>每条首触后即时录 CRM + 打意向评级 + 改状态</strong>。</div></div>
+    <div class="daily-slot"><div class="ds-time">10:30<br>到访</div><div class="ds-acts"><strong>到访接待：</strong>到店客户先查归属（双轨判定），按面谈六步法接待，当场促签；未签当日跟进。</div></div>
+    <div class="daily-slot"><div class="ds-time">14:00<br>跟进</div><div class="ds-acts"><strong>分级跟进：</strong>按 S/A/B/C 节奏推进在跟线索，邀约到店用三次提醒法；处理爽约（1h 内联系挽回）。</div></div>
+    <div class="daily-slot"><div class="ds-time">16:30<br>捞海</div><div class="ds-acts"><strong>公海捞取：</strong>按上限捞取本校区公海优质线索，<strong>捞后 24h 内必触达</strong>；处理培育池轻量触达。</div></div>
+    <div class="daily-slot"><div class="ds-time">18:00<br>收工</div><div class="ds-acts"><strong>清记录 + 报数据：</strong>确认当日所有跟进记录与状态已更新、无漏录渠道来源；整理高意向明日跟进计划。</div></div>
+  </div>
+  <div class="note"><span class="label">一句话总纲</span>售前的每一天 = <strong>守时效（首触/公海不超时）+ 改状态（每次跟进必更新）+ 推进度（按级跟、约到店、促成交）</strong>。三件事做到位，转化率自然提升。</div>
+  <div class="footer">
+    <div class="left"><strong>桃李未来</strong> · 课程顾问售前线索全链路规则看板<br><span style="font-size:11px;color:#7E94B8;">V 1.0 · 2026.05 · 课程顾问部出品 · 全国 20+ 校区统一规范 · 内部保密</span></div>
+    <div class="right">PRE-SALES · LEAD · FULL-CHAIN</div>
+  </div>
+
+</div>
+
+<script>
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'});});
+});
+</script>
+</body>
+</html>
