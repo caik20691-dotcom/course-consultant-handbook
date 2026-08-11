@@ -1474,7 +1474,7 @@ function updateBizRuleNav() {
   });
 }
 
-function renderAll() { renderSubFilter(); renderMainPanel(); }
+function renderAll() { renderSubFilter(); renderMainPanel(); setTimeout(applyMobileFixes, 100); }
 
 function renderSubFilter() {
   const el = document.getElementById('subFilter');
@@ -2203,7 +2203,33 @@ function initTabs() {
     `<option value="${t.id}" ${t.id===currentTab?'selected':''}>${t.icon} ${t.label}</option>`
   ).join('');
 }
+function applyMobileFixes() {
+  if (window.innerWidth > 768) return;
+  const panel = document.getElementById('mainPanel');
+  if (!panel) return;
+  panel.querySelectorAll('div[style*="grid-template-columns:1fr 1fr"], div[style*="grid-template-columns:repeat"]').forEach(el => {
+    el.style.gridTemplateColumns = '1fr';
+    el.style.gap = '8px';
+  });
+  panel.querySelectorAll('div[style*="padding:24px 28px"], div[style*="padding:20px 24px"]').forEach(el => {
+    el.style.padding = '10px';
+  });
+  panel.querySelectorAll('.table-wrap table').forEach(el => {
+    el.style.minWidth = '100%';
+    el.style.width = '100%';
+  });
+  panel.querySelectorAll('.card-box').forEach(el => {
+    el.style.padding = '10px';
+    el.style.marginBottom = '6px';
+  });
+}
+function switchTabWithFix(tab) {
+  switchTab(tab);
+  setTimeout(applyMobileFixes, 200);
+}
 initTabs(); renderAll();
+setTimeout(applyMobileFixes, 400);
+window.addEventListener('resize', applyMobileFixes);
 </script>
 </body>
 </html>
