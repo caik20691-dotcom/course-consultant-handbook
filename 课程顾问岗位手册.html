@@ -20,6 +20,7 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{font-family:'Noto Sans SC','HarmonyOS Sans','Microsoft YaHei','PingFang SC',sans-serif;background:var(--parchment);color:var(--text);line-height:1.75;min-height:100vh;overflow-x:hidden;font-size:15px;}
+body.mobile-nav-open{overflow:hidden;}
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 20%,rgba(201,136,80,0.04) 0%,transparent 60%),radial-gradient(ellipse at 80% 80%,rgba(181,52,46,0.03) 0%,transparent 60%);pointer-events:none;z-index:0;}
 .container{max-width:1440px;margin:0 auto;padding:24px;position:relative;z-index:1;}
 
@@ -126,7 +127,7 @@ h3:first-child{margin-top:0;}
 .rule-tag.yellow{background:var(--gold-light);color:#6b4f10;}
 
 /* Tables */
-.table-wrap{border:1px solid var(--stone);border-radius:10px;overflow:hidden;margin:10px 0;}
+.table-wrap{border:1px solid var(--stone);border-radius:10px;overflow:hidden;margin:10px 0;position:relative;}
 table{width:100%;border-collapse:collapse;font-size:12px;}
 thead tr{background:var(--parchment-dark);}
 thead th{padding:8px 10px;text-align:left;font-size:10px;font-weight:600;letter-spacing:0.06em;color:var(--text-muted);text-transform:uppercase;border-bottom:1px solid var(--stone);white-space:nowrap;}
@@ -163,11 +164,18 @@ td:first-child{font-weight:500;color:var(--text);}
 .mobile-nav-toggle{display:none;position:fixed;top:14px;right:14px;z-index:200;width:40px;height:40px;border-radius:10px;border:1px solid var(--stone);background:var(--card);font-size:20px;cursor:pointer;box-shadow:var(--shadow);align-items:center;justify-content:center;}
 .mobile-nav-overlay{display:none;position:fixed;inset:0;z-index:190;background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);}
 .mobile-nav-panel{display:none;position:fixed;top:0;right:0;z-index:195;width:260px;height:100vh;background:var(--card);box-shadow:var(--shadow-lg);padding:60px 20px 20px;overflow-y:auto;flex-direction:column;gap:2px;}
-.mobile-nav-panel a{display:block;padding:9px 12px;border-radius:8px;text-decoration:none;color:var(--text-secondary);font-size:13px;font-family:'Noto Serif SC',serif;letter-spacing:1px;}
-.mobile-nav-panel a:hover{background:var(--accent-light);color:var(--accent-deep);}
+.mobile-nav-panel button{display:block;width:100%;min-height:44px;padding:9px 12px;border:0;border-radius:8px;text-align:left;background:transparent;color:var(--text-secondary);font-size:13px;font-family:'Noto Serif SC',serif;letter-spacing:1px;cursor:pointer;}
+.mobile-nav-panel button:hover,.mobile-nav-panel button.active{background:var(--accent-light);color:var(--accent-deep);}
+.panel-content{padding:24px 28px;}
+.responsive-grid{display:grid;}
+.responsive-grid.two-col{grid-template-columns:repeat(2,minmax(0,1fr));}
+.responsive-grid.three-col{grid-template-columns:repeat(3,minmax(0,1fr));}
+.lifecycle-track{display:flex;align-items:flex-start;gap:0;min-width:1050px;padding:4px 0;}
+.resp-bar-actions{margin:2px 0 10px 100px;font-size:11px;color:var(--text-secondary);line-height:1.6;}
 @media(max-width:768px){
-  .container{padding:12px;}
-  .header{padding:20px 18px;border-radius:var(--radius-lg);min-height:auto;}
+  body{font-size:14px;line-height:1.65;}
+  .container{padding:10px;}
+  .header{padding:20px 56px 20px 18px;border-radius:var(--radius-lg);min-height:auto;margin-bottom:10px;}
   .header h1{font-size:22px;letter-spacing:2px;}
   .header .subtitle{font-size:12px;letter-spacing:1px;}
   .header .decorative-line{width:40px;height:2px;margin-top:8px;}
@@ -175,25 +183,36 @@ td:first-child{font-weight:500;color:var(--text);}
   .mobile-nav-toggle{display:flex;}
   .mobile-nav-overlay.show{display:block;}
   .mobile-nav-panel.show{display:flex;}
-  .mobile-tab-select{display:block;}
+  .mobile-tab-select{display:block;position:sticky;top:8px;z-index:110;min-height:46px;margin-bottom:8px;background-color:#fff;}
   .view-tabs{display:none;}
-  .sub-filter{padding:6px 10px;gap:6px;}
-  .sub-filter select{min-width:120px;}
+  .sub-filter{padding:8px;gap:6px;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+  .sub-filter::-webkit-scrollbar{display:none;}
+  .sub-filter>span{flex:0 0 auto;}
+  .sub-filter select{min-width:120px;min-height:40px;}
+  .filter-chip{display:inline-flex;align-items:center;min-height:36px;padding:7px 11px;}
   .main-panel{min-height:300px;border-radius:var(--radius);overflow-x:hidden;}
-  .main-panel div[style*="grid-template-columns"]{grid-template-columns:1fr!important;}
-  .main-panel div[style*="min-width:1050px"]{min-width:auto!important;}
+  .panel-content{padding:16px 14px!important;}
+  .responsive-grid.two-col,.responsive-grid.three-col{grid-template-columns:minmax(0,1fr)!important;}
   h3{font-size:16px;margin-bottom:10px;margin-top:14px;}
-  .card-box{padding:14px 16px;border-radius:10px;margin-bottom:10px;}
+  .card-box{min-width:0;padding:14px;border-radius:10px;margin-bottom:10px;}
   .module-grid,.metric-grid{grid-template-columns:1fr;gap:8px;}
   .metric-card{padding:10px 6px;}
   .metric-val{font-size:22px;}
   .checklist-view,.sop-center-view{flex-direction:column;}
-  .checklist-nav,.sop-center-nav{width:100%;border-right:none;border-bottom:1px solid var(--stone);display:flex;overflow-x:auto;padding:6px;}
-  .checklist-nav-item,.sop-center-nav-item{white-space:nowrap;border-left:none;border-bottom:2px solid transparent;font-size:12px;padding:7px 12px;}
+  .checklist-nav,.sop-center-nav{width:100%;border-right:none;border-bottom:1px solid var(--stone);display:flex;overflow-x:auto;padding:6px;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+  .checklist-nav::-webkit-scrollbar,.sop-center-nav::-webkit-scrollbar{display:none;}
+  .checklist-nav-title,.sop-center-nav-title{display:none;}
+  .checklist-nav-item,.sop-center-nav-item{display:flex;align-items:center;min-height:44px;white-space:nowrap;border-left:none;border-bottom:2px solid transparent;font-size:12px;padding:8px 12px;}
   .checklist-nav-item.active,.sop-center-nav-item.active{border-left:none;border-bottom-color:var(--accent);}
   .checklist-detail,.sop-center-detail{max-height:none;padding:14px 16px;}
-  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:8px;}
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:8px;padding-top:26px;background:linear-gradient(90deg,var(--card) 30%,rgba(255,255,255,0)),linear-gradient(90deg,rgba(255,255,255,0),var(--card) 70%) 100% 0,radial-gradient(farthest-side at 0 50%,rgba(44,36,22,.14),rgba(0,0,0,0)),radial-gradient(farthest-side at 100% 50%,rgba(44,36,22,.14),rgba(0,0,0,0)) 100% 0;background-repeat:no-repeat;background-size:36px 100%,36px 100%,12px 100%,12px 100%;background-attachment:local,local,scroll,scroll;}
+  .table-wrap::before{content:'左右滑动查看完整表格';position:absolute;top:3px;left:10px;font-size:10px;line-height:20px;color:var(--text-muted);letter-spacing:.03em;pointer-events:none;}
   .table-wrap table{min-width:600px;}
+  .lifecycle-track{min-width:max-content;}
+  .resp-bar-actions{margin-left:80px;overflow-wrap:anywhere;}
+  .checklist-item summary{min-height:44px;}
+  .checklist-item summary>*{min-width:0;}
+  .main-panel p,.main-panel li,.main-panel span,.main-panel div{overflow-wrap:anywhere;}
   .resp-bar-label{width:70px;font-size:11px;}
   .resp-bar-pct{font-size:11px;width:28px;}
 }
@@ -203,6 +222,13 @@ td:first-child{font-weight:500;color:var(--text);}
   .container{padding:8px;}
   .header{padding:16px 14px;border-radius:10px;}
   .header h1{font-size:19px;}
+  .panel-content{padding:14px 12px!important;}
+  .resp-bar-actions{margin-left:0;padding-left:0;}
+  .table-wrap table{min-width:540px;}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;}
 }
 html{scrollbar-width:thin;scrollbar-color:var(--stone) transparent;}
 ::-webkit-scrollbar{width:6px;height:6px;}
@@ -220,9 +246,9 @@ html{scrollbar-width:thin;scrollbar-color:var(--stone) transparent;}
 </head>
 <body>
 
-<button class="mobile-nav-toggle" onclick="toggleMobileNav()" aria-label="菜单">☰</button>
-<div class="mobile-nav-overlay" id="mobileOverlay" onclick="toggleMobileNav()"></div>
-<div class="mobile-nav-panel" id="mobilePanel"></div>
+<button class="mobile-nav-toggle" id="mobileNavToggle" onclick="toggleMobileNav()" aria-label="打开导航菜单" aria-controls="mobilePanel" aria-expanded="false">☰</button>
+<div class="mobile-nav-overlay" id="mobileOverlay" onclick="closeMobileNav()"></div>
+<div class="mobile-nav-panel" id="mobilePanel" role="dialog" aria-label="栏目导航" aria-modal="true"></div>
 
 <div class="container">
   <div class="header" style="position:relative;">
@@ -1408,12 +1434,27 @@ let mobileNavInit = false;
 function initMobileNav() {
   if (mobileNavInit) return; mobileNavInit = true;
   const panel = document.getElementById('mobilePanel');
-  panel.innerHTML = TABS.map(t => `<a href="#" onclick="switchTab('${t.id}');toggleMobileNav()">${t.icon} ${t.label}</a>`).join('') + '<hr style="border-color:var(--stone);margin:6px 0;"><a href="#" onclick="preparePrint();toggleMobileNav()">📄 导出 PDF</a>';
+  panel.innerHTML = TABS.map(t => `<button type="button" data-tab="${t.id}" onclick="switchTab('${t.id}');closeMobileNav()">${t.icon} ${t.label}</button>`).join('') + '<hr style="border-color:var(--stone);margin:6px 0;"><button type="button" onclick="preparePrint();closeMobileNav()">📄 导出 PDF</button>';
+  updateMobileNavState();
 }
 function toggleMobileNav() {
   initMobileNav();
-  document.getElementById('mobileOverlay').classList.toggle('show');
-  document.getElementById('mobilePanel').classList.toggle('show');
+  const shouldOpen = !document.getElementById('mobilePanel').classList.contains('show');
+  setMobileNavOpen(shouldOpen);
+}
+function closeMobileNav() { setMobileNavOpen(false); }
+function setMobileNavOpen(open) {
+  document.getElementById('mobileOverlay').classList.toggle('show', open);
+  document.getElementById('mobilePanel').classList.toggle('show', open);
+  document.body.classList.toggle('mobile-nav-open', open);
+  const toggle = document.getElementById('mobileNavToggle');
+  toggle.setAttribute('aria-expanded', String(open));
+  toggle.setAttribute('aria-label', open ? '关闭导航菜单' : '打开导航菜单');
+}
+function updateMobileNavState() {
+  document.querySelectorAll('#mobilePanel button[data-tab]').forEach(button => {
+    button.classList.toggle('active', button.dataset.tab === currentTab);
+  });
 }
 
 function switchTab(tab) {
@@ -1424,6 +1465,7 @@ function switchTab(tab) {
   document.querySelectorAll('.view-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
   const mts = document.getElementById('mobileTabSelect');
   if (mts) mts.value = tab;
+  updateMobileNavState();
   const panel = document.getElementById('mainPanel');
   panel.style.opacity = '0'; panel.style.transform = 'translateY(8px)';
   setTimeout(() => { renderAll(); panel.style.opacity = '1'; panel.style.transform = 'translateY(0)'; }, 180);
@@ -1464,19 +1506,7 @@ function updateBizRuleNav() {
   });
 }
 
-function renderAll() { renderSubFilter(); renderMainPanel(); fixMobileGrids(); }
-function fixMobileGrids() {
-  if (window.innerWidth > 768) return;
-  document.querySelectorAll('#mainPanel div[style*="grid-template-columns"]').forEach(el => {
-    el.style.gridTemplateColumns = '1fr';
-  });
-  document.querySelectorAll('#mainPanel div[style*="min-width:1050px"]').forEach(el => {
-    el.style.minWidth = 'auto';
-  });
-  document.querySelectorAll('#mainPanel div[style*="margin:2px 0 10px 100px"], #mainPanel div[style*="margin:2px 0 10px 115px"]').forEach(el => {
-    el.style.marginLeft = '60px';
-  });
-}
+function renderAll() { renderSubFilter(); renderMainPanel(); }
 
 function renderSubFilter() {
   const el = document.getElementById('subFilter');
@@ -1516,16 +1546,16 @@ function renderOverview(panel) {
       <div class="resp-bar-track"><div class="resp-bar-fill w${i+1}"></div></div>
       <span class="resp-bar-pct">${m.weight}</span>
     </div>
-    <div style="margin:2px 0 10px 100px;font-size:11px;color:var(--text-secondary);line-height:1.6;">${m.actions.join(' · ')}</div>`).join('');
+    <div class="resp-bar-actions">${m.actions.join(' · ')}</div>`).join('');
 
   panel.innerHTML = `
-    <div style="padding:24px 28px;">
+    <div class="panel-content" style="padding:24px 28px;">
       <div style="background:var(--card);border:1px solid var(--stone);border-left:4px solid var(--accent);border-radius:12px;padding:24px 28px;margin-bottom:20px;">
         <h3 style="margin:0 0 10px 0;">岗位定位</h3>
         <div style="font-family:'Noto Serif SC',serif;font-size:17px;line-height:2;letter-spacing:0.5px;color:var(--text);">顾问是校区<strong style="color:var(--accent-deep);">售前客户经营负责人</strong>，围绕<strong style="color:var(--accent-deep);">客户开发、客户转化、在读扩科、数据经营及交接协同</strong>开展工作，通过需求分析、测评试听、课程规划与专业沟通，推动新客户完成报名，承接在读学员新增科目需求，以<strong style="color:var(--accent-deep);">新签增长和在读扩科</strong>为核心经营结果。</div>
       </div>
 
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:16px;">
+      <div class="responsive-grid two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:16px;">
         <div class="card-box" style="margin-bottom:0;">
           <h3>岗位价值</h3>
           <div style="display:flex;flex-direction:column;gap:8px;">
@@ -1549,7 +1579,7 @@ function renderOverview(panel) {
         </div>
       </div>
 
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
+      <div class="responsive-grid three-col" style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
         <div onclick="switchTab('lifecycle')" style="border:1px solid var(--stone);border-radius:12px;padding:16px;background:var(--card);cursor:pointer;transition:all var(--transition);text-align:center;" onmouseover="this.style.borderColor='var(--accent)';this.style.boxShadow='var(--shadow)'" onmouseout="this.style.borderColor='var(--stone)';this.style.boxShadow='none'">
           <div style="font-size:24px;margin-bottom:6px;">🔄</div><div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;">客户经营体系</div><div style="font-size:11px;color:var(--text-muted);">生命周期+分层+四要素</div>
         </div>
@@ -1601,20 +1631,20 @@ function renderLifecycle(panel) {
     </div>`).join('');
 
   panel.innerHTML = `
-    <div style="padding:24px 28px;">
+    <div class="panel-content" style="padding:24px 28px;">
       <h3>客户生命周期</h3>
       <div style="background:linear-gradient(135deg,var(--accent-light),#fef9f5);border:1px solid var(--stone);border-radius:14px;padding:16px;margin-bottom:18px;overflow-x:auto;">
-        <div style="display:flex;align-items:flex-start;gap:0;min-width:1050px;padding:4px 0;">${stageCards}</div>
+        <div class="lifecycle-track" style="display:flex;align-items:flex-start;gap:0;min-width:1050px;padding:4px 0;">${stageCards}</div>
       </div>
 
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px;">
+      <div class="responsive-grid two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px;">
         <div>
           <h3 style="margin-top:0;">客户分层规则</h3>
           <div style="display:flex;flex-direction:column;gap:6px;">${tierCards}</div>
         </div>
         <div>
           <h3 style="margin-top:0;">客户管理四要素</h3>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+          <div class="responsive-grid two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
             <div class="card-box" style="border-left:3px solid var(--accent);margin-bottom:0;padding:12px 14px;"><strong style="color:var(--accent-deep);font-size:12px;">① 客户阶段</strong><br><span style="font-size:11px;color:var(--text-secondary);">首联、测试、试听、方案、成交还是暂停</span></div>
             <div class="card-box" style="border-left:3px solid var(--vermillion);margin-bottom:0;padding:12px 14px;"><strong style="color:var(--vermillion-deep);font-size:12px;">② 核心需求</strong><br><span style="font-size:11px;color:var(--text-secondary);">家长最关注的问题和选课依据</span></div>
             <div class="card-box" style="border-left:3px solid var(--gold);margin-bottom:0;padding:12px 14px;"><strong style="color:#6b4f10;font-size:12px;">③ 关键卡点</strong><br><span style="font-size:11px;color:var(--text-secondary);">未成交的真实原因，非"考虑中"</span></div>
@@ -1635,7 +1665,7 @@ function renderLifecycle(panel) {
         </div>
       </div>
 
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px;">
+      <div class="responsive-grid two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px;">
         <div>
           <h3 style="margin-top:0;">每日客户管理动作</h3>
           <div class="table-wrap" style="margin-bottom:0;"><table><thead><tr><th>动作</th><th>最低完成标准</th></tr></thead><tbody>
@@ -1674,7 +1704,7 @@ function renderLifecycle(panel) {
         </tbody></table>
       </div>
 
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px;">
+      <div class="responsive-grid two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px;">
         <div>
           <h3 style="margin-top:0;">💬 常见家长异议回应口径</h3>
           ${OBJECTION_HANDLING.map((o,i) => `
@@ -1862,10 +1892,10 @@ function renderKPI(panel) {
       <div><span style="font-size:14px;font-weight:600;color:var(--text);">${k.name}</span><br><span style="font-size:11px;color:var(--text-muted);line-height:1.5;">${k.desc}</span></div>
     </div>`).join('');
   panel.innerHTML = `
-    <div style="padding:24px 28px;">
+    <div class="panel-content" style="padding:24px 28px;">
       <h3>顾问经营指标</h3>
       <div class="section-desc">核心评价维度：既看结果（达成率、转化率）也看过程（首联率、CRM达标率、交接达标率）</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">${cardsHTML}</div>
+      <div class="responsive-grid two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">${cardsHTML}</div>
       <h3 style="margin-top:24px;">转化漏斗</h3>
       <div style="background:linear-gradient(135deg,var(--parchment-dark),var(--parchment));border:1px solid var(--stone);border-radius:14px;padding:24px 20px;margin-bottom:20px;display:flex;flex-direction:column;align-items:center;gap:2px;">
         ${FUNNEL_STAGES.map((s,i) => {
@@ -1895,7 +1925,7 @@ function renderKPI(panel) {
 // ==================== TAB 7: PRACTICE ====================
 function renderPractice(panel) {
   panel.innerHTML = `
-    <div style="padding:24px 28px;">
+    <div class="panel-content" style="padding:24px 28px;">
       <h3>每日客户管理动作</h3>
       <div class="table-wrap" style="margin-bottom:20px;">
         <table><thead><tr><th>动作</th><th>具体做法</th><th>最低完成标准</th></tr></thead><tbody>
@@ -1963,7 +1993,7 @@ function renderPractice(panel) {
 // ==================== TAB 8: CASES ====================
 function renderCases(panel) {
   panel.innerHTML = `
-    <div style="padding:24px 28px;">
+    <div class="panel-content" style="padding:24px 28px;">
       <h3>典型案例</h3>
       <div class="section-desc">通过真实案例理解正确做法，识别常见错误，举一反三</div>
       ${CASES.map(c => `
@@ -2002,13 +2032,13 @@ function renderRules(panel) {
       </div>
     </details>`).join('');
   panel.innerHTML = `
-    <div style="padding:20px 24px;">
+    <div class="panel-content" style="padding:20px 24px;">
       <div style="display:flex;gap:6px;margin-bottom:14px;align-items:center;flex-wrap:wrap;">
         <span class="filter-chip" onclick="document.querySelectorAll('.checklist-item').forEach(d=>d.open=true)">全部展开</span>
         <span class="filter-chip" onclick="document.querySelectorAll('.checklist-item').forEach(d=>d.open=false)">全部折叠</span>
         <a href="https://365.kdocs.cn/l/caTPyueb5z7F" target="_blank" style="font-size:11px;color:var(--accent-deep);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:4px;margin-left:auto;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">📄 点击查看完整红黄线制度文档</a>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+      <div class="responsive-grid two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
         <div class="card-box" style="border-left:3px solid var(--vermillion);margin-bottom:0;">
           <h3>红线行为（共${REDLINES.length}条 · 一票否决）</h3>
           <div class="section-desc" style="color:var(--vermillion-deep);">触碰红线，直接进入纪律处理流程。</div>
@@ -2034,14 +2064,14 @@ function renderRules(panel) {
 // ==================== TAB 10: TOOLS ====================
 function renderTools(panel) {
   panel.innerHTML = `
-    <div style="padding:20px 24px;">
+    <div class="panel-content" style="padding:20px 24px;">
       <details open class="checklist-item" style="margin-bottom:10px;border:1px solid var(--stone);border-radius:10px;overflow:hidden;">
         <summary style="padding:12px 16px;cursor:pointer;font-size:14px;font-weight:700;color:var(--accent-deep);background:var(--parchment-dark);list-style:none;">系统工具（${TOOLS.systems.length}个）</summary>
         <div style="padding:14px 16px;display:flex;flex-wrap:wrap;gap:8px;">${TOOLS.systems.map(s=>`<span style="background:var(--accent-light);color:var(--accent-deep);padding:8px 16px;border-radius:8px;font-size:13px;font-weight:500;">${s}</span>`).join('')}</div>
       </details>
       <details class="checklist-item" style="margin-bottom:10px;border:1px solid var(--stone);border-radius:10px;overflow:hidden;">
         <summary style="padding:12px 16px;cursor:pointer;font-size:14px;font-weight:700;color:var(--accent-deep);background:var(--parchment-dark);list-style:none;">常用文档（${TOOLS.docs.length+2}个）</summary>
-        <div style="padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px;color:var(--text-secondary);">
+        <div class="responsive-grid two-col" style="padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px;color:var(--text-secondary);">
           ${TOOLS.docs.map(d=>`<div style="padding:8px 12px;background:var(--parchment-dark);border-radius:6px;">${d}</div>`).join('')}
           <div style="padding:8px 12px;background:var(--accent-light);border-radius:6px;color:var(--accent-deep);font-weight:500;">📐 学习顾问业务规则（整合中）</div>
           <div style="padding:8px 12px;background:var(--accent-light);border-radius:6px;color:var(--accent-deep);font-weight:500;">📋 校区教务工作手册</div>
@@ -2049,7 +2079,7 @@ function renderTools(panel) {
       </details>
       <details class="checklist-item" style="margin-bottom:10px;border:1px solid var(--stone);border-radius:10px;overflow:hidden;">
         <summary style="padding:12px 16px;cursor:pointer;font-size:14px;font-weight:700;color:var(--accent-deep);background:var(--parchment-dark);list-style:none;">常用表单（${TOOLS.forms.length}个）</summary>
-        <div style="padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px;color:var(--text-secondary);">${TOOLS.forms.map(f=>`<div style="padding:8px 12px;background:var(--parchment-dark);border-radius:6px;">${f}</div>`).join('')}</div>
+        <div class="responsive-grid two-col" style="padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px;color:var(--text-secondary);">${TOOLS.forms.map(f=>`<div style="padding:8px 12px;background:var(--parchment-dark);border-radius:6px;">${f}</div>`).join('')}</div>
       </details>
       <details open class="checklist-item" style="margin-bottom:10px;border:1px solid var(--stone);border-radius:10px;overflow:hidden;">
         <summary style="padding:12px 16px;cursor:pointer;font-size:14px;font-weight:700;color:var(--accent-deep);background:var(--parchment-dark);list-style:none;">工作优先级</summary>
@@ -2129,10 +2159,10 @@ function renderBizRuleDetail() {
       return `<div style="padding:10px 14px;background:var(--accent-light);border-radius:8px;font-size:12px;color:var(--accent-deep);line-height:1.8;font-weight:500;">${s.text}</div>`;
     }
     if (s.type === 'dual') {
-      return `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div style="padding:12px 14px;background:var(--parchment-dark);border-radius:8px;border-top:3px solid ${color};"><div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:6px;">${s.left.title}</div><ul style="padding-left:14px;font-size:11px;color:var(--text-secondary);line-height:1.8;margin:0;">${s.left.items.map(i=>`<li>${i}</li>`).join('')}</ul></div><div style="padding:12px 14px;background:var(--parchment-dark);border-radius:8px;border-top:3px solid var(--jade);"><div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:6px;">${s.right.title}</div><ul style="padding-left:14px;font-size:11px;color:var(--text-secondary);line-height:1.8;margin:0;">${s.right.items.map(i=>`<li>${i}</li>`).join('')}</ul></div></div>`;
+      return `<div class="responsive-grid two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div style="padding:12px 14px;background:var(--parchment-dark);border-radius:8px;border-top:3px solid ${color};"><div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:6px;">${s.left.title}</div><ul style="padding-left:14px;font-size:11px;color:var(--text-secondary);line-height:1.8;margin:0;">${s.left.items.map(i=>`<li>${i}</li>`).join('')}</ul></div><div style="padding:12px 14px;background:var(--parchment-dark);border-radius:8px;border-top:3px solid var(--jade);"><div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:6px;">${s.right.title}</div><ul style="padding-left:14px;font-size:11px;color:var(--text-secondary);line-height:1.8;margin:0;">${s.right.items.map(i=>`<li>${i}</li>`).join('')}</ul></div></div>`;
     }
     if (s.type === 'grid') {
-      return `<div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;">${s.items.map(item=>`<div style="display:flex;gap:8px;padding:6px 10px;background:var(--parchment-dark);border-radius:6px;align-items:flex-start;"><span style="font-weight:700;color:${color};min-width:65px;flex-shrink:0;font-size:11px;">${item.label}</span><span style="color:var(--text-secondary);line-height:1.6;font-size:11px;">${item.value}</span></div>`).join('')}</div>`;
+      return `<div class="responsive-grid two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:5px;">${s.items.map(item=>`<div style="display:flex;gap:8px;padding:6px 10px;background:var(--parchment-dark);border-radius:6px;align-items:flex-start;"><span style="font-weight:700;color:${color};min-width:65px;flex-shrink:0;font-size:11px;">${item.label}</span><span style="color:var(--text-secondary);line-height:1.6;font-size:11px;">${item.value}</span></div>`).join('')}</div>`;
     }
     return '';
   }
@@ -2141,7 +2171,7 @@ function renderBizRuleDetail() {
     el.innerHTML = `
       <h3>${cat.icon} ${cat.title}</h3>
       <div class="section-desc">班课核心业务规则一览，以最新发布为准，遇特殊场景请同步主管确认</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div class="responsive-grid two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
         ${CLASSROOM_RULES.map(r => `
           <div class="card-box" style="border-left:3px solid ${r.color};margin-bottom:0;">
             <h3 style="color:${r.color};margin-top:0;font-size:15px;">${r.icon} ${r.title}</h3>
@@ -2205,6 +2235,12 @@ function initTabs() {
     `<option value="${t.id}" ${t.id===currentTab?'selected':''}>${t.icon} ${t.label}</option>`
   ).join('');
 }
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape') closeMobileNav();
+});
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 768) closeMobileNav();
+});
 initTabs(); renderAll();
 </script>
 </body>
